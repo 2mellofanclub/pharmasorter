@@ -1,0 +1,196 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/shared@3.89.0/lib/Overlay", ['module', 'exports', 'require', 'frontend-taglib-clay$aria-hidden', 'frontend-js-react-web$react', './Keys', './Portal', './useInteractOutside'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    function _typeof(obj) {
+      "@babel/helpers - typeof";
+      return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+        return typeof obj;
+      } : function (obj) {
+        return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      }, _typeof(obj);
+    }
+
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.Overlay = Overlay;
+
+    var _ariaHidden = require("frontend-taglib-clay$aria-hidden");
+
+    var _react = _interopRequireWildcard(require("frontend-js-react-web$react"));
+
+    var _Keys = require("./Keys");
+
+    var _Portal = require("./Portal");
+
+    var _useInteractOutside = require("./useInteractOutside");
+
+    function _getRequireWildcardCache(nodeInterop) {
+      if (typeof WeakMap !== "function") return null;var cacheBabelInterop = new WeakMap();var cacheNodeInterop = new WeakMap();return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) {
+        return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
+      })(nodeInterop);
+    }
+
+    function _interopRequireWildcard(obj, nodeInterop) {
+      if (!nodeInterop && obj && obj.__esModule) {
+        return obj;
+      }if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {
+        return { default: obj };
+      }var cache = _getRequireWildcardCache(nodeInterop);if (cache && cache.has(obj)) {
+        return cache.get(obj);
+      }var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {
+        if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
+          var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {
+            Object.defineProperty(newObj, key, desc);
+          } else {
+            newObj[key] = obj[key];
+          }
+        }
+      }newObj.default = obj;if (cache) {
+        cache.set(obj, newObj);
+      }return newObj;
+    }
+
+    /**
+     * SPDX-FileCopyrightText: © 2022 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+    var overlayStack = [];
+    /**
+     * Overlay component is used for components like dialog and modal.
+     * For example, Autocomplete, DatePicker, ColorPicker, DropDown are components
+     * that can use and have the same consistent behavior.
+     */
+
+    function Overlay(_ref) {
+      var children = _ref.children,
+          _ref$isCloseOnInterac = _ref.isCloseOnInteractOutside,
+          isCloseOnInteractOutside = _ref$isCloseOnInterac === void 0 ? false : _ref$isCloseOnInterac,
+          _ref$isKeyboardDismis = _ref.isKeyboardDismiss,
+          isKeyboardDismiss = _ref$isKeyboardDismis === void 0 ? false : _ref$isKeyboardDismis,
+          _ref$isModal = _ref.isModal,
+          isModal = _ref$isModal === void 0 ? false : _ref$isModal,
+          _ref$isOpen = _ref.isOpen,
+          isOpen = _ref$isOpen === void 0 ? false : _ref$isOpen,
+          menuClassName = _ref.menuClassName,
+          menuRef = _ref.menuRef,
+          onClose = _ref.onClose,
+          portalRef = _ref.portalRef,
+          suppress = _ref.suppress,
+          triggerRef = _ref.triggerRef;
+      var unsuppressCallbackRef = (0, _react.useRef)(null);
+      var onHide = (0, _react.useCallback)(function (action) {
+        if (overlayStack[overlayStack.length - 1] === menuRef) {
+          onClose(action);
+        }
+      }, [onClose]);
+      useEvent('focus', (0, _react.useCallback)(function (event) {
+        var _portalRef$current;
+
+        if (portalRef && !((_portalRef$current = portalRef.current) !== null && _portalRef$current !== void 0 && _portalRef$current.contains(event.target)) && triggerRef.current && !triggerRef.current.contains(event.target)) {
+          onHide('blur');
+        }
+      }, [onHide]), isOpen, true, [isOpen, onHide]);
+      useEvent('keydown', (0, _react.useCallback)(function (event) {
+        if (event.key === _Keys.Keys.Esc && overlayStack[overlayStack.length - 1] === menuRef) {
+          event.stopImmediatePropagation();
+          event.preventDefault();
+
+          if (triggerRef.current) {
+            // When inert is used to suppress user interaction with the rest of
+            // the document, to retrieve the focus in the trigger we need to
+            // first undo and then move the focus.
+            if (unsuppressCallbackRef.current) {
+              unsuppressCallbackRef.current();
+              unsuppressCallbackRef.current = null;
+            }
+
+            triggerRef.current.focus();
+          }
+
+          onClose('escape');
+        }
+      }, [onClose]), isOpen && isKeyboardDismiss, true, [isOpen, onClose]);
+      (0, _useInteractOutside.useInteractOutside)({
+        isDisabled: isOpen ? !isCloseOnInteractOutside : true,
+        onInteract: function onInteract() {
+          onHide('blur');
+        },
+        onInteractStart: function onInteractStart(event) {
+          if (overlayStack[overlayStack.length - 1] === menuRef && isModal) {
+            event.stopPropagation();
+            event.preventDefault();
+          }
+        },
+        ref: portalRef !== null && portalRef !== void 0 ? portalRef : menuRef,
+        triggerRef: triggerRef
+      });
+      (0, _react.useEffect)(function () {
+        if (isOpen) {
+          overlayStack.push(menuRef);
+        }
+
+        return function () {
+          var index = overlayStack.indexOf(menuRef);
+
+          if (index >= 0) {
+            overlayStack.splice(index, 1);
+          }
+        };
+      }, [isOpen, menuRef]);
+      (0, _react.useEffect)(function () {
+        if (menuRef.current && isOpen) {
+          var elements = suppress ? suppress.map(function (ref) {
+            return ref.current;
+          }) : menuRef.current; // Inert is a new native feature to better handle DOM arias that are not
+          // assertive to a SR or that should ignore any user interaction.
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert
+
+          if (isModal && (0, _ariaHidden.supportsInert)()) {
+            unsuppressCallbackRef.current = (0, _ariaHidden.suppressOthers)(elements);
+            return function () {
+              if (unsuppressCallbackRef.current) {
+                unsuppressCallbackRef.current();
+              }
+
+              unsuppressCallbackRef.current = null;
+            };
+          } else {
+            return (0, _ariaHidden.hideOthers)(elements);
+          }
+        }
+      }, [isModal, isOpen]);
+      return (/*#__PURE__*/_react.default.createElement(_Portal.ClayPortal, {
+          className: menuClassName,
+          subPortalRef: portalRef
+        }, isModal && /*#__PURE__*/_react.default.createElement("span", {
+          "aria-hidden": "true",
+          "data-focus-scope-start": "true",
+          tabIndex: 0
+        }), children, isModal && /*#__PURE__*/_react.default.createElement("span", {
+          "aria-hidden": "true",
+          "data-focus-scope-end": "true",
+          tabIndex: 0
+        }))
+      );
+    }
+
+    function useEvent(name, onEvent, conditional, capture) {
+      var deps = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : [];
+      (0, _react.useEffect)(function () {
+        // This check should go away when the Overlay is shown using conditional
+        // instead of class CSS.
+        if (conditional) {
+          document.addEventListener(name, onEvent, capture);
+          return function () {
+            document.removeEventListener(name, onEvent, capture);
+          };
+        }
+      }, deps);
+    }
+  }
+});
+//# sourceMappingURL=Overlay.js.map

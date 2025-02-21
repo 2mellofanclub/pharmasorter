@@ -1,0 +1,143 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/shared@3.89.0/lib/MouseSafeArea", ['module', 'exports', 'require', 'frontend-js-react-web$react', './Portal', './useMousePosition'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.MouseSafeArea = void 0;
+
+    var _react = _interopRequireDefault(require("frontend-js-react-web$react"));
+
+    var _Portal = require("./Portal");
+
+    var _useMousePosition3 = require("./useMousePosition");
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _slicedToArray(arr, i) {
+      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+    }
+
+    function _nonIterableRest() {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+
+    function _unsupportedIterableToArray(o, minLen) {
+      if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+    }
+
+    function _arrayLikeToArray(arr, len) {
+      if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {
+        arr2[i] = arr[i];
+      }return arr2;
+    }
+
+    function _iterableToArrayLimit(arr, i) {
+      var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];if (_i == null) return;var _arr = [];var _n = true;var _d = false;var _s, _e;try {
+        for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i["return"] != null) _i["return"]();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }
+
+    function _arrayWithHoles(arr) {
+      if (Array.isArray(arr)) return arr;
+    }
+
+    var getLeft = function getLeft(_ref) {
+      var mouseX = _ref.mouseX,
+          x = _ref.x;
+      return mouseX > x ? undefined : "".concat(x - Math.max(x - mouseX, 10), "px");
+    };
+
+    var getRight = function getRight(_ref2) {
+      var mouseX = _ref2.mouseX,
+          ownerW = _ref2.ownerW,
+          w = _ref2.w,
+          x = _ref2.x;
+      return mouseX > x ? "".concat(ownerW - (x + w) - Math.max(mouseX - (x + w), 10), "px") : undefined;
+    };
+
+    var getWidth = function getWidth(_ref3) {
+      var mouseX = _ref3.mouseX,
+          w = _ref3.w,
+          x = _ref3.x;
+      return "".concat(Math.max(mouseX > x ? mouseX - (x + w) : x - mouseX, 10), "px");
+    };
+
+    var getClipPath = function getClipPath(_ref4) {
+      var h = _ref4.h,
+          mouseX = _ref4.mouseX,
+          mouseY = _ref4.mouseY,
+          x = _ref4.x,
+          y = _ref4.y;
+      return mouseX > x ? "polygon(0% 0%, 0% 100%, 100% ".concat(100 * (mouseY - y) / h, "%)") : "polygon(100% 0%, 0% ".concat(100 * (mouseY - y) / h, "%, 100% 100%)");
+    };
+
+    var MouseSafeArea = function MouseSafeArea(_ref5) {
+      var _parentRef$current, _parentRef$current2;
+
+      var parentRef = _ref5.parentRef;
+
+      var _useMousePosition = (0, _useMousePosition3.useMousePosition)(),
+          _useMousePosition2 = _slicedToArray(_useMousePosition, 2),
+          mouseX = _useMousePosition2[0],
+          mouseY = _useMousePosition2[1];
+
+      var _ref6 = ((_parentRef$current = parentRef.current) === null || _parentRef$current === void 0 ? void 0 : _parentRef$current.getBoundingClientRect()) || {},
+          _ref6$height = _ref6.height,
+          h = _ref6$height === void 0 ? 0 : _ref6$height,
+          _ref6$top = _ref6.top,
+          top = _ref6$top === void 0 ? 0 : _ref6$top,
+          _ref6$width = _ref6.width,
+          w = _ref6$width === void 0 ? 0 : _ref6$width,
+          _ref6$x = _ref6.x,
+          x = _ref6$x === void 0 ? 0 : _ref6$x,
+          _ref6$y = _ref6.y,
+          y = _ref6$y === void 0 ? 0 : _ref6$y;
+
+      var _ref7 = ((_parentRef$current2 = parentRef.current) === null || _parentRef$current2 === void 0 ? void 0 : _parentRef$current2.ownerDocument.body) || {},
+          _ref7$offsetWidth = _ref7.offsetWidth,
+          ownerW = _ref7$offsetWidth === void 0 ? 0 : _ref7$offsetWidth;
+
+      var positions = {
+        h: h,
+        mouseX: mouseX,
+        mouseY: mouseY,
+        ownerW: ownerW,
+        w: w,
+        x: x,
+        y: y
+      };
+      return (/*#__PURE__*/_react.default.createElement(_Portal.ClayPortal, null, /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            clipPath: getClipPath(positions),
+            height: h,
+            left: getLeft(positions),
+            position: 'absolute',
+            right: getRight(positions),
+            top: top,
+            width: getWidth(positions),
+            zIndex: 1010
+          }
+        }))
+      );
+    };
+
+    exports.MouseSafeArea = MouseSafeArea;
+  }
+});
+//# sourceMappingURL=MouseSafeArea.js.map

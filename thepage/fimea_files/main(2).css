@@ -1,0 +1,150 @@
+#yja-cookie-dialog {
+  overflow: hidden;
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  max-height: 100vh;
+}
+@media screen and (max-width: 570px) {
+  #yja-cookie-dialog {
+    overflow: scroll;
+  }
+}
+#yja-cookie-dialog .yja-cookie-dialog-content {
+  display: block;
+  background: transparent;
+  width: inherit;
+  height: inherit;
+  margin-top: 1rem;
+}
+@media screen and (max-width: 480px) {
+  #yja-cookie-dialog .yja-cookie-dialog-content {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+  }
+}
+#yja-cookie-dialog .yja-cookie-dialog-note {
+  display: block;
+  width: 75%;
+  margin: 2em auto;
+  line-height: 1.5;
+}
+@media screen and (max-width: 480px) {
+  #yja-cookie-dialog .yja-cookie-dialog-note {
+    margin: 0 auto;
+  }
+}
+#yja-cookie-dialog .yja-cookie-dialog-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  padding: 2px;
+}
+@media screen and (max-width: 480px) {
+  #yja-cookie-dialog .yja-cookie-dialog-buttons {
+    width: 75%;
+    margin: 0 auto;
+  }
+}
+#yja-cookie-dialog .yja-cookie-dialog-buttons button {
+  align-self: center;
+  margin: 2px 2px;
+}
+@media screen and (max-width: 480px) {
+  #yja-cookie-dialog .yja-cookie-dialog-buttons button {
+    font-size: 12px;
+    margin: 0;
+    margin-bottom: 10px;
+    display: block;
+    width: 100%;
+    word-break: break-word;
+    white-space: normal;
+  }
+}
+
+.yja-cookie-dialog__theme-one {
+  color: #212121;
+  border-style: solid;
+  border-color: #bababa;
+  border-width: 2px 0 0 0;
+  border-radius: 0;
+  background: #fefefe;
+  -webkit-box-shadow: 0px -5px 10px -3px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px -5px 10px -3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px -5px 10px -3px rgba(0, 0, 0, 0.2);
+}
+@media screen and (max-width: 480px) {
+  .yja-cookie-dialog__theme-one {
+    max-height: 320px;
+    padding: 0;
+    margin: 0;
+  }
+}
+.yja-cookie-dialog__theme-one a {
+  color: #0032c8;
+  font-weight: bold;
+}
+.yja-cookie-dialog__theme-one a:focus {
+  outline-color: black !important;
+  color: #0032c8;
+}
+.yja-cookie-dialog__theme-one button.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgb(0, 123, 255) !important;
+}
+
+.yja-cookie-dialog__theme-two {
+  color: #212121;
+  border: 2px solid #cacaca;
+  border-radius: 0;
+  background: #fefefe;
+  padding: 1em;
+}
+@media screen and (max-width: 480px) {
+  .yja-cookie-dialog__theme-two {
+    max-height: 320px;
+    padding: 0;
+    margin: 0;
+  }
+}
+.yja-cookie-dialog__theme-two a {
+  color: #004f8c;
+  font-weight: bolder;
+}
+.yja-cookie-dialog__theme-two a:focus {
+  color: #004f8c;
+  outline-color: black !important;
+}
+
+.yja-cookie-dialog__theme-three {
+  color: #fafafa;
+  border: 2px solid #004f8c;
+  border-radius: 8px;
+  background: #002f6c;
+  -webkit-box-shadow: 3px 3px 7px 0 rgba(50, 50, 50, 0.43);
+  -moz-box-shadow: 3px 3px 7px 0 rgba(50, 50, 50, 0.43);
+  box-shadow: 3px 3px 7px 0 rgba(50, 50, 50, 0.43);
+  padding: 1em;
+  margin: 0 2em 2em 2em;
+}
+@media screen and (max-width: 480px) {
+  .yja-cookie-dialog__theme-three {
+    max-height: 320px;
+    padding: 0;
+    margin: 0;
+    top: 0;
+  }
+}
+.yja-cookie-dialog__theme-three a {
+  color: #f9b000;
+  font-weight: bolder;
+}
+.yja-cookie-dialog__theme-three a:focus {
+  color: #f9b044;
+  outline-color: black !important;
+}

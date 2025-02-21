@@ -1,0 +1,335 @@
+Liferay.Loader.define("frontend-js-web@4.0.59/liferay/ItemSelectorDialog.es", ['module', 'exports', 'require', 'frontend-js-metal-web$metal-component', 'frontend-js-metal-web$metal-state', './util/toggle_disabled'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = void 0;
+
+    var _metalComponent = _interopRequireDefault(require("frontend-js-metal-web$metal-component"));
+
+    var _metalState = require("frontend-js-metal-web$metal-state");
+
+    var _toggle_disabled = _interopRequireDefault(require("./util/toggle_disabled"));
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _typeof(obj) {
+      "@babel/helpers - typeof";
+      if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+        _typeof = function _typeof(obj) {
+          return typeof obj;
+        };
+      } else {
+        _typeof = function _typeof(obj) {
+          return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+        };
+      }return _typeof(obj);
+    }
+
+    function ownKeys(object, enumerableOnly) {
+      var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {
+        var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {
+          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+        });keys.push.apply(keys, symbols);
+      }return keys;
+    }
+
+    function _objectSpread(target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {
+          ownKeys(Object(source), true).forEach(function (key) {
+            _defineProperty(target, key, source[key]);
+          });
+        } else if (Object.getOwnPropertyDescriptors) {
+          Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+        } else {
+          ownKeys(Object(source)).forEach(function (key) {
+            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+          });
+        }
+      }return target;
+    }
+
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+      } else {
+        obj[key] = value;
+      }return obj;
+    }
+
+    function _classCallCheck(instance, Constructor) {
+      if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+      }
+    }
+
+    function _defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    function _createClass(Constructor, protoProps, staticProps) {
+      if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;
+    }
+
+    function _possibleConstructorReturn(self, call) {
+      if (call && (_typeof(call) === "object" || typeof call === "function")) {
+        return call;
+      }return _assertThisInitialized(self);
+    }
+
+    function _assertThisInitialized(self) {
+      if (self === void 0) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+      }return self;
+    }
+
+    function _getPrototypeOf(o) {
+      _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+        return o.__proto__ || Object.getPrototypeOf(o);
+      };return _getPrototypeOf(o);
+    }
+
+    function _inherits(subClass, superClass) {
+      if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function");
+      }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);
+    }
+
+    function _setPrototypeOf(o, p) {
+      _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+        o.__proto__ = p;return o;
+      };return _setPrototypeOf(o, p);
+    }
+
+    /**
+     * Shows a dialog and handles the selected item.
+     */
+    var ItemSelectorDialog = /*#__PURE__*/function (_Component) {
+      _inherits(ItemSelectorDialog, _Component);
+
+      function ItemSelectorDialog() {
+        _classCallCheck(this, ItemSelectorDialog);
+
+        return _possibleConstructorReturn(this, _getPrototypeOf(ItemSelectorDialog).apply(this, arguments));
+      }
+
+      _createClass(ItemSelectorDialog, [{
+        key: "close",
+
+        /**
+         * Closes the dialog.
+         */
+        value: function close() {
+          Liferay.Util.getWindow(this.eventName).hide();
+        }
+        /**
+         * Opens the dialog.
+         */
+
+      }, {
+        key: "open",
+        value: function open() {
+          var _this = this;
+
+          this._currentItem = null;
+          this._selectedItem = null;
+          var eventName = this.eventName;
+
+          var dialogConfig = this._getDialogConfig();
+
+          Liferay.Util.selectEntity({
+            dialog: _objectSpread(_objectSpread({}, dialogConfig), {
+              on: {
+                click: function click(event) {
+                  event.domEvent.preventDefault();
+                },
+                visibleChange: function visibleChange(event) {
+                  if (!event.newVal) {
+                    _this.selectedItem = _this._selectedItem;
+
+                    _this.emit('selectedItemChange', {
+                      selectedItem: _this.selectedItem
+                    });
+                  }
+
+                  _this.emit('visibleChange', {
+                    visible: event.newVal
+                  });
+                }
+              }
+            }),
+            eventName: eventName,
+            id: eventName,
+            stack: !this.zIndex,
+            title: this.title,
+            uri: this.url
+          }, this._onItemSelected.bind(this));
+        }
+      }, {
+        key: "_getDialogConfig",
+        value: function _getDialogConfig() {
+          var _this2 = this;
+
+          var dialogConfig = {
+            constrain: true,
+            cssClass: this.dialogClasses,
+            destroyOnHide: true,
+            modal: true,
+            zIndex: this.zIndex
+          };
+
+          if (!this.singleSelect) {
+            var dialogFooter = [{
+              cssClass: 'btn-secondary close-modal',
+              id: 'cancelButton',
+              label: this.buttonCancelLabel,
+              on: {
+                click: function click() {
+                  _this2.close();
+                }
+              }
+            }, {
+              cssClass: 'btn-primary',
+              disabled: true,
+              id: 'addButton',
+              label: this.buttonAddLabel,
+              on: {
+                click: function click() {
+                  _this2._selectedItem = _this2._currentItem;
+
+                  _this2.close();
+                }
+              }
+            }];
+            dialogConfig['toolbars.footer'] = dialogFooter;
+          }
+
+          return dialogConfig;
+        }
+        /**
+         * Saves the current selected item in the dialog and disables the Add
+         * button.
+         *
+         * @param {EventFacade} event The event.
+         * @private
+         */
+
+      }, {
+        key: "_onItemSelected",
+        value: function _onItemSelected(event) {
+          var currentItem = event.data;
+
+          if (this.singleSelect) {
+            this._selectedItem = currentItem;
+            this.close();
+          } else {
+            var dialog = Liferay.Util.getWindow(this.eventName);
+            var addButton = dialog.getToolbar('footer').get('boundingBox').one('#addButton');
+            (0, _toggle_disabled.default)(addButton, !currentItem);
+          }
+
+          this._currentItem = currentItem;
+        }
+      }]);
+
+      return ItemSelectorDialog;
+    }(_metalComponent.default);
+    /**
+     * State definition.
+     *
+     * @static
+     * @type {!Object}
+     */
+
+    ItemSelectorDialog.STATE = {
+      /**
+       * Label for the Add button.
+       *
+       * @instance
+       * @memberof ItemSelectorDialog
+       * @type {String}
+       */
+      buttonAddLabel: _metalState.Config.string().value('Lisää'),
+
+      /**
+       * Label for the Cancel button.
+       *
+       * @instance
+       * @memberof ItemSelectorDialog
+       * @type {String}
+       */
+      buttonCancelLabel: _metalState.Config.string().value('Peruuta'),
+
+      /**
+       * CSS classes to pass to the dialog.
+       *
+       * @instance
+       * @memberof ItemSelectorDialog
+       * @type {String}
+       */
+      dialogClasses: _metalState.Config.string(),
+
+      /**
+       * Event name.
+       *
+       * @instance
+       * @memberof ItemSelectorDialog
+       * @type {String}
+       */
+      eventName: _metalState.Config.string().required(),
+
+      /**
+       * The selected item(s) in the dialog.
+       *
+       * @instance
+       * @memberof ItemSelectorDialog
+       * @type {Object|Object[]}
+       */
+      selectedItem: _metalState.Config.oneOfType([_metalState.Config.object(), _metalState.Config.arrayOf(_metalState.Config.object())]),
+
+      /**
+       * Enables single selection of item.
+       * @type {boolean}
+       */
+      singleSelect: _metalState.Config.bool().value(false),
+
+      /**
+       * Dialog's title.
+       *
+       * @instance
+       * @memberof ItemSelectorDialog
+       * @type {String}
+       */
+      title: _metalState.Config.string().value('Valitse\x20tiedosto'),
+
+      /**
+       * URL that opens the dialog.
+       *
+       * @instance
+       * @memberof ItemSelectorDialog
+       * @type {String}
+       */
+      url: _metalState.Config.string().required(),
+
+      /**
+       * Dialog's zIndex.
+       *
+       * @instance
+       * @memberof ItemSelectorDialog
+       * @type {Number}
+       */
+      zIndex: _metalState.Config.number()
+    };
+    var _default = ItemSelectorDialog;
+    exports.default = _default;
+    //# sourceMappingURL=ItemSelectorDialog.es.js.map
+  }
+});
+//# sourceMappingURL=ItemSelectorDialog.es.js.map

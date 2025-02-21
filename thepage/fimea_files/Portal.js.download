@@ -1,0 +1,89 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/shared@3.89.0/lib/Portal", ['module', 'exports', 'require', '@frontend-taglib-clay$clayui/provider', 'frontend-taglib-clay$classnames', 'frontend-js-react-web$react', 'frontend-js-react-web$react-dom'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.ClayPortal = void 0;
+
+    var _provider = require("@frontend-taglib-clay$clayui/provider");
+
+    var _classnames = _interopRequireDefault(require("frontend-taglib-clay$classnames"));
+
+    var _react = _interopRequireDefault(require("frontend-js-react-web$react"));
+
+    var _reactDom = require("frontend-js-react-web$react-dom");
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    /**
+     * SPDX-FileCopyrightText: © 2019 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+    var ClayPortalContext = /*#__PURE__*/_react.default.createContext(null);
+
+    ClayPortalContext.displayName = 'ClayPortalContext';
+
+    var createDivElement = function createDivElement(className, id) {
+      var element = document.createElement('div');
+
+      if (className) {
+        element.setAttribute('class', className);
+      }
+
+      if (id) {
+        element.setAttribute('id', id);
+      }
+
+      return element;
+    };
+
+    var ClayPortal = function ClayPortal(_ref) {
+      var children = _ref.children,
+          className = _ref.className,
+          containerRef = _ref.containerRef,
+          id = _ref.id,
+          subPortalRef = _ref.subPortalRef;
+
+      var _useProvider = (0, _provider.useProvider)(),
+          theme = _useProvider.theme;
+
+      var parentPortalRef = _react.default.useContext(ClayPortalContext);
+
+      var portalRef = _react.default.useRef(typeof document !== 'undefined' ? createDivElement((0, _classnames.default)(theme, className), id) : null);
+
+      _react.default.useEffect(function () {
+        var closestParent = parentPortalRef && parentPortalRef.current ? parentPortalRef.current : document.body;
+        var elToMountTo = containerRef && containerRef.current ? containerRef.current : closestParent;
+
+        if (elToMountTo && portalRef.current) {
+          elToMountTo.appendChild(portalRef.current);
+        }
+
+        return function () {
+          if (portalRef.current) {
+            if (typeof portalRef.current.remove === 'function') {
+              portalRef.current.remove();
+            } else if (elToMountTo) {
+              elToMountTo.removeChild(portalRef.current);
+            }
+          }
+        };
+      }, [containerRef, parentPortalRef]);
+
+      var content = /*#__PURE__*/_react.default.createElement(ClayPortalContext.Provider, {
+        value: subPortalRef ? subPortalRef : portalRef
+      }, children);
+
+      return portalRef.current ? /*#__PURE__*/(0, _reactDom.createPortal)(content, portalRef.current) : content;
+    };
+
+    exports.ClayPortal = ClayPortal;
+  }
+});
+//# sourceMappingURL=Portal.js.map

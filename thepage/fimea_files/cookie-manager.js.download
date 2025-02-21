@@ -1,0 +1,57 @@
+var cookieConsentGiven = false;
+var cookieConsentExpires = { expires: 180 };
+
+var initCookieManager = function() {
+    if (Cookies.get("cookieConsentGiven") === 'true') {
+        cookieConsentGiven = true;
+    }
+}
+
+var cookieManagerRejectedScripts = {};
+var loadOptionalScript = function(cookieKey, callback) {
+    if (Cookies.get(cookieKey) ==='enabled') {
+        callback();
+    } else {
+        cookieManagerRejectedScripts[cookieKey] = callback;
+    }
+}
+
+var cookieManagerSetCookie = function(name, value) {
+    Cookies.set(name,  value, cookieConsentExpires);
+};
+
+var setCookieGroup = function(cookieGroup, cookieKeys, enabled) {
+    var cookieValue = enabled ? "enabled" : "disabled";
+    cookieManagerSetCookie(cookieGroup,  cookieValue);
+
+    $.each(cookieKeys, function (index, cookieKey) {
+        cookieManagerSetCookie(cookieKey,  cookieValue);
+
+        if (enabled && cookieManagerRejectedScripts[cookieKey] !== undefined) {
+            cookieManagerRejectedScripts[cookieKey]();
+        }
+    });
+};
+
+var setCookieConsentGiven = function() {
+    cookieManagerSetCookie("cookieConsentGiven", true);
+    cookieConsentGiven = true;
+}
+
+function addSelectStyles(cookieGroupValue,group) {
+    var inputs = document.getElementsByName(group);
+    //Add custom checked styles to site and banner input and check or uncheck both
+    for (let i = 0; i < inputs.length; i++) {
+        if (cookieGroupValue.checked === false) {
+            inputs[i].checked = false;
+            if (inputs[i].nextElementSibling.classList.contains("isSelected")) {
+                inputs[i].nextElementSibling.classList.remove("isSelected");
+            }
+        } else {
+            if (cookieGroupValue.checked === true) {
+                inputs[i].checked = true;
+                inputs[i].nextElementSibling.classList.add("isSelected");
+            }
+        }
+    }
+}

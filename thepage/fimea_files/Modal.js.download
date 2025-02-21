@@ -1,0 +1,258 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/modal@3.89.0/lib/Modal", ['module', 'exports', 'require', '@frontend-taglib-clay$clayui/shared', 'frontend-taglib-clay$aria-hidden', 'frontend-taglib-clay$classnames', 'frontend-js-react-web$react', 'frontend-taglib-clay$warning', './Body', './Context', './Footer', './Header', './Hook', './types'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    function _typeof(obj) {
+      "@babel/helpers - typeof";
+      return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+        return typeof obj;
+      } : function (obj) {
+        return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      }, _typeof(obj);
+    }
+
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = void 0;
+
+    var _shared = require("@frontend-taglib-clay$clayui/shared");
+
+    var _ariaHidden = require("frontend-taglib-clay$aria-hidden");
+
+    var _classnames = _interopRequireDefault(require("frontend-taglib-clay$classnames"));
+
+    var _react = _interopRequireWildcard(require("frontend-js-react-web$react"));
+
+    var _warning = _interopRequireDefault(require("frontend-taglib-clay$warning"));
+
+    var _Body = _interopRequireDefault(require("./Body"));
+
+    var _Context = _interopRequireDefault(require("./Context"));
+
+    var _Footer = _interopRequireDefault(require("./Footer"));
+
+    var _Header = _interopRequireWildcard(require("./Header"));
+
+    var _Hook = require("./Hook");
+
+    var _types = require("./types");
+
+    var _excluded = ["center", "children", "className", "containerElementRef", "containerProps", "disableAutoClose", "observer", "role", "size", "spritemap", "status", "zIndex"];
+
+    function _getRequireWildcardCache(nodeInterop) {
+      if (typeof WeakMap !== "function") return null;var cacheBabelInterop = new WeakMap();var cacheNodeInterop = new WeakMap();return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) {
+        return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
+      })(nodeInterop);
+    }
+
+    function _interopRequireWildcard(obj, nodeInterop) {
+      if (!nodeInterop && obj && obj.__esModule) {
+        return obj;
+      }if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {
+        return { default: obj };
+      }var cache = _getRequireWildcardCache(nodeInterop);if (cache && cache.has(obj)) {
+        return cache.get(obj);
+      }var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {
+        if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
+          var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {
+            Object.defineProperty(newObj, key, desc);
+          } else {
+            newObj[key] = obj[key];
+          }
+        }
+      }newObj.default = obj;if (cache) {
+        cache.set(obj, newObj);
+      }return newObj;
+    }
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _extends() {
+      _extends = Object.assign ? Object.assign.bind() : function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+              target[key] = source[key];
+            }
+          }
+        }return target;
+      };return _extends.apply(this, arguments);
+    }
+
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+      } else {
+        obj[key] = value;
+      }return obj;
+    }
+
+    function _slicedToArray(arr, i) {
+      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+    }
+
+    function _nonIterableRest() {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+
+    function _unsupportedIterableToArray(o, minLen) {
+      if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+    }
+
+    function _arrayLikeToArray(arr, len) {
+      if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {
+        arr2[i] = arr[i];
+      }return arr2;
+    }
+
+    function _iterableToArrayLimit(arr, i) {
+      var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];if (_i == null) return;var _arr = [];var _n = true;var _d = false;var _s, _e;try {
+        for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i["return"] != null) _i["return"]();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }
+
+    function _arrayWithHoles(arr) {
+      if (Array.isArray(arr)) return arr;
+    }
+
+    function _objectWithoutProperties(source, excluded) {
+      if (source == null) return {};var target = _objectWithoutPropertiesLoose(source, excluded);var key, i;if (Object.getOwnPropertySymbols) {
+        var sourceSymbolKeys = Object.getOwnPropertySymbols(source);for (i = 0; i < sourceSymbolKeys.length; i++) {
+          key = sourceSymbolKeys[i];if (excluded.indexOf(key) >= 0) continue;if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;target[key] = source[key];
+        }
+      }return target;
+    }
+
+    function _objectWithoutPropertiesLoose(source, excluded) {
+      if (source == null) return {};var target = {};var sourceKeys = Object.keys(source);var key, i;for (i = 0; i < sourceKeys.length; i++) {
+        key = sourceKeys[i];if (excluded.indexOf(key) >= 0) continue;target[key] = source[key];
+      }return target;
+    }
+
+    var warningMessage = "You need to pass the 'observer' prop to ClayModal for everything to work fine, use the 'useModal' hook that exposes the observer.\n\n> const {observer} = useModal({...});\n>\n> return (\n> \t<ClayModal observer={observer}>\n> \t\t...\n> \t</ClayModal>\n> ); \n";
+    var counter = 0;
+
+    var ClayModal = function ClayModal(_ref) {
+      var _classNames;
+
+      var center = _ref.center,
+          children = _ref.children,
+          className = _ref.className,
+          containerElementRef = _ref.containerElementRef,
+          _ref$containerProps = _ref.containerProps,
+          containerProps = _ref$containerProps === void 0 ? {} : _ref$containerProps,
+          _ref$disableAutoClose = _ref.disableAutoClose,
+          disableAutoClose = _ref$disableAutoClose === void 0 ? false : _ref$disableAutoClose,
+          observer = _ref.observer,
+          _ref$role = _ref.role,
+          role = _ref$role === void 0 ? 'dialog' : _ref$role,
+          size = _ref.size,
+          spritemap = _ref.spritemap,
+          status = _ref.status,
+          zIndex = _ref.zIndex,
+          otherProps = _objectWithoutProperties(_ref, _excluded);
+
+      var modalElementRef = (0, _react.useRef)(null);
+      var modalBodyElementRef = (0, _react.useRef)(null);
+
+      var _ref2 = observer && observer.mutation ? observer.mutation : [false, false],
+          _ref3 = _slicedToArray(_ref2, 2),
+          show = _ref3[0],
+          content = _ref3[1];
+
+      void 0;
+      (0, _Hook.useUserInteractions)(modalElementRef, modalBodyElementRef, function () {
+        return !disableAutoClose && observer.dispatch(_types.ObserverType.Close);
+      });
+      (0, _react.useEffect)(function () {
+        observer.dispatch(_types.ObserverType.RestoreFocus, document.activeElement);
+        observer.dispatch(_types.ObserverType.Open);
+      }, []);
+      (0, _react.useEffect)(function () {
+        if (modalBodyElementRef.current && show && content) {
+          modalBodyElementRef.current.focus();
+        }
+      }, [show, content]);
+      var ariaLabelledby = (0, _react.useMemo)(function () {
+        counter++;
+        return "clay-modal-label-".concat(counter);
+      }, []);
+      (0, _react.useEffect)(function () {
+        if (modalElementRef.current && show) {
+          // Hide everything from ARIA except the Modal Body
+          return (0, _ariaHidden.suppressOthers)(modalElementRef.current);
+        }
+      }, [show]);
+      return (/*#__PURE__*/_react.default.createElement(_shared.ClayPortal, _extends({}, containerProps, {
+          containerRef: containerElementRef,
+          subPortalRef: modalElementRef
+        }), /*#__PURE__*/_react.default.createElement("div", {
+          "aria-hidden": "true",
+          className: (0, _classnames.default)('modal-backdrop fade', {
+            show: show
+          }),
+          style: {
+            zIndex: zIndex
+          }
+        }), /*#__PURE__*/_react.default.createElement("div", _extends({}, otherProps, {
+          className: (0, _classnames.default)('fade modal d-block', className, {
+            show: show
+          }),
+          ref: modalElementRef,
+          style: {
+            zIndex: zIndex && zIndex + 10
+          }
+        }), /*#__PURE__*/_react.default.createElement("div", {
+          "aria-labelledby": ariaLabelledby,
+          "aria-modal": "true",
+          className: (0, _classnames.default)('modal-dialog', (_classNames = {}, _defineProperty(_classNames, "modal-".concat(size), size), _defineProperty(_classNames, "modal-".concat(status), status), _defineProperty(_classNames, 'modal-dialog-centered', center), _classNames)),
+          ref: modalBodyElementRef,
+          role: role,
+          tabIndex: -1
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          className: "modal-content"
+        }, /*#__PURE__*/_react.default.createElement(_Context.default.Provider, {
+          value: {
+            ariaLabelledby: ariaLabelledby,
+            onClose: function onClose() {
+              return observer.dispatch(_types.ObserverType.Close);
+            },
+            spritemap: spritemap,
+            status: status
+          }
+        }, content && children)))))
+      );
+    };
+
+    var _default = Object.assign(ClayModal, {
+      Body: _Body.default,
+      Footer: _Footer.default,
+      Header: _Header.default,
+      Item: _Header.Item,
+      ItemGroup: _Header.ItemGroup,
+      Subtitle: _Header.Subtitle,
+      SubtitleSection: _Header.SubtitleSection,
+      Title: _Header.Title,
+      TitleIndicator: _Header.TitleIndicator,
+      TitleSection: _Header.TitleSection
+    });
+
+    exports.default = _default;
+  }
+});
+//# sourceMappingURL=Modal.js.map

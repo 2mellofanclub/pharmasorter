@@ -1,0 +1,128 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/shared@3.89.0/lib/useOverlayPositon", ['module', 'exports', 'require', 'frontend-js-react-web$react', './doAlign', './observeRect'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.useOverlayPosition = useOverlayPosition;
+
+    var _react = require("frontend-js-react-web$react");
+
+    var _doAlign = require("./doAlign");
+
+    var _observeRect = require("./observeRect");
+
+    /**
+     * SPDX-FileCopyrightText: © 2022 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+    var ALIGN_INVERSE = {
+      0: 'TopCenter',
+      1: 'TopRight',
+      2: 'RightCenter',
+      3: 'BottomRight',
+      4: 'BottomCenter',
+      5: 'BottomLeft',
+      6: 'LeftCenter',
+      7: 'TopLeft',
+      8: 'RightTop',
+      9: 'RightBottom',
+      10: 'LeftTop',
+      11: 'LeftBottom'
+    };
+    var ALIGN_MAP = {
+      BottomCenter: ['tc', 'bc'],
+      BottomLeft: ['tl', 'bl'],
+      BottomRight: ['tr', 'br'],
+      LeftBottom: ['br', 'bl'],
+      LeftCenter: ['cr', 'cl'],
+      LeftTop: ['tr', 'tl'],
+      RightBottom: ['bl', 'br'],
+      RightCenter: ['cl', 'cr'],
+      RightTop: ['tl', 'tr'],
+      TopCenter: ['bc', 'tc'],
+      TopLeft: ['bl', 'tl'],
+      TopRight: ['br', 'tr']
+    };
+
+    /**
+     * For backwards compatability, we are creating a util here so that `metal-position`
+     * number values are used in the same manner and result in the same alignment direction.
+     */
+    var getAlignPoints = function getAlignPoints(val) {
+      return ALIGN_MAP[ALIGN_INVERSE[val]];
+    };
+
+    var BOTTOM_OFFSET = [0, 4];
+    var LEFT_OFFSET = [-4, 0];
+    var RIGHT_OFFSET = [4, 0];
+    var TOP_OFFSET = [0, -4];
+    var OFFSET_MAP = {
+      bctc: TOP_OFFSET,
+      blbr: RIGHT_OFFSET,
+      bltl: TOP_OFFSET,
+      brbl: LEFT_OFFSET,
+      brtr: TOP_OFFSET,
+      clcr: RIGHT_OFFSET,
+      crcl: LEFT_OFFSET,
+      tcbc: BOTTOM_OFFSET,
+      tlbl: BOTTOM_OFFSET,
+      tltr: RIGHT_OFFSET,
+      trbr: BOTTOM_OFFSET,
+      trtl: LEFT_OFFSET
+    };
+    var useIsomorphicLayoutEffect = typeof window === 'undefined' ? _react.useEffect : _react.useLayoutEffect;
+
+    var defaultOffset = function defaultOffset(points) {
+      return OFFSET_MAP[points.join('')];
+    };
+
+    function useOverlayPosition(_ref) {
+      var alignmentByViewport = _ref.alignmentByViewport,
+          _ref$alignmentPositio = _ref.alignmentPosition,
+          alignmentPosition = _ref$alignmentPositio === void 0 ? 5 : _ref$alignmentPositio,
+          _ref$autoBestAlign = _ref.autoBestAlign,
+          autoBestAlign = _ref$autoBestAlign === void 0 ? true : _ref$autoBestAlign,
+          _ref$getOffset = _ref.getOffset,
+          getOffset = _ref$getOffset === void 0 ? defaultOffset : _ref$getOffset,
+          isOpen = _ref.isOpen,
+          ref = _ref.ref,
+          triggerRef = _ref.triggerRef;
+      var deps = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [isOpen];
+      useIsomorphicLayoutEffect(function () {
+        function alignElement() {
+          if (triggerRef.current) {
+            var _points = alignmentPosition;
+
+            if (typeof _points === 'number') {
+              _points = getAlignPoints(_points);
+            }
+
+            if (ref.current) {
+              (0, _doAlign.doAlign)({
+                offset: getOffset(_points),
+                overflow: {
+                  adjustX: autoBestAlign,
+                  adjustY: autoBestAlign,
+                  alwaysByViewport: alignmentByViewport
+                },
+                points: _points,
+                sourceElement: ref.current,
+                targetElement: triggerRef.current
+              });
+            }
+          }
+        }
+
+        if (isOpen && ref.current) {
+          alignElement();
+          return (0, _observeRect.observeRect)(ref.current, alignElement);
+        }
+      }, deps);
+    }
+  }
+});
+//# sourceMappingURL=useOverlayPositon.js.map

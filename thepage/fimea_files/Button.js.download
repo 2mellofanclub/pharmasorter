@@ -1,0 +1,106 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/button@3.83.0/lib/Button", ['module', 'exports', 'require', 'frontend-taglib-clay$classnames', 'frontend-js-react-web$react', 'frontend-taglib-clay$warning', './Group'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = void 0;
+
+    var _classnames = _interopRequireDefault(require("frontend-taglib-clay$classnames"));
+
+    var _react = _interopRequireDefault(require("frontend-js-react-web$react"));
+
+    var _warning = _interopRequireDefault(require("frontend-taglib-clay$warning"));
+
+    var _Group = _interopRequireDefault(require("./Group"));
+
+    var _excluded = ["alert", "block", "borderless", "children", "className", "displayType", "monospaced", "outline", "rounded", "size", "small", "type"];
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _extends() {
+      _extends = Object.assign ? Object.assign.bind() : function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+              target[key] = source[key];
+            }
+          }
+        }return target;
+      };return _extends.apply(this, arguments);
+    }
+
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+      } else {
+        obj[key] = value;
+      }return obj;
+    }
+
+    function _objectWithoutProperties(source, excluded) {
+      if (source == null) return {};var target = _objectWithoutPropertiesLoose(source, excluded);var key, i;if (Object.getOwnPropertySymbols) {
+        var sourceSymbolKeys = Object.getOwnPropertySymbols(source);for (i = 0; i < sourceSymbolKeys.length; i++) {
+          key = sourceSymbolKeys[i];if (excluded.indexOf(key) >= 0) continue;if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;target[key] = source[key];
+        }
+      }return target;
+    }
+
+    function _objectWithoutPropertiesLoose(source, excluded) {
+      if (source == null) return {};var target = {};var sourceKeys = Object.keys(source);var key, i;for (i = 0; i < sourceKeys.length; i++) {
+        key = sourceKeys[i];if (excluded.indexOf(key) >= 0) continue;target[key] = source[key];
+      }return target;
+    }
+
+    var ClayButton = /*#__PURE__*/_react.default.forwardRef(function (_ref, ref) {
+      var _childArray$0$type, _classNames;
+
+      var alert = _ref.alert,
+          block = _ref.block,
+          borderless = _ref.borderless,
+          children = _ref.children,
+          className = _ref.className,
+          _ref$displayType = _ref.displayType,
+          displayType = _ref$displayType === void 0 ? 'primary' : _ref$displayType,
+          monospaced = _ref.monospaced,
+          outline = _ref.outline,
+          rounded = _ref.rounded,
+          size = _ref.size,
+          small = _ref.small,
+          _ref$type = _ref.type,
+          type = _ref$type === void 0 ? 'button' : _ref$type,
+          otherProps = _objectWithoutProperties(_ref, _excluded);
+
+      var childArray = _react.default.Children.toArray(children);
+
+      (0, _warning.default)(!(childArray.length === 1 && // @ts-ignore
+      ((_childArray$0$type = childArray[0].type) === null || _childArray$0$type === void 0 ? void 0 : _childArray$0$type.displayName) === 'ClayIcon' && typeof otherProps['aria-label'] !== 'string' && typeof otherProps['aria-labelledby'] !== 'string'), 'Button Accessibility: Component has only the Icon declared. Define an `aria-label` or `aria-labelledby` attribute that labels the interactive button that screen readers can read. The `title` attribute is optional but consult your design team.');
+      return (/*#__PURE__*/_react.default.createElement("button", _extends({
+          className: (0, _classnames.default)(className, 'btn', (_classNames = {
+            'alert-btn': alert,
+            'btn-block': block,
+            'btn-monospaced': monospaced,
+            'btn-outline-borderless': borderless,
+            'btn-sm': small && !size
+          }, _defineProperty(_classNames, "btn-".concat(displayType), displayType && !outline && !borderless), _defineProperty(_classNames, "btn-outline-".concat(displayType), displayType && (outline || borderless)), _defineProperty(_classNames, 'rounded-pill', rounded), _defineProperty(_classNames, "btn-".concat(size), size), _classNames)),
+          ref: ref,
+          type: type
+        }, otherProps), children)
+      );
+    });
+
+    ClayButton.displayName = 'ClayButton';
+
+    var _default = Object.assign(ClayButton, {
+      Group: _Group.default
+    });
+
+    exports.default = _default;
+  }
+});
+//# sourceMappingURL=Button.js.map

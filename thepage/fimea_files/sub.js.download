@@ -1,0 +1,43 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/shared@3.89.0/lib/sub", ['module', 'exports', 'require'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.sub = void 0;
+
+    /**
+     * SPDX-FileCopyrightText: © 2019 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+    var SPLIT_REGEX = /({\d+})/g;
+    /**
+     * Utility function for substituting variables into language keys.
+     */
+
+    var sub = function sub(langKey, args) {
+      var keyArray = langKey.split(SPLIT_REGEX).filter(function (val) {
+        return val.length !== 0;
+      });
+
+      for (var i = 0; i < args.length; i++) {
+        var arg = args[i];
+        var indexKey = "{".concat(i, "}");
+        var argIndex = keyArray.indexOf(indexKey);
+
+        while (argIndex >= 0) {
+          keyArray.splice(argIndex, 1, arg.toString());
+          argIndex = keyArray.indexOf(indexKey);
+        }
+      }
+
+      return keyArray.join('');
+    };
+
+    exports.sub = sub;
+  }
+});
+//# sourceMappingURL=sub.js.map

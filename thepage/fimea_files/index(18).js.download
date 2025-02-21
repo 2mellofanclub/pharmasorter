@@ -1,0 +1,253 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/shared@3.89.0/lib/index", ['module', 'exports', 'require', './Portal', './delegate', './doAlign', './FocusScope', './getEllipsisItems', './Keys', './LinkOrButton', './MouseSafeArea', './observeRect', './Overlay', './setElementFullHeight', './sub', './useDebounce', './useFocusManagement', './useId', './useInteractionFocus', './useInternalState', './useMousePosition', './useNavigation', './useOverlayPositon', './useHover', './useIsMobileDevice', './platform'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    Object.defineProperty(exports, "ClayPortal", {
+      enumerable: true,
+      get: function get() {
+        return _Portal.ClayPortal;
+      }
+    });
+    Object.defineProperty(exports, "FOCUSABLE_ELEMENTS", {
+      enumerable: true,
+      get: function get() {
+        return _useFocusManagement.FOCUSABLE_ELEMENTS;
+      }
+    });
+    Object.defineProperty(exports, "FocusScope", {
+      enumerable: true,
+      get: function get() {
+        return _FocusScope.FocusScope;
+      }
+    });
+    Object.defineProperty(exports, "Keys", {
+      enumerable: true,
+      get: function get() {
+        return _Keys.Keys;
+      }
+    });
+    Object.defineProperty(exports, "LinkOrButton", {
+      enumerable: true,
+      get: function get() {
+        return _LinkOrButton.LinkOrButton;
+      }
+    });
+    Object.defineProperty(exports, "MouseSafeArea", {
+      enumerable: true,
+      get: function get() {
+        return _MouseSafeArea.MouseSafeArea;
+      }
+    });
+    Object.defineProperty(exports, "Overlay", {
+      enumerable: true,
+      get: function get() {
+        return _Overlay.Overlay;
+      }
+    });
+    Object.defineProperty(exports, "delegate", {
+      enumerable: true,
+      get: function get() {
+        return _delegate.delegate;
+      }
+    });
+    Object.defineProperty(exports, "doAlign", {
+      enumerable: true,
+      get: function get() {
+        return _doAlign.doAlign;
+      }
+    });
+    Object.defineProperty(exports, "getEllipsisItems", {
+      enumerable: true,
+      get: function get() {
+        return _getEllipsisItems.getEllipsisItems;
+      }
+    });
+    Object.defineProperty(exports, "getFocusableList", {
+      enumerable: true,
+      get: function get() {
+        return _useNavigation.getFocusableList;
+      }
+    });
+    Object.defineProperty(exports, "isAppleDevice", {
+      enumerable: true,
+      get: function get() {
+        return _platform.isAppleDevice;
+      }
+    });
+    Object.defineProperty(exports, "isIOS", {
+      enumerable: true,
+      get: function get() {
+        return _platform.isIOS;
+      }
+    });
+    Object.defineProperty(exports, "isIPad", {
+      enumerable: true,
+      get: function get() {
+        return _platform.isIPad;
+      }
+    });
+    Object.defineProperty(exports, "isIPhone", {
+      enumerable: true,
+      get: function get() {
+        return _platform.isIPhone;
+      }
+    });
+    Object.defineProperty(exports, "isMac", {
+      enumerable: true,
+      get: function get() {
+        return _platform.isMac;
+      }
+    });
+    Object.defineProperty(exports, "isTypeahead", {
+      enumerable: true,
+      get: function get() {
+        return _useNavigation.isTypeahead;
+      }
+    });
+    exports.noop = void 0;
+    Object.defineProperty(exports, "observeRect", {
+      enumerable: true,
+      get: function get() {
+        return _observeRect.observeRect;
+      }
+    });
+    Object.defineProperty(exports, "setElementFullHeight", {
+      enumerable: true,
+      get: function get() {
+        return _setElementFullHeight.setElementFullHeight;
+      }
+    });
+    Object.defineProperty(exports, "sub", {
+      enumerable: true,
+      get: function get() {
+        return _sub.sub;
+      }
+    });
+    Object.defineProperty(exports, "useDebounce", {
+      enumerable: true,
+      get: function get() {
+        return _useDebounce.useDebounce;
+      }
+    });
+    Object.defineProperty(exports, "useFocusManagement", {
+      enumerable: true,
+      get: function get() {
+        return _useFocusManagement.useFocusManagement;
+      }
+    });
+    Object.defineProperty(exports, "useFocusVisible", {
+      enumerable: true,
+      get: function get() {
+        return _useInteractionFocus.useFocusVisible;
+      }
+    });
+    Object.defineProperty(exports, "useHover", {
+      enumerable: true,
+      get: function get() {
+        return _useHover.useHover;
+      }
+    });
+    Object.defineProperty(exports, "useId", {
+      enumerable: true,
+      get: function get() {
+        return _useId.useId;
+      }
+    });
+    Object.defineProperty(exports, "useInteractionFocus", {
+      enumerable: true,
+      get: function get() {
+        return _useInteractionFocus.useInteractionFocus;
+      }
+    });
+    Object.defineProperty(exports, "useInternalState", {
+      enumerable: true,
+      get: function get() {
+        return _useInternalState.useInternalState;
+      }
+    });
+    Object.defineProperty(exports, "useIsMobileDevice", {
+      enumerable: true,
+      get: function get() {
+        return _useIsMobileDevice.useIsMobileDevice;
+      }
+    });
+    Object.defineProperty(exports, "useMousePosition", {
+      enumerable: true,
+      get: function get() {
+        return _useMousePosition.useMousePosition;
+      }
+    });
+    Object.defineProperty(exports, "useNavigation", {
+      enumerable: true,
+      get: function get() {
+        return _useNavigation.useNavigation;
+      }
+    });
+    Object.defineProperty(exports, "useOverlayPosition", {
+      enumerable: true,
+      get: function get() {
+        return _useOverlayPositon.useOverlayPosition;
+      }
+    });
+
+    var _Portal = require("./Portal");
+
+    var _delegate = require("./delegate");
+
+    var _doAlign = require("./doAlign");
+
+    var _FocusScope = require("./FocusScope");
+
+    var _getEllipsisItems = require("./getEllipsisItems");
+
+    var _Keys = require("./Keys");
+
+    var _LinkOrButton = require("./LinkOrButton");
+
+    var _MouseSafeArea = require("./MouseSafeArea");
+
+    var _observeRect = require("./observeRect");
+
+    var _Overlay = require("./Overlay");
+
+    var _setElementFullHeight = require("./setElementFullHeight");
+
+    var _sub = require("./sub");
+
+    var _useDebounce = require("./useDebounce");
+
+    var _useFocusManagement = require("./useFocusManagement");
+
+    var _useId = require("./useId");
+
+    var _useInteractionFocus = require("./useInteractionFocus");
+
+    var _useInternalState = require("./useInternalState");
+
+    var _useMousePosition = require("./useMousePosition");
+
+    var _useNavigation = require("./useNavigation");
+
+    var _useOverlayPositon = require("./useOverlayPositon");
+
+    var _useHover = require("./useHover");
+
+    var _useIsMobileDevice = require("./useIsMobileDevice");
+
+    var _platform = require("./platform");
+
+    /**
+     * SPDX-FileCopyrightText: © 2019 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+    var noop = function noop() {};
+
+    exports.noop = noop;
+  }
+});
+//# sourceMappingURL=index.js.map

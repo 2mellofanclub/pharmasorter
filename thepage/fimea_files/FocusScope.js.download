@@ -1,0 +1,143 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/shared@3.89.0/lib/FocusScope", ['module', 'exports', 'require', 'frontend-js-react-web$react', './Keys', './useFocusManagement'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.FocusScope = void 0;
+
+    var _react = _interopRequireWildcard(require("frontend-js-react-web$react"));
+
+    var _Keys = require("./Keys");
+
+    var _useFocusManagement = require("./useFocusManagement");
+
+    function _getRequireWildcardCache(nodeInterop) {
+      if (typeof WeakMap !== "function") return null;var cacheBabelInterop = new WeakMap();var cacheNodeInterop = new WeakMap();return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) {
+        return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
+      })(nodeInterop);
+    }
+
+    function _interopRequireWildcard(obj, nodeInterop) {
+      if (!nodeInterop && obj && obj.__esModule) {
+        return obj;
+      }if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {
+        return { default: obj };
+      }var cache = _getRequireWildcardCache(nodeInterop);if (cache && cache.has(obj)) {
+        return cache.get(obj);
+      }var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {
+        if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
+          var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {
+            Object.defineProperty(newObj, key, desc);
+          } else {
+            newObj[key] = obj[key];
+          }
+        }
+      }newObj.default = obj;if (cache) {
+        cache.set(obj, newObj);
+      }return newObj;
+    }
+
+    function _typeof(obj) {
+      "@babel/helpers - typeof";
+      return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+        return typeof obj;
+      } : function (obj) {
+        return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      }, _typeof(obj);
+    }
+
+    /**
+     * The context helps to identify if the FocusScope is being declared nested, to
+     * avoid focus being controlled by more than one focus manager, we stop event
+     * propagation to prevent the parent focus generator from doing anything.
+     */
+    var FocusConflictContext = /*#__PURE__*/_react.default.createContext(false);
+    /**
+     * FocusScope is a component only for controlling focus and listening
+     * for children's key down events, since the component handles the `onKeyDown`
+     * event.
+     */
+
+    var FocusScope = function FocusScope(_ref) {
+      var _ref$arrowKeysLeftRig = _ref.arrowKeysLeftRight,
+          arrowKeysLeftRight = _ref$arrowKeysLeftRig === void 0 ? false : _ref$arrowKeysLeftRig,
+          _ref$arrowKeysUpDown = _ref.arrowKeysUpDown,
+          arrowKeysUpDown = _ref$arrowKeysUpDown === void 0 ? true : _ref$arrowKeysUpDown,
+          children = _ref.children,
+          onFocus = _ref.onFocus;
+
+      var elRef = _react.default.useRef(null);
+
+      var focusManager = (0, _useFocusManagement.useFocusManagement)(elRef);
+      var hasParentFocus = (0, _react.useContext)(FocusConflictContext);
+
+      var _onKeyDown = function onKeyDown(event) {
+        var key = event.key,
+            shiftKey = event.shiftKey;
+
+        if (arrowKeysUpDown && key === _Keys.Keys.Down || arrowKeysLeftRight && key === _Keys.Keys.Right || key === _Keys.Keys.Tab && !shiftKey) {
+          var next = focusManager.focusNext();
+
+          if (next) {
+            event.preventDefault();
+
+            if (onFocus) {
+              onFocus(next);
+            }
+          }
+        } else if (arrowKeysUpDown && key === _Keys.Keys.Up || arrowKeysLeftRight && key === _Keys.Keys.Left || key === _Keys.Keys.Tab && shiftKey) {
+          var previous = focusManager.focusPrevious();
+
+          if (previous) {
+            event.preventDefault();
+
+            if (onFocus) {
+              onFocus(previous);
+            }
+          }
+        }
+      };
+
+      var child = typeof children === 'function' ? children(focusManager) : children;
+      return (/*#__PURE__*/_react.default.createElement(FocusConflictContext.Provider, {
+          value: true
+        }, /*#__PURE__*/_react.default.cloneElement(child, {
+          onKeyDown: function onKeyDown(event) {
+            if (hasParentFocus) {
+              event.stopPropagation();
+            } // If the element already exists a `onKeyDown` event should
+            // invoke it as well.
+
+
+            if (child.props.onKeyDown) {
+              child.props.onKeyDown(event);
+            }
+
+            _onKeyDown(event);
+          },
+          ref: function ref(r) {
+            if (r) {
+              elRef.current = r;
+              var _ref2 = child.ref;
+
+              if (_ref2) {
+                if (_typeof(_ref2) === 'object') {
+                  _ref2.current = r;
+                } else if (typeof _ref2 === 'function') {
+                  _ref2(r);
+                }
+              }
+            }
+          }
+        }))
+      );
+    };
+
+    exports.FocusScope = FocusScope;
+  }
+});
+//# sourceMappingURL=FocusScope.js.map

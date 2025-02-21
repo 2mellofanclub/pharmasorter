@@ -1,0 +1,31 @@
+Liferay.Loader.define("frontend-js-web@4.0.59/liferay/util/get_element", ['module', 'exports', 'require', './get_dom'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = getElement;
+
+    var _get_dom = _interopRequireDefault(require("./get_dom"));
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    /**
+     * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+     * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+     */
+
+    /**
+     * @deprecated As of Athanasius (7.3.x), with no direct replacement
+     */
+    function getElement(element) {
+      var currentElement = (0, _get_dom.default)(element);
+      return typeof currentElement === 'string' ? document.querySelector(currentElement) : currentElement.jquery ? currentElement[0] : currentElement;
+    }
+    //# sourceMappingURL=get_element.js.map
+  }
+});
+//# sourceMappingURL=get_element.js.map

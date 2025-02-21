@@ -1,0 +1,196 @@
+/**
+ * Social share buttons jquery plugin, By default injects print, twitter,
+ * linkedin and mail share buttons. Data attributes as parameters.
+ *
+ * Params in html element:
+ *  - data-buttons:
+ *  -- Define share buttons. Possible values facebook, twitter, linkedin, mail, print.
+ *
+ *  - data-shareUrl (optional):
+ *  -- Define share url, default window.location, example data-share-url="www.google.fi"
+ *
+ *  - data-title (optional):
+ *  -- Define title of the shared item. Default title element text.
+ *
+ *  - data-text (optional):
+ *  -- Intro text
+ *
+ *  Params as function arguments:
+ *  {
+ *      buttons: ['buttonValueString'],
+ *      shareUrl: string (optional),
+ *      title: string (optional),
+ *      text: string (optional),
+ *      style: string (optional), normal(default)|big
+ *  }
+ *
+ * Usage in html element example:
+ *
+ * <div class=“social-share-buttons”
+ *   data-shareUrl=“${viewURL}”
+ *   data-title=“${article.getTitle(locale)}”
+ *   data-buttons="facebook,twitter"
+ * ></div>
+ *
+ * Minimal:
+ * <div class=“social-share-buttons” data-buttons="facebook,twitter"></div>
+ *
+ * Usage with
+ */
+(function ($) {
+    var linkedInShareUrl = "https://www.linkedin.com/shareArticle?mini=true&url=";
+    var twitterShareUrl = "https://twitter.com/intent/tweet?url=";
+    var facebookShareUrl = "https://www.facebook.com/sharer/sharer.php?u=";
+
+    $(document).ready(function () {
+        var socialShareButtons = $(".social-share-buttons");
+        if (socialShareButtons.length > 0) {
+            socialShareButtons.socialShareButtons();
+        }
+    });
+
+    $.fn.socialShareButtons = (function (shareOptions) {
+        var options = getSocialShareOptions(this, shareOptions);
+
+        var shareUrl = encodeURIComponent(getShareUrl(options.shareUrl));
+
+        var title = options.title;
+        if (title === undefined) {
+            title = $("title").text();
+        }
+
+        var text = options.text;
+        if (text !== undefined) {
+            this.append("<span class='share-introduction'>" + text + "</span>")
+        }
+
+        this.addClass("social-share-buttons");
+
+        if (options.style == "big") {
+            this.addClass("big");
+        }
+
+        options.buttons.forEach(function (item) {
+            switch (item) {
+                case "facebook":
+                    this.append(getShareHtml(
+                        facebookShareUrl + shareUrl,
+                        "",
+                        "fab fa-facebook-square share-icon",
+                        'facebook-share-aria-label',
+                        "facebook-button popup"
+                    ));
+                    break;
+                case "twitter":
+                    this.append(getShareHtml(
+                        twitterShareUrl + shareUrl + "&text=" + title,
+                        "",
+                        "fab fa-twitter-square share-icon",
+                        'twitter-share-aria-label',
+                        "twitter-button popup"
+                    ));
+                    break;
+                case "linkedin":
+                    this.append(getShareHtml(
+                        linkedInShareUrl + shareUrl,
+                        "_blank",
+                        "fab fa-linkedin share-icon",
+                        'linkedin-share-aria-label',
+                        "linkedin-button"
+                    ));
+                    break;
+                case "mail":
+                    this.append(getShareHtml(
+                        "mailto:?subject=" + title + "&body=" + shareUrl,
+                        "_self",
+                        "fas fa-envelope-square share-icon",
+                        'email-share-aria-label',
+                        "mail-button"
+                    ));
+                    break;
+                case "print":
+                    this.append(getShareHtml("javascript:window.print()",
+                        "",
+                        "fas fa-print share-icon",
+                        'print-share-aria-label',
+                        "print-button"
+                    ));
+                    break;
+            }
+        }, this);
+
+        this.children(".social-share-button.popup").click(function (event) {
+            popupCentered($(this).attr("href"),"","500","500", null);
+            return false;
+        });
+
+        // Support share buttons inside of a link
+        this.children(".social-share-button:not(.popup)").click(function (event) {
+            event.stopPropagation();
+        });
+    });
+
+    function getSocialShareOptions(element, options) {
+        if (options === undefined) {
+            return {
+                title: element.data("title"),
+                shareUrl: element.data("shareUrl"),
+                buttons: getButtons(element.data("buttons")),
+                text: element.data("text")
+            }
+        } else {
+            return options;
+        }
+    }
+
+    function getShareUrl(shareUrl) {
+        var url;
+        if (shareUrl === undefined) {
+            url = window.location;
+            // Append protocol, domain and port in case we try to share url in context
+        } else if (shareUrl.length > 0 && shareUrl.charAt(0) == "/") {
+            url = window.location.protocol + "//"
+                + window.location.hostname
+                + (window.location.port ? ":" + window.location.port : "")
+                + shareUrl;
+        }
+
+        return url;
+    }
+
+    function getButtons(buttons) {
+        return buttons.split(",");
+    }
+
+    function getShareHtml(link, target, iconClass, ariaLabel, buttonCss) {
+        return '<a class="social-share-button ' + buttonCss + '" href="' + link + '"' + 'target="' + target + '"'
+            + 'aria-label="' + ariaLabel + '" ><em class="' + iconClass + '"></em></a>'
+    }
+
+    // https://stackoverflow.com/questions/16363474/window-open-on-a-multi-monitor-dual-monitor-system-where-does-window-pop-up
+    function popupCentered(url, title, w, h, opts) {
+        var _innerOpts = '';
+        if(opts !== null && typeof opts === 'object' ){
+            for (var p in opts ) {
+                if (opts.hasOwnProperty(p)) {
+                    _innerOpts += p + '=' + opts[p] + ',';
+                }
+            }
+        }
+        // Fixes dual-screen position, Most browsers, Firefox
+        var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
+        var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+
+        var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+        var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+        var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+        var top = ((height / 2) - (h / 2)) + dualScreenTop;
+        var newWindow = window.open(url, title, _innerOpts + ' width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+        // Puts focus on the newWindow
+        if (window.focus) {
+            newWindow.focus();
+        }
+    }
+})(jQuery);

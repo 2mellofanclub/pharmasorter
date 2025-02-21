@@ -1,0 +1,56 @@
+Liferay.Loader.define("frontend-js-web@4.0.59/liferay/throttle.es", ['module', 'exports', 'require'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = throttle;
+
+    /**
+     * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+     * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+     */
+
+    /**
+     * Throttle implementation that fires on the leading and trailing edges.
+     * If multiple calls come in during the throttle interval, the last call's
+     * arguments and context are used, replacing those of any previously pending
+     * calls.
+     *
+     * @param {!function()} fn
+     * @param {number} interval
+     * @return {!function()}
+     */
+    function throttle(fn, interval) {
+      var timeout = null;
+      var last;
+      return function () {
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        var context = this;
+        var now = Date.now();
+
+        var schedule = function schedule() {
+          timeout = setTimeout(function () {
+            timeout = null;
+          }, interval);
+          last = now;
+          fn.apply(context, args);
+        };
+
+        if (timeout === null) {
+          schedule();
+        } else {
+          var remaining = Math.max(last + interval - now, 0);
+          clearTimeout(timeout);
+          timeout = setTimeout(schedule, remaining);
+        }
+      };
+    }
+    //# sourceMappingURL=throttle.es.js.map
+  }
+});
+//# sourceMappingURL=throttle.es.js.map

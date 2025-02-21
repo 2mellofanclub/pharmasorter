@@ -1,0 +1,126 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/shared@3.89.0/lib/useInteractOutside", ['module', 'exports', 'require', 'frontend-js-react-web$react'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.useInteractOutside = useInteractOutside;
+
+    var _react = require("frontend-js-react-web$react");
+
+    /**
+     * SPDX-FileCopyrightText: © 2022 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+
+    /**
+     * Code ported with some minor modifications
+     * https://github.com/adobe/react-spectrum/blob/810579b671791f1593108f62cdc1893de3a220e3/packages/%40react-aria/interactions/src/useInteractOutside.ts
+     */
+    function useInteractOutside(_ref) {
+      var _ref$isDisabled = _ref.isDisabled,
+          isDisabled = _ref$isDisabled === void 0 ? false : _ref$isDisabled,
+          onInteract = _ref.onInteract,
+          onInteractStart = _ref.onInteractStart,
+          ref = _ref.ref,
+          triggerRef = _ref.triggerRef;
+      var stateRef = (0, _react.useRef)({
+        ignoreEmulatedMouseEvents: false,
+        isPointerDown: false,
+        onInteract: onInteract
+      });
+      var state = stateRef.current;
+      state.onInteract = onInteract;
+      (0, _react.useEffect)(function () {
+        if (isDisabled) {
+          return;
+        }
+
+        var onPointerDown = function onPointerDown(event) {
+          if (isValidEvent(event, ref, triggerRef) && state.onInteract) {
+            if (onInteractStart) {
+              onInteractStart(event);
+            }
+
+            state.isPointerDown = true;
+          }
+        }; // Use pointer events if available. Otherwise, fall back to mouse and touch events.
+
+
+        if (typeof PointerEvent !== 'undefined') {
+          var onPointerUp = function onPointerUp(event) {
+            if (state.isPointerDown && state.onInteract && isValidEvent(event, ref, triggerRef)) {
+              state.isPointerDown = false;
+              state.onInteract(event);
+            }
+          };
+
+          document.addEventListener('pointerdown', onPointerDown, true);
+          document.addEventListener('pointerup', onPointerUp, true);
+          return function () {
+            document.removeEventListener('pointerdown', onPointerDown, true);
+            document.removeEventListener('pointerup', onPointerUp, true);
+          };
+        } else {
+          var onMouseUp = function onMouseUp(event) {
+            if (state.ignoreEmulatedMouseEvents) {
+              state.ignoreEmulatedMouseEvents = false;
+            } else if (state.isPointerDown && state.onInteract && isValidEvent(event, ref, triggerRef)) {
+              state.isPointerDown = false;
+              state.onInteract(event);
+            }
+          };
+
+          var onTouchEnd = function onTouchEnd(event) {
+            state.ignoreEmulatedMouseEvents = true;
+
+            if (state.onInteract && state.isPointerDown && isValidEvent(event, ref, triggerRef)) {
+              state.isPointerDown = false;
+              state.onInteract(event);
+            }
+          };
+
+          document.addEventListener('mousedown', onPointerDown, true);
+          document.addEventListener('mouseup', onMouseUp, true);
+          document.addEventListener('touchstart', onPointerDown, true);
+          document.addEventListener('touchend', onTouchEnd, true);
+          return function () {
+            document.removeEventListener('mousedown', onPointerDown, true);
+            document.removeEventListener('mouseup', onMouseUp, true);
+            document.removeEventListener('touchstart', onPointerDown, true);
+            document.removeEventListener('touchend', onTouchEnd, true);
+          };
+        }
+      }, [ref, state, isDisabled]);
+    }
+
+    function isValidEvent(event, ref, trigger) {
+      // @ts-ignore
+      if (event.button > 0) {
+        return false;
+      } // if the event target is no longer in the document
+
+
+      if (event.target) {
+        // @ts-ignore
+        var ownerDocument = event.target.ownerDocument;
+
+        if (!ownerDocument || !ownerDocument.documentElement.contains(event.target)) {
+          return false;
+        }
+      } // We disregard the trigger click because we already have an event that
+      // toggles the state of the overlay on the trigger.
+
+
+      if (trigger.current && trigger.current.contains(event.target)) {
+        return false;
+      }
+
+      return ref.current && !ref.current.contains(event.target);
+    }
+  }
+});
+//# sourceMappingURL=useInteractOutside.js.map

@@ -1,0 +1,81 @@
+Liferay.Loader.define("frontend-js-react-web@4.0.22/js/hooks/useThunk.es", ['module', 'exports', 'require', 'frontend-js-react-web', 'frontend-js-react-web$react'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = useThunk;
+
+    var _frontendJsReactWeb = require("frontend-js-react-web");
+
+    var _react = _interopRequireDefault(require("frontend-js-react-web$react"));
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _slicedToArray(arr, i) {
+      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+    }
+
+    function _nonIterableRest() {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance");
+    }
+
+    function _iterableToArrayLimit(arr, i) {
+      if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+        return;
+      }var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i["return"] != null) _i["return"]();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }
+
+    function _arrayWithHoles(arr) {
+      if (Array.isArray(arr)) return arr;
+    }
+
+    var useRef = _react.default.useRef;
+    /**
+     * "Middleware" hook intended to wrap `useReducer` that enables you to dispatch
+     * thunks (ie. functions that dispatch actions) as well as plain actions (ie.
+     * objects).
+     */
+
+    function useThunk(_ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          state = _ref2[0],
+          dispatch = _ref2[1];
+
+      var isMounted = (0, _frontendJsReactWeb.useIsMounted)(); // Use a ref to ensure our `dispatch` is stable across renders, just
+      // like the React-provided `dispatch` that we're wrapping.
+
+      var thunkDispatch = useRef(function (action) {
+        if (isMounted()) {
+          if (typeof action === 'function') {
+            return action(function (payload) {
+              if (isMounted()) {
+                dispatch(payload);
+              }
+            });
+          } else {
+            dispatch(action);
+          }
+        }
+      });
+      return [state, thunkDispatch.current];
+    }
+    //# sourceMappingURL=useThunk.es.js.map
+  }
+});
+//# sourceMappingURL=useThunk.es.js.map

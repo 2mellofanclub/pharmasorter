@@ -1,0 +1,283 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/shared@3.89.0/lib/useNavigation", ['module', 'exports', 'require', 'frontend-js-react-web$react', './Keys', './useFocusManagement'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.getFocusableList = getFocusableList;
+    exports.isTypeahead = isTypeahead;
+    exports.useNavigation = useNavigation;
+
+    var _react = require("frontend-js-react-web$react");
+
+    var _Keys = require("./Keys");
+
+    var _useFocusManagement = require("./useFocusManagement");
+
+    function _toConsumableArray(arr) {
+      return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+    }
+
+    function _nonIterableSpread() {
+      throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+
+    function _unsupportedIterableToArray(o, minLen) {
+      if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+    }
+
+    function _iterableToArray(iter) {
+      if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+    }
+
+    function _arrayWithoutHoles(arr) {
+      if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+    }
+
+    function _arrayLikeToArray(arr, len) {
+      if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {
+        arr2[i] = arr[i];
+      }return arr2;
+    }
+
+    var verticalKeys = [_Keys.Keys.Up, _Keys.Keys.Down, _Keys.Keys.Home, _Keys.Keys.End];
+    var horizontalKeys = [_Keys.Keys.Left, _Keys.Keys.Right, _Keys.Keys.Home, _Keys.Keys.End];
+
+    function useNavigation(_ref) {
+      var _ref$activation = _ref.activation,
+          activation = _ref$activation === void 0 ? 'manual' : _ref$activation,
+          active = _ref.active,
+          containerRef = _ref.containerRef,
+          _ref$focusableElement = _ref.focusableElements,
+          focusableElements = _ref$focusableElement === void 0 ? _useFocusManagement.FOCUSABLE_ELEMENTS : _ref$focusableElement,
+          _ref$loop = _ref.loop,
+          loop = _ref$loop === void 0 ? false : _ref$loop,
+          onNavigate = _ref.onNavigate,
+          _ref$orientation = _ref.orientation,
+          orientation = _ref$orientation === void 0 ? 'horizontal' : _ref$orientation,
+          _ref$typeahead = _ref.typeahead,
+          typeahead = _ref$typeahead === void 0 ? false : _ref$typeahead,
+          _ref$visible = _ref.visible,
+          visible = _ref$visible === void 0 ? false : _ref$visible;
+      var timeoutIdRef = (0, _react.useRef)();
+      var stringRef = (0, _react.useRef)('');
+      var prevIndexRef = (0, _react.useRef)(-1);
+      var matchIndexRef = (0, _react.useRef)(null); // An event can be scheduled when the content is not visible in the DOM, it
+      // will be executed in sequence after the element is visible in the DOM.
+
+      var pendingEventStack = (0, _react.useRef)([]);
+      (0, _react.useEffect)(function () {
+        if (!visible) {
+          clearTimeout(timeoutIdRef.current);
+          matchIndexRef.current = null;
+          stringRef.current = '';
+        }
+      }, [visible]);
+      var accessibilityFocus = (0, _react.useCallback)(function (tab, tabs) {
+        onNavigate(tab, tabs ? tabs.indexOf(tab) : null);
+        var child = containerRef.current.firstElementChild;
+
+        if (isScrollable(child)) {
+          maintainScrollVisibility(tab, child);
+        }
+
+        if (!isElementInView(tab)) {
+          tab.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest'
+          });
+        }
+      }, []);
+      var onKeyDown = (0, _react.useCallback)(function (event) {
+        if (!containerRef.current) {
+          event.persist();
+          pendingEventStack.current.push(event);
+          return;
+        }
+
+        var keys = orientation === 'vertical' ? verticalKeys : horizontalKeys;
+        var alternativeKeys = orientation === 'vertical' ? horizontalKeys : verticalKeys;
+
+        if (keys.includes(event.key) || typeahead && !alternativeKeys.includes(event.key)) {
+          var tabs = getFocusableList(containerRef, focusableElements);
+          var tab;
+
+          switch (event.key) {
+            case _Keys.Keys.Left:
+            case _Keys.Keys.Right:
+            case _Keys.Keys.Down:
+            case _Keys.Keys.Up:
+              {
+                var activeElement = document.activeElement;
+                var position = tabs.indexOf(activeElement);
+
+                if (typeof active === 'string') {
+                  position = tabs.findIndex(function (element) {
+                    return element.getAttribute('id') === active;
+                  });
+                }
+
+                if (position === -1) {
+                  break;
+                }
+
+                var key = orientation === 'vertical' ? _Keys.Keys.Up : _Keys.Keys.Left;
+                tab = tabs[event.key === key ? position - 1 : position + 1];
+
+                if (loop && !tab) {
+                  tab = tabs[event.key === key ? tabs.length - 1 : 0];
+                }
+
+                break;
+              }
+
+            case _Keys.Keys.Home:
+            case _Keys.Keys.End:
+              tab = tabs[event.key === _Keys.Keys.Home ? 0 : tabs.length - 1];
+              break;
+
+            default:
+              {
+                var target = event.target;
+
+                if (!typeahead || target.tagName === 'INPUT' || event.key === _Keys.Keys.Tab) {
+                  return;
+                }
+
+                if (event.currentTarget && !event.currentTarget.contains(target)) {
+                  return;
+                }
+
+                if (stringRef.current.length > 0 && stringRef.current[0] !== _Keys.Keys.Spacebar) {
+                  if (event.key === _Keys.Keys.Spacebar) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                  }
+                }
+
+                if (event.key.length !== 1 || event.ctrlKey || event.metaKey || event.altKey) {
+                  return;
+                }
+
+                event.stopPropagation();
+
+                if (stringRef.current === event.key) {
+                  stringRef.current = '';
+                  prevIndexRef.current = matchIndexRef.current;
+                }
+
+                stringRef.current += event.key;
+                clearTimeout(timeoutIdRef.current);
+                timeoutIdRef.current = setTimeout(function () {
+                  stringRef.current = '';
+                  prevIndexRef.current = matchIndexRef.current;
+                }, 1000);
+                var prevIndex = prevIndexRef.current;
+                var orderedList = [].concat(_toConsumableArray(tabs.slice((prevIndex !== null && prevIndex !== void 0 ? prevIndex : 0) + 1)), _toConsumableArray(tabs.slice(0, (prevIndex !== null && prevIndex !== void 0 ? prevIndex : 0) + 1)));
+                tab = orderedList.find(function (element) {
+                  var _ref2, _element$innerText;
+
+                  return ((_ref2 = (_element$innerText = element.innerText) !== null && _element$innerText !== void 0 ? _element$innerText : element.textContent) === null || _ref2 === void 0 ? void 0 : _ref2.toLowerCase().indexOf(stringRef.current.toLocaleLowerCase())) === 0;
+                });
+
+                if (tab) {
+                  matchIndexRef.current = tabs.indexOf(tab);
+                }
+
+                break;
+              }
+          }
+
+          if (tab) {
+            event.preventDefault();
+
+            if (onNavigate) {
+              accessibilityFocus(tab, tabs);
+            } else {
+              tab.focus();
+            }
+
+            if (activation === 'automatic') {
+              tab.click();
+            }
+          }
+        }
+      }, [active]);
+      (0, _react.useEffect)(function () {
+        // Moves the scroll to the element with visual "focus" if it exists.
+        if (visible && containerRef.current && active && onNavigate) {
+          var child = containerRef.current.firstElementChild;
+          var activeElement = document.getElementById(active);
+
+          if (activeElement && isScrollable(child)) {
+            maintainScrollVisibility(activeElement, child);
+          }
+        }
+      }, [visible]);
+      (0, _react.useEffect)(function () {
+        if (visible && pendingEventStack.current.length !== 0) {
+          for (var _index = 0; _index < pendingEventStack.current.length; _index++) {
+            var event = pendingEventStack.current.shift();
+            onKeyDown(event);
+          }
+        }
+      }, [visible]);
+
+      return {
+        accessibilityFocus: accessibilityFocus,
+        navigationProps: {
+          onKeyDown: onKeyDown
+        }
+      };
+    }
+
+    function getFocusableList(containeRef) {
+      var focusableElements = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _useFocusManagement.FOCUSABLE_ELEMENTS;
+
+      if (!containeRef.current) {
+        return [];
+      }
+
+      return Array.from(containeRef.current.querySelectorAll(focusableElements.join(','))).filter(function (element) {
+        return (0, _useFocusManagement.isFocusable)({
+          contentEditable: element.contentEditable,
+          disabled: element.getAttribute('disabled') !== null,
+          offsetParent: element.offsetParent,
+          tabIndex: 0,
+          tagName: element.tagName
+        });
+      });
+    }
+
+    function isTypeahead(event) {
+      return event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey;
+    }
+
+    function isElementInView(element) {
+      var bounding = element.getBoundingClientRect();
+      return bounding.top >= 0 && bounding.left >= 0 && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) && bounding.right <= (window.innerWidth || document.documentElement.clientWidth);
+    }
+
+    function isScrollable(element) {
+      return element && element.clientHeight < element.scrollHeight;
+    }
+
+    function maintainScrollVisibility(activeElement, scrollParent) {
+      var offsetHeight = activeElement.offsetHeight,
+          offsetTop = activeElement.offsetTop;
+      var parentOffsetHeight = scrollParent.offsetHeight,
+          scrollTop = scrollParent.scrollTop;
+
+
+      if (offsetTop < scrollTop) {
+        scrollParent.scrollTo(0, offsetTop);
+      } else if (offsetTop + offsetHeight > scrollTop + parentOffsetHeight) {
+        scrollParent.scrollTo(0, offsetTop - parentOffsetHeight + offsetHeight);
+      }
+    }
+  }
+});
+//# sourceMappingURL=useNavigation.js.map

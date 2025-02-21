@@ -1,0 +1,105 @@
+Liferay.Loader.define("frontend-js-web@4.0.59/liferay/autosize/autosize.es", ['module', 'exports', 'require'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = void 0;
+
+    function _classCallCheck(instance, Constructor) {
+      if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+      }
+    }
+
+    function _defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    function _createClass(Constructor, protoProps, staticProps) {
+      if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;
+    }
+
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+      } else {
+        obj[key] = value;
+      }return obj;
+    }
+
+    /**
+     * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+     * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+     */
+    var DEFAULT_APPEND_CONTENT = '&nbsp;&nbsp;';
+
+    var AutoSize = /*#__PURE__*/function () {
+      function AutoSize(inputElement) {
+        var _this = this;
+
+        _classCallCheck(this, AutoSize);
+
+        _defineProperty(this, "handleInput", function (event) {
+          requestAnimationFrame(function () {
+            _this._resizeInput(event.target);
+          });
+        });
+
+        this.inputElement = inputElement;
+        this.computedStyle = getComputedStyle(this.inputElement);
+        this.minHeight = parseInt(this.computedStyle.height.replace('px', ''), 10);
+        this.template = this.createTemplate(this.computedStyle);
+        document.body.appendChild(this.template);
+        this.inputElement.addEventListener('input', this.handleInput);
+
+        this._resizeInput(this.inputElement);
+      }
+
+      _createClass(AutoSize, [{
+        key: "createTemplate",
+        value: function createTemplate(computedStyle) {
+          var template = document.createElement('pre');
+          template.style.clip = 'rect(0, 0, 0, 0) !important';
+          template.style.left = '0';
+          template.style.overflowWrap = 'break-word';
+          template.style.position = 'absolute';
+          template.style.top = '0';
+          template.style.transform = 'scale(0)';
+          template.style.whiteSpace = 'pre-wrap';
+          template.style.wordBreak = 'break-word';
+          template.style.fontFamily = computedStyle.fontFamily;
+          template.style.fontSize = computedStyle.fontSize;
+          template.style.fontStyle = computedStyle.fontStyle;
+          template.style.fontWeight = computedStyle.fontWeight;
+          template.style.lineHeight = computedStyle.lineHeight;
+          template.style.letterSpacing = computedStyle.letterSpacing;
+          template.style.textTransform = computedStyle.textTransform;
+          template.style.width = computedStyle.width;
+          template.textContent = DEFAULT_APPEND_CONTENT;
+          return template;
+        }
+      }, {
+        key: "_resizeInput",
+        value: function _resizeInput(inputElement) {
+          if (this.template.style.width !== this.computedStyle.width) {
+            this.template.style.width = this.computedStyle.width;
+          }
+
+          this.template.innerHTML = Liferay.Util.escapeHTML(inputElement.value) + DEFAULT_APPEND_CONTENT;
+          inputElement.style.height = "".concat(this.template.scrollHeight < this.minHeight ? this.minHeight : this.template.scrollHeight, "px");
+        }
+      }]);
+
+      return AutoSize;
+    }();
+
+    var _default = AutoSize;
+    exports.default = _default;
+    //# sourceMappingURL=autosize.es.js.map
+  }
+});
+//# sourceMappingURL=autosize.es.js.map

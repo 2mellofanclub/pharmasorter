@@ -1,0 +1,29 @@
+Liferay.Loader.define("frontend-js-web@4.0.59/liferay/util/get_portlet_id", ['module', 'exports', 'require'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = getPortletId;
+
+    /**
+     * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+     * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+     */
+
+    /**
+     * Returns the portlet Id extracted from the provided portletId query parameter
+     * @param {!string} portletId The portletId query parameter to extract the portletId from in the form of `_p_p_id_portletId_`
+     * @return {string} Portlet ID
+     * @review
+     */
+    var REGEX_PORTLET_ID = /^(?:p_p_id)?_(.*)_.*$/;
+
+    function getPortletId(portletId) {
+      return portletId.replace(REGEX_PORTLET_ID, '$1');
+    }
+    //# sourceMappingURL=get_portlet_id.js.map
+  }
+});
+//# sourceMappingURL=get_portlet_id.js.map

@@ -1,0 +1,55 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/shared@3.89.0/lib/observeRect", ['module', 'exports', 'require'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.observeRect = void 0;
+
+    /**
+     * SPDX-FileCopyrightText: © 2021 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+    var rectAttrs = ['bottom', 'height', 'left', 'right', 'top', 'width'];
+
+    var rectChanged = function rectChanged() {
+      var a = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return rectAttrs.some(function (prop) {
+        return a[prop] !== b[prop];
+      });
+    };
+
+    var rafId;
+
+    var run = function run(node, state) {
+      var newRect = node.getBoundingClientRect();
+
+      if (rectChanged(newRect, state.rect)) {
+        state.rect = newRect;
+        state.callback(state.rect);
+      }
+
+      rafId = window.requestAnimationFrame(function () {
+        return run(node, state);
+      });
+    };
+
+    var observeRect = function observeRect(node, callback) {
+      run(node, {
+        callback: callback,
+        hasRectChanged: false,
+        rect: undefined
+      });
+      return function () {
+        cancelAnimationFrame(rafId);
+      };
+    };
+
+    exports.observeRect = observeRect;
+  }
+});
+//# sourceMappingURL=observeRect.js.map

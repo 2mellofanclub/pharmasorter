@@ -1,0 +1,100 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/provider@3.77.0/lib/LRUCache", ['module', 'exports', 'require'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.LRUCache = void 0;
+
+    function _classCallCheck(instance, Constructor) {
+      if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+      }
+    }
+
+    function _defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    function _createClass(Constructor, protoProps, staticProps) {
+      if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);Object.defineProperty(Constructor, "prototype", { writable: false });return Constructor;
+    }
+
+    /**
+     * SPDX-FileCopyrightText: © 2019 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+    var DEFAULT_MAX_SIZE = 20;
+
+    var LRUCache = /*#__PURE__*/function () {
+      function LRUCache() {
+        var maxSize = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : DEFAULT_MAX_SIZE;
+
+        _classCallCheck(this, LRUCache);
+
+        if (maxSize <= 0) {
+          throw new TypeError('LRUCache: max must be a non-negative number');
+        }
+
+        this._maxSize = maxSize;
+        this._storage = new Map();
+      }
+
+      _createClass(LRUCache, [{
+        key: "reset",
+        value: function reset() {
+          this._storage = new Map();
+          return this._storage;
+        }
+      }, {
+        key: "has",
+        value: function has(key) {
+          return this._storage.has(key);
+        }
+      }, {
+        key: "get",
+        value: function get(key) {
+          if (this._storage.has(key)) {
+            var value = this._storage.get(key);
+
+            this._storage.delete(key);
+
+            this._storage.set(key, value);
+
+            return value;
+          }
+        }
+      }, {
+        key: "set",
+        value: function set(key, value) {
+          if (this._storage.size >= this._maxSize) {
+            var iterator = this._storage.keys();
+
+            var count = this._maxSize - (this._storage.size - 1);
+
+            while (count) {
+              var _iterator$next = iterator.next(),
+                  _value = _iterator$next.value;
+
+              this._storage.delete(_value);
+
+              count--;
+            }
+          }
+
+          this._storage.set(key, value);
+        }
+      }]);
+
+      return LRUCache;
+    }();
+
+    exports.LRUCache = LRUCache;
+  }
+});
+//# sourceMappingURL=LRUCache.js.map

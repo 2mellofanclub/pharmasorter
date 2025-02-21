@@ -1,0 +1,120 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/form@3.89.0/lib/Toggle", ['module', 'exports', 'require', '@frontend-taglib-clay$clayui/icon', 'frontend-taglib-clay$classnames', 'frontend-js-react-web$react'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = void 0;
+
+    var _icon = _interopRequireDefault(require("@frontend-taglib-clay$clayui/icon"));
+
+    var _classnames = _interopRequireDefault(require("frontend-taglib-clay$classnames"));
+
+    var _react = _interopRequireDefault(require("frontend-js-react-web$react"));
+
+    var _excluded = ["checked", "containerProps", "disabled", "id", "label", "onChange", "onToggle", "spritemap", "symbol", "toggled", "type", "value"];
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _extends() {
+      _extends = Object.assign ? Object.assign.bind() : function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+              target[key] = source[key];
+            }
+          }
+        }return target;
+      };return _extends.apply(this, arguments);
+    }
+
+    function _objectWithoutProperties(source, excluded) {
+      if (source == null) return {};var target = _objectWithoutPropertiesLoose(source, excluded);var key, i;if (Object.getOwnPropertySymbols) {
+        var sourceSymbolKeys = Object.getOwnPropertySymbols(source);for (i = 0; i < sourceSymbolKeys.length; i++) {
+          key = sourceSymbolKeys[i];if (excluded.indexOf(key) >= 0) continue;if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;target[key] = source[key];
+        }
+      }return target;
+    }
+
+    function _objectWithoutPropertiesLoose(source, excluded) {
+      if (source == null) return {};var target = {};var sourceKeys = Object.keys(source);var key, i;for (i = 0; i < sourceKeys.length; i++) {
+        key = sourceKeys[i];if (excluded.indexOf(key) >= 0) continue;target[key] = source[key];
+      }return target;
+    }
+
+    var ClayToggle = /*#__PURE__*/_react.default.forwardRef(function (_ref, ref) {
+      var checked = _ref.checked,
+          _ref$containerProps = _ref.containerProps,
+          containerProps = _ref$containerProps === void 0 ? {} : _ref$containerProps,
+          disabled = _ref.disabled,
+          id = _ref.id,
+          label = _ref.label,
+          _onChange = _ref.onChange,
+          onToggle = _ref.onToggle,
+          spritemap = _ref.spritemap,
+          symbol = _ref.symbol,
+          toggled = _ref.toggled,
+          _ref$type = _ref.type,
+          type = _ref$type === void 0 ? 'checkbox' : _ref$type,
+          value = _ref.value,
+          otherProps = _objectWithoutProperties(_ref, _excluded);
+
+      if (type === 'radio') {
+        toggled = checked;
+      }
+
+      return (/*#__PURE__*/_react.default.createElement("label", _extends({}, containerProps, {
+          className: (0, _classnames.default)('toggle-switch', 'simple-toggle-switch', containerProps.className, {
+            disabled: disabled
+          }),
+          ref: ref
+        }), /*#__PURE__*/_react.default.createElement("span", {
+          className: "toggle-switch-check-bar"
+        }, /*#__PURE__*/_react.default.createElement("input", _extends({}, otherProps, {
+          checked: toggled,
+          className: "toggle-switch-check",
+          disabled: disabled,
+          id: id,
+          onChange: function onChange(event) {
+            if (_onChange) {
+              _onChange(event);
+            }
+
+            if (onToggle) {
+              onToggle(!toggled);
+            }
+          },
+          type: type,
+          value: value
+        })), /*#__PURE__*/_react.default.createElement("span", {
+          "aria-hidden": "true",
+          className: "toggle-switch-bar"
+        }, /*#__PURE__*/_react.default.createElement("span", {
+          className: "toggle-switch-handle"
+        }, symbol && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("span", {
+          className: (0, _classnames.default)('button-icon', 'button-icon-on', 'toggle-switch-icon')
+        }, /*#__PURE__*/_react.default.createElement(_icon.default, {
+          spritemap: spritemap,
+          symbol: symbol.on
+        })), /*#__PURE__*/_react.default.createElement("span", {
+          className: (0, _classnames.default)('button-icon', 'button-icon-off', 'toggle-switch-icon')
+        }, /*#__PURE__*/_react.default.createElement(_icon.default, {
+          spritemap: spritemap,
+          symbol: symbol.off
+        })))))), label && /*#__PURE__*/_react.default.createElement("span", {
+          className: "toggle-switch-label"
+        }, label))
+      );
+    });
+
+    ClayToggle.displayName = 'ClayToggle';
+    var _default = ClayToggle;
+    exports.default = _default;
+  }
+});
+//# sourceMappingURL=Toggle.js.map

@@ -1,0 +1,88 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/layout@3.65.1/lib/Col", ['module', 'exports', 'require', 'frontend-taglib-clay$classnames', 'frontend-js-react-web$react'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = void 0;
+
+    var _classnames = _interopRequireDefault(require("frontend-taglib-clay$classnames"));
+
+    var _react = _interopRequireDefault(require("frontend-js-react-web$react"));
+
+    var _excluded = ["children", "className", "containerElement", "lg", "md", "size", "sm", "xl", "xs"];
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _extends() {
+      _extends = Object.assign || function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+              target[key] = source[key];
+            }
+          }
+        }return target;
+      };return _extends.apply(this, arguments);
+    }
+
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+      } else {
+        obj[key] = value;
+      }return obj;
+    }
+
+    function _objectWithoutProperties(source, excluded) {
+      if (source == null) return {};var target = _objectWithoutPropertiesLoose(source, excluded);var key, i;if (Object.getOwnPropertySymbols) {
+        var sourceSymbolKeys = Object.getOwnPropertySymbols(source);for (i = 0; i < sourceSymbolKeys.length; i++) {
+          key = sourceSymbolKeys[i];if (excluded.indexOf(key) >= 0) continue;if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;target[key] = source[key];
+        }
+      }return target;
+    }
+
+    function _objectWithoutPropertiesLoose(source, excluded) {
+      if (source == null) return {};var target = {};var sourceKeys = Object.keys(source);var key, i;for (i = 0; i < sourceKeys.length; i++) {
+        key = sourceKeys[i];if (excluded.indexOf(key) >= 0) continue;target[key] = source[key];
+      }return target;
+    }
+
+    var ClayCol = /*#__PURE__*/_react.default.forwardRef(function (_ref, ref) {
+      var _classNames;
+
+      var children = _ref.children,
+          className = _ref.className,
+          _ref$containerElement = _ref.containerElement,
+          ContainerElement = _ref$containerElement === void 0 ? 'div' : _ref$containerElement,
+          lg = _ref.lg,
+          md = _ref.md,
+          size = _ref.size,
+          sm = _ref.sm,
+          xl = _ref.xl,
+          xs = _ref.xs,
+          otherProps = _objectWithoutProperties(_ref, _excluded);
+
+      var noBreakPoints = !lg && !md && !sm && !xs && !xl && !size;
+      xs = xs || size;
+      return (/*#__PURE__*/_react.default.createElement(ContainerElement, _extends({}, otherProps, {
+          className: (0, _classnames.default)(className, (_classNames = {
+            col: noBreakPoints,
+            'col-lg': lg === true
+          }, _defineProperty(_classNames, "col-lg-".concat(lg), lg && typeof lg !== 'boolean'), _defineProperty(_classNames, 'col-md', md === true), _defineProperty(_classNames, "col-md-".concat(md), md && typeof md !== 'boolean'), _defineProperty(_classNames, 'col-sm', sm === true), _defineProperty(_classNames, "col-sm-".concat(sm), sm && typeof sm !== 'boolean'), _defineProperty(_classNames, "col-".concat(xs), xs && typeof xs !== 'boolean'), _defineProperty(_classNames, 'col-xl', xl === true), _defineProperty(_classNames, "col-xl-".concat(xl), xl && typeof xl !== 'boolean'), _classNames)),
+          ref: ref
+        }), children)
+      );
+    });
+
+    ClayCol.displayName = 'ClayCol';
+    var _default = ClayCol;
+    exports.default = _default;
+  }
+});
+//# sourceMappingURL=Col.js.map

@@ -1,0 +1,40 @@
+Liferay.Loader.define("frontend-js-react-web@4.0.22/js/hooks/useEventListener.es", ['module', 'exports', 'require', 'frontend-js-react-web$react'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = useEventListener;
+
+    var _react = require("frontend-js-react-web$react");
+
+    /**
+     * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+     * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+     */
+
+    /**
+     * Hook for adding an event listener on mount and removing it on
+     * unmount.
+     *
+     * Note that in general you should be using React's built-in delegated
+     * event handling (ie. via `onclick`, `onfocus` etc attributes). This
+     * hook is for those rarer cases where you need to attach a listener
+     * outside of your component's DOM (eg. attaching a "scroll" or "resize"
+     * listener to the `window`).
+     */
+    function useEventListener(eventName, handler, phase, target) {
+      (0, _react.useEffect)(function () {
+        if (target) {
+          target.addEventListener(eventName, handler, phase);
+          return function () {
+            target.removeEventListener(eventName, handler, phase);
+          };
+        }
+      }, [eventName, handler, phase, target]);
+    }
+    //# sourceMappingURL=useEventListener.es.js.map
+  }
+});
+//# sourceMappingURL=useEventListener.es.js.map

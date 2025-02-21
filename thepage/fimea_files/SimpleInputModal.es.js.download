@@ -1,0 +1,299 @@
+Liferay.Loader.define("frontend-js-web@4.0.59/liferay/modal/components/SimpleInputModal.es", ['module', 'exports', 'require', '@frontend-taglib-clay$clayui/alert', '@frontend-taglib-clay$clayui/button', '@frontend-taglib-clay$clayui/form', '@frontend-taglib-clay$clayui/icon', '@frontend-taglib-clay$clayui/modal', 'frontend-js-react-web', 'frontend-js-web', 'frontend-js-react-web$react'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    function _typeof(obj) {
+      "@babel/helpers - typeof";
+      if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+        _typeof = function _typeof(obj) {
+          return typeof obj;
+        };
+      } else {
+        _typeof = function _typeof(obj) {
+          return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+        };
+      }return _typeof(obj);
+    }
+
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = void 0;
+
+    var _alert = _interopRequireDefault(require("@frontend-taglib-clay$clayui/alert"));
+
+    var _button = _interopRequireDefault(require("@frontend-taglib-clay$clayui/button"));
+
+    var _form = require("@frontend-taglib-clay$clayui/form");
+
+    var _icon = _interopRequireDefault(require("@frontend-taglib-clay$clayui/icon"));
+
+    var _modal = _interopRequireWildcard(require("@frontend-taglib-clay$clayui/modal"));
+
+    var _frontendJsReactWeb = require("frontend-js-react-web");
+
+    var _frontendJsWeb = require("frontend-js-web");
+
+    var _react = _interopRequireWildcard(require("frontend-js-react-web$react"));
+
+    function _getRequireWildcardCache() {
+      if (typeof WeakMap !== "function") return null;var cache = new WeakMap();_getRequireWildcardCache = function _getRequireWildcardCache() {
+        return cache;
+      };return cache;
+    }
+
+    function _interopRequireWildcard(obj) {
+      if (obj && obj.__esModule) {
+        return obj;
+      }if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {
+        return { default: obj };
+      }var cache = _getRequireWildcardCache();if (cache && cache.has(obj)) {
+        return cache.get(obj);
+      }var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+          var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {
+            Object.defineProperty(newObj, key, desc);
+          } else {
+            newObj[key] = obj[key];
+          }
+        }
+      }newObj.default = obj;if (cache) {
+        cache.set(obj, newObj);
+      }return newObj;
+    }
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function ownKeys(object, enumerableOnly) {
+      var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {
+        var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {
+          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+        });keys.push.apply(keys, symbols);
+      }return keys;
+    }
+
+    function _objectSpread(target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {
+          ownKeys(Object(source), true).forEach(function (key) {
+            _defineProperty(target, key, source[key]);
+          });
+        } else if (Object.getOwnPropertyDescriptors) {
+          Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+        } else {
+          ownKeys(Object(source)).forEach(function (key) {
+            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+          });
+        }
+      }return target;
+    }
+
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+      } else {
+        obj[key] = value;
+      }return obj;
+    }
+
+    function _slicedToArray(arr, i) {
+      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+    }
+
+    function _nonIterableRest() {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance");
+    }
+
+    function _iterableToArrayLimit(arr, i) {
+      if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+        return;
+      }var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i["return"] != null) _i["return"]();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }
+
+    function _arrayWithHoles(arr) {
+      if (Array.isArray(arr)) return arr;
+    }
+
+    /**
+     * Manipulates small amounts of data with a form shown inside a modal.
+     */
+    var SimpleInputModal = function SimpleInputModal(_ref) {
+      var alert = _ref.alert,
+          checkboxFieldLabel = _ref.checkboxFieldLabel,
+          checkboxFieldName = _ref.checkboxFieldName,
+          checkboxFieldValue = _ref.checkboxFieldValue,
+          closeModal = _ref.closeModal,
+          dialogTitle = _ref.dialogTitle,
+          formSubmitURL = _ref.formSubmitURL,
+          idFieldName = _ref.idFieldName,
+          idFieldValue = _ref.idFieldValue,
+          initialVisible = _ref.initialVisible,
+          mainFieldLabel = _ref.mainFieldLabel,
+          mainFieldName = _ref.mainFieldName,
+          namespace = _ref.namespace,
+          onFormSuccess = _ref.onFormSuccess,
+          placeholder = _ref.placeholder;
+      var isMounted = (0, _frontendJsReactWeb.useIsMounted)();
+
+      var _useState = (0, _react.useState)(),
+          _useState2 = _slicedToArray(_useState, 2),
+          errorMessage = _useState2[0],
+          setErrorMessage = _useState2[1];
+
+      var _useState3 = (0, _react.useState)(false),
+          _useState4 = _slicedToArray(_useState3, 2),
+          loadingResponse = _useState4[0],
+          setLoadingResponse = _useState4[1];
+
+      var _useState5 = (0, _react.useState)(initialVisible),
+          _useState6 = _slicedToArray(_useState5, 2),
+          visible = _useState6[0],
+          setVisible = _useState6[1];
+
+      var _useState7 = (0, _react.useState)(''),
+          _useState8 = _slicedToArray(_useState7, 2),
+          inputValue = _useState8[0],
+          setInputValue = _useState8[1];
+
+      var _useState9 = (0, _react.useState)(checkboxFieldValue),
+          _useState10 = _slicedToArray(_useState9, 2),
+          isChecked = _useState10[0],
+          setChecked = _useState10[1];
+
+      var handleFormError = function handleFormError(responseContent) {
+        setErrorMessage(responseContent.error || '');
+      };
+
+      var _useModal = (0, _modal.useModal)({
+        onClose: function onClose() {
+          setVisible(false);
+          closeModal();
+        }
+      }),
+          observer = _useModal.observer,
+          onClose = _useModal.onClose;
+
+      return visible && /*#__PURE__*/_react.default.createElement(_modal.default, {
+        observer: observer,
+        size: "md"
+      }, /*#__PURE__*/_react.default.createElement(_modal.default.Header, null, dialogTitle), /*#__PURE__*/_react.default.createElement("form", {
+        id: "".concat(namespace, "form"),
+        onSubmit: function _handleSubmit(event) {
+          event.preventDefault();
+          var formData = new FormData(document.querySelector("#".concat(namespace, "form")));
+          (0, _frontendJsWeb.fetch)(formSubmitURL, {
+            body: formData,
+            method: 'POST'
+          }).then(function (response) {
+            return response.json();
+          }).then(function (responseContent) {
+            if (isMounted()) {
+              if (responseContent.error) {
+                setLoadingResponse(false);
+                handleFormError(responseContent);
+              } else {
+                setVisible(false);
+                closeModal();
+
+                if (responseContent.redirectURL) {
+                  (0, _frontendJsWeb.navigate)(responseContent.redirectURL);
+                } else {
+                  if (onFormSuccess) {
+                    onFormSuccess(_objectSpread(_objectSpread({}, responseContent), {}, {
+                      redirectURL: responseContent.redirectURL || ''
+                    }));
+                  }
+                }
+              }
+            }
+          }).catch(function (response) {
+            handleFormError(response);
+          });
+          setLoadingResponse(true);
+        }
+      }, /*#__PURE__*/_react.default.createElement(_modal.default.Body, null, alert && alert.message && alert.title && /*#__PURE__*/_react.default.createElement(_alert.default, {
+        displayType: alert.style,
+        title: alert.title
+      }, alert.message), /*#__PURE__*/_react.default.createElement("input", {
+        name: "".concat(namespace).concat(idFieldName),
+        type: "hidden",
+        value: idFieldValue
+      }), /*#__PURE__*/_react.default.createElement("div", {
+        className: "form-group ".concat(errorMessage ? 'has-error' : '')
+      }, /*#__PURE__*/_react.default.createElement("label", {
+        className: "control-label",
+        htmlFor: "".concat(namespace).concat(mainFieldName)
+      }, mainFieldLabel, /*#__PURE__*/_react.default.createElement("span", {
+        className: "reference-mark"
+      }, /*#__PURE__*/_react.default.createElement(_icon.default, {
+        symbol: "asterisk"
+      }))), /*#__PURE__*/_react.default.createElement("input", {
+        autoFocus: true,
+        className: "form-control",
+        disabled: loadingResponse,
+        id: "".concat(namespace).concat(mainFieldName),
+        name: "".concat(namespace).concat(mainFieldName),
+        onChange: function onChange(event) {
+          return setInputValue(event.target.value);
+        },
+        placeholder: placeholder,
+        required: true,
+        type: "text",
+        value: inputValue
+      }), errorMessage && /*#__PURE__*/_react.default.createElement("div", {
+        className: "form-feedback-item"
+      }, /*#__PURE__*/_react.default.createElement(_icon.default, {
+        className: "inline-item inline-item-before",
+        symbol: "exclamation-full"
+      }), errorMessage)), checkboxFieldName && checkboxFieldLabel && /*#__PURE__*/_react.default.createElement("div", {
+        className: "form-check"
+      }, /*#__PURE__*/_react.default.createElement(_form.ClayCheckbox, {
+        checked: isChecked,
+        disabled: loadingResponse,
+        label: checkboxFieldLabel,
+        name: "".concat(namespace).concat(checkboxFieldName),
+        onChange: function onChange() {
+          return setChecked(function (isChecked) {
+            return !isChecked;
+          });
+        }
+      }))), /*#__PURE__*/_react.default.createElement(_modal.default.Footer, {
+        last: /*#__PURE__*/_react.default.createElement(_button.default.Group, {
+          spaced: true
+        }, /*#__PURE__*/_react.default.createElement(_button.default, {
+          disabled: loadingResponse,
+          displayType: "secondary",
+          onClick: onClose
+        }, 'Peruuta'), /*#__PURE__*/_react.default.createElement(_button.default, {
+          disabled: loadingResponse,
+          displayType: "primary",
+          type: "submit"
+        }, loadingResponse && /*#__PURE__*/_react.default.createElement("span", {
+          className: "inline-item inline-item-before"
+        }, /*#__PURE__*/_react.default.createElement("span", {
+          "aria-hidden": "true",
+          className: "loading-animation"
+        })), 'Tallenna'))
+      })));
+    };
+
+    var _default = SimpleInputModal;
+    exports.default = _default;
+    //# sourceMappingURL=SimpleInputModal.es.js.map
+  }
+});
+//# sourceMappingURL=SimpleInputModal.es.js.map

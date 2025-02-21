@@ -1,0 +1,59 @@
+
+/* Check if datables is on the page */ 
+if(jQuery('.datatable').length){
+	jQuery('input[type="radio"]').on('click', function() {
+		var elem = jQuery(this),
+			text = elem.closest('label').text(),
+			lang = elem.closest('label').data('language'),
+			datatable = elem.closest('.datatable'),
+			rows = datatable.DataTable().rows().nodes();
+	
+		for (var i = 0; i < rows.length; i++) {
+			jQuery(rows[i]).removeClass('selected');
+			jQuery(rows[i]).find('input[type="radio"]').prop('checked', false);
+			
+		}
+		
+		elem.prop('checked', true);
+		//elem.closest('table').find('tr').removeClass('selected');
+		elem.closest('tr').addClass('selected');
+		
+		if(!jQuery('#linkedSites').length){
+			if(jQuery('#selectedPages .selectedPage[data-language="'+lang+'"]').length) {
+				jQuery('#selectedPages .selectedPage[data-language="'+lang+'"]').html('<strong>' + lang + ':</strong> ' + text);
+			} else {
+				jQuery('#selectedPages').append('<span class="selectedPage" data-language="' + lang + '"><strong>' + lang + ':</strong> ' + text + '</span>');
+			}
+		}
+	
+	});
+	var tables = jQuery('.datatable').DataTable({
+		aaSorting: [],
+		paging: false,
+		language: {
+		    "sProcessing":   "Hetkinen...",
+		    "sLengthMenu":   "Näytä kerralla _MENU_ riviä",
+		    "sZeroRecords":  "Tietoja ei löytynyt",
+		    "sInfo":         "Näytetään rivit _START_ - _END_ (yhteensä _TOTAL_)",
+		    "sInfoEmpty":    "Näytetään 0 - 0 (yhteensä 0)",
+		    "sInfoFiltered": "(suodatettu _MAX_ tuloksen joukosta)",
+		    "sInfoPostFix":  "",
+		    "sSearch":       "Etsi:",
+		    "sUrl":          "",
+		    "oPaginate": {
+		        "sFirst":    "Ensimmäinen",
+		        "sPrevious": "Edellinen",
+		        "sNext":     "Seuraava",
+		        "sLast":     "Viimeinen"
+		    }
+		}
+		
+	});
+
+
+} /* EOF if */
+if(jQuery('.chosen').length){
+	var chosen  = $(".chosen").chosen({
+		no_results_text: "Ei tuloksia"
+		});
+}

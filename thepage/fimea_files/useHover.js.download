@@ -1,0 +1,93 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/shared@3.89.0/lib/useHover", ['module', 'exports', 'require', 'frontend-js-react-web$react'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.useHover = useHover;
+
+    var _react = require("frontend-js-react-web$react");
+
+    /**
+     * SPDX-FileCopyrightText: © 2022 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+    // Handles pointer hover interactions for an element.
+    // Adapted from https://github.com/adobe/react-spectrum/blob/0182ad0748bcdddf7eb010540c453f9a35a7c753/packages/%40react-aria/interactions/src/useHover.ts
+    function useHover(_ref) {
+      var disabled = _ref.disabled,
+          onHover = _ref.onHover;
+      var state = (0, _react.useRef)({
+        isEmulatedMouseEvents: false,
+        isHovered: false,
+        pointerType: undefined,
+        target: null
+      }).current;
+      return (0, _react.useMemo)(function () {
+        var props = {};
+
+        var onStart = function onStart(event, pointerType) {
+          if (disabled || pointerType === 'touch' || state.isHovered || !event.currentTarget.contains(event.target)) {
+            return;
+          }
+
+          state.isHovered = true;
+          var target = event.currentTarget;
+          state.target = target;
+          onHover({
+            pointerType: pointerType,
+            target: target,
+            type: 'hoverstart'
+          });
+        };
+
+        var onEnd = function onEnd(pointerType) {
+          state.pointerType = undefined;
+          state.target = null;
+
+          if (pointerType === 'touch' || !state.isHovered) {
+            return;
+          }
+
+          state.isHovered = false;
+        };
+
+        if (typeof PointerEvent !== 'undefined') {
+          props.onPointerEnter = function (event) {
+            onStart(event, event.pointerType);
+          };
+
+          props.onPointerLeave = function (event) {
+            if (!disabled && event.currentTarget.contains(event.target)) {
+              onEnd(event.pointerType);
+            }
+          };
+        } else {
+          props.onTouchStart = function () {
+            state.isEmulatedMouseEvents = true;
+          };
+
+          props.onMouseEnter = function (event) {
+            if (!state.isEmulatedMouseEvents) {
+              onStart(event, 'mouse');
+            }
+
+            state.isEmulatedMouseEvents = false;
+          };
+
+          props.onMouseLeave = function (event) {
+            if (!disabled && event.currentTarget.contains(event.target)) {
+              onEnd('mouse');
+            }
+          };
+        }
+
+        return props;
+      }, [onHover]);
+    }
+  }
+});
+//# sourceMappingURL=useHover.js.map

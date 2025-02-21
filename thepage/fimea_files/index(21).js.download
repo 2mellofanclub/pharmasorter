@@ -1,0 +1,18 @@
+Liferay.Loader.define('frontend-js-react-web$prop-types@15.7.2/index', ['module', 'exports', 'require', './factoryWithThrowingShims'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    // By explicitly using `prop-types` you are opting into new production behavior.
+    // http://fb.me/prop-types-in-prod
+    /**
+     * Copyright (c) 2013-present, Facebook, Inc.
+     *
+     * This source code is licensed under the MIT license found in the
+     * LICENSE file in the root directory of this source tree.
+     */
+
+    module.exports = require('./factoryWithThrowingShims')();
+    var ReactIs, throwOnDirectAccess;
+  }
+});
+//# sourceMappingURL=index.js.map

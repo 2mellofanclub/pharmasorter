@@ -1,0 +1,273 @@
+Liferay.Loader.define("frontend-js-web@4.0.59/index.es", ['module', 'exports', 'require', './liferay/aop/AOP.es', './liferay/autosize/autosize.es', './liferay/debounce/debounce.es', './liferay/delegate/delegate.es', './liferay/util/form/object_to_form_data.es', './liferay/breakpoints', './liferay/CompatibilityEventProxy.es', './liferay/DefaultEventHandler.es', './liferay/ItemSelectorDialog.es', './liferay/PortletBase.es', './liferay/modal/Modal', './liferay/modal/commands/OpenSimpleInputModal.es', './liferay/util/portlet_url/create_action_url.es', './liferay/util/portlet_url/create_portlet_url.es', './liferay/util/portlet_url/create_render_url.es', './liferay/util/portlet_url/create_resource_url.es', './liferay/util/session.es', './liferay/toast/commands/OpenToast.es', './liferay/throttle.es', './liferay/util/add_params', './liferay/util/fetch.es', './liferay/util/focus_form_field', './liferay/util/get_portlet_id', './liferay/util/get_portlet_namespace.es', './liferay/util/in_browser_view', './liferay/util/is_phone', './liferay/util/is_tablet', './liferay/util/navigate.es', './liferay/util/normalize_friendly_url', './liferay/util/toggle_disabled'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    Object.defineProperty(exports, "AOP", {
+      enumerable: true,
+      get: function get() {
+        return _AOP.default;
+      }
+    });
+    Object.defineProperty(exports, "autoSize", {
+      enumerable: true,
+      get: function get() {
+        return _autosize.default;
+      }
+    });
+    Object.defineProperty(exports, "cancelDebounce", {
+      enumerable: true,
+      get: function get() {
+        return _debounce.cancelDebounce;
+      }
+    });
+    Object.defineProperty(exports, "debounce", {
+      enumerable: true,
+      get: function get() {
+        return _debounce.debounce;
+      }
+    });
+    Object.defineProperty(exports, "delegate", {
+      enumerable: true,
+      get: function get() {
+        return _delegate.default;
+      }
+    });
+    Object.defineProperty(exports, "objectToFormData", {
+      enumerable: true,
+      get: function get() {
+        return _object_to_form_data.default;
+      }
+    });
+    Object.defineProperty(exports, "BREAKPOINTS", {
+      enumerable: true,
+      get: function get() {
+        return _breakpoints.default;
+      }
+    });
+    Object.defineProperty(exports, "CompatibilityEventProxy", {
+      enumerable: true,
+      get: function get() {
+        return _CompatibilityEventProxy.default;
+      }
+    });
+    Object.defineProperty(exports, "DefaultEventHandler", {
+      enumerable: true,
+      get: function get() {
+        return _DefaultEventHandler.default;
+      }
+    });
+    Object.defineProperty(exports, "ItemSelectorDialog", {
+      enumerable: true,
+      get: function get() {
+        return _ItemSelectorDialog.default;
+      }
+    });
+    Object.defineProperty(exports, "PortletBase", {
+      enumerable: true,
+      get: function get() {
+        return _PortletBase.default;
+      }
+    });
+    Object.defineProperty(exports, "openModal", {
+      enumerable: true,
+      get: function get() {
+        return _Modal.openModal;
+      }
+    });
+    Object.defineProperty(exports, "openSelectionModal", {
+      enumerable: true,
+      get: function get() {
+        return _Modal.openSelectionModal;
+      }
+    });
+    Object.defineProperty(exports, "openSimpleInputModal", {
+      enumerable: true,
+      get: function get() {
+        return _OpenSimpleInputModal.default;
+      }
+    });
+    Object.defineProperty(exports, "createActionURL", {
+      enumerable: true,
+      get: function get() {
+        return _create_action_url.default;
+      }
+    });
+    Object.defineProperty(exports, "createPortletURL", {
+      enumerable: true,
+      get: function get() {
+        return _create_portlet_url.default;
+      }
+    });
+    Object.defineProperty(exports, "createRenderURL", {
+      enumerable: true,
+      get: function get() {
+        return _create_render_url.default;
+      }
+    });
+    Object.defineProperty(exports, "createResourceURL", {
+      enumerable: true,
+      get: function get() {
+        return _create_resource_url.default;
+      }
+    });
+    Object.defineProperty(exports, "getSessionValue", {
+      enumerable: true,
+      get: function get() {
+        return _session.getSessionValue;
+      }
+    });
+    Object.defineProperty(exports, "setSessionValue", {
+      enumerable: true,
+      get: function get() {
+        return _session.setSessionValue;
+      }
+    });
+    Object.defineProperty(exports, "openToast", {
+      enumerable: true,
+      get: function get() {
+        return _OpenToast.openToast;
+      }
+    });
+    Object.defineProperty(exports, "throttle", {
+      enumerable: true,
+      get: function get() {
+        return _throttle.default;
+      }
+    });
+    Object.defineProperty(exports, "addParams", {
+      enumerable: true,
+      get: function get() {
+        return _add_params.default;
+      }
+    });
+    Object.defineProperty(exports, "fetch", {
+      enumerable: true,
+      get: function get() {
+        return _fetch.default;
+      }
+    });
+    Object.defineProperty(exports, "focusFormField", {
+      enumerable: true,
+      get: function get() {
+        return _focus_form_field.default;
+      }
+    });
+    Object.defineProperty(exports, "getPortletId", {
+      enumerable: true,
+      get: function get() {
+        return _get_portlet_id.default;
+      }
+    });
+    Object.defineProperty(exports, "getPortletNamespace", {
+      enumerable: true,
+      get: function get() {
+        return _get_portlet_namespace.default;
+      }
+    });
+    Object.defineProperty(exports, "inBrowserView", {
+      enumerable: true,
+      get: function get() {
+        return _in_browser_view.default;
+      }
+    });
+    Object.defineProperty(exports, "isPhone", {
+      enumerable: true,
+      get: function get() {
+        return _is_phone.default;
+      }
+    });
+    Object.defineProperty(exports, "isTablet", {
+      enumerable: true,
+      get: function get() {
+        return _is_tablet.default;
+      }
+    });
+    Object.defineProperty(exports, "navigate", {
+      enumerable: true,
+      get: function get() {
+        return _navigate.default;
+      }
+    });
+    Object.defineProperty(exports, "normalizeFriendlyURL", {
+      enumerable: true,
+      get: function get() {
+        return _normalize_friendly_url.default;
+      }
+    });
+    Object.defineProperty(exports, "toggleDisabled", {
+      enumerable: true,
+      get: function get() {
+        return _toggle_disabled.default;
+      }
+    });
+
+    var _AOP = _interopRequireDefault(require("./liferay/aop/AOP.es"));
+
+    var _autosize = _interopRequireDefault(require("./liferay/autosize/autosize.es"));
+
+    var _debounce = require("./liferay/debounce/debounce.es");
+
+    var _delegate = _interopRequireDefault(require("./liferay/delegate/delegate.es"));
+
+    var _object_to_form_data = _interopRequireDefault(require("./liferay/util/form/object_to_form_data.es"));
+
+    var _breakpoints = _interopRequireDefault(require("./liferay/breakpoints"));
+
+    var _CompatibilityEventProxy = _interopRequireDefault(require("./liferay/CompatibilityEventProxy.es"));
+
+    var _DefaultEventHandler = _interopRequireDefault(require("./liferay/DefaultEventHandler.es"));
+
+    var _ItemSelectorDialog = _interopRequireDefault(require("./liferay/ItemSelectorDialog.es"));
+
+    var _PortletBase = _interopRequireDefault(require("./liferay/PortletBase.es"));
+
+    var _Modal = require("./liferay/modal/Modal");
+
+    var _OpenSimpleInputModal = _interopRequireDefault(require("./liferay/modal/commands/OpenSimpleInputModal.es"));
+
+    var _create_action_url = _interopRequireDefault(require("./liferay/util/portlet_url/create_action_url.es"));
+
+    var _create_portlet_url = _interopRequireDefault(require("./liferay/util/portlet_url/create_portlet_url.es"));
+
+    var _create_render_url = _interopRequireDefault(require("./liferay/util/portlet_url/create_render_url.es"));
+
+    var _create_resource_url = _interopRequireDefault(require("./liferay/util/portlet_url/create_resource_url.es"));
+
+    var _session = require("./liferay/util/session.es");
+
+    var _OpenToast = require("./liferay/toast/commands/OpenToast.es");
+
+    var _throttle = _interopRequireDefault(require("./liferay/throttle.es"));
+
+    var _add_params = _interopRequireDefault(require("./liferay/util/add_params"));
+
+    var _fetch = _interopRequireDefault(require("./liferay/util/fetch.es"));
+
+    var _focus_form_field = _interopRequireDefault(require("./liferay/util/focus_form_field"));
+
+    var _get_portlet_id = _interopRequireDefault(require("./liferay/util/get_portlet_id"));
+
+    var _get_portlet_namespace = _interopRequireDefault(require("./liferay/util/get_portlet_namespace.es"));
+
+    var _in_browser_view = _interopRequireDefault(require("./liferay/util/in_browser_view"));
+
+    var _is_phone = _interopRequireDefault(require("./liferay/util/is_phone"));
+
+    var _is_tablet = _interopRequireDefault(require("./liferay/util/is_tablet"));
+
+    var _navigate = _interopRequireDefault(require("./liferay/util/navigate.es"));
+
+    var _normalize_friendly_url = _interopRequireDefault(require("./liferay/util/normalize_friendly_url"));
+
+    var _toggle_disabled = _interopRequireDefault(require("./liferay/util/toggle_disabled"));
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+    //# sourceMappingURL=index.es.js.map
+  }
+});
+//# sourceMappingURL=index.es.js.map

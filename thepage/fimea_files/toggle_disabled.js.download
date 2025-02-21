@@ -1,0 +1,44 @@
+Liferay.Loader.define('frontend-js-web@4.0.59/liferay/util/toggle_disabled', ['module', 'exports', 'require'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = toggleDisabled;
+
+    /**
+     * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+     * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+     */
+
+    /**
+     * Toggles disabled class on received element
+     * @param nodes
+     * @param state
+     */
+    function toggleDisabled(nodes, state) {
+      if (typeof nodes === 'string') {
+        nodes = document.querySelectorAll(nodes);
+      } else if (nodes._node) {
+        nodes = [nodes._node];
+      } else if (nodes._nodes) {
+        nodes = nodes._nodes;
+      } else if (nodes.nodeType === Node.ELEMENT_NODE) {
+        nodes = [nodes];
+      }
+
+      nodes.forEach(function (node) {
+        node.disabled = state;
+
+        if (state) {
+          node.classList.add('disabled');
+        } else {
+          node.classList.remove('disabled');
+        }
+      });
+    }
+    //# sourceMappingURL=toggle_disabled.js.map
+  }
+});
+//# sourceMappingURL=toggle_disabled.js.map

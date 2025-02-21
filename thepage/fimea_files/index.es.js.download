@@ -1,0 +1,92 @@
+Liferay.Loader.define("frontend-js-react-web@4.0.22/js/index.es", ['module', 'exports', 'require', 'frontend-js-node-shims$process', './render.es', './hooks/useEventListener.es', './hooks/useInterval.es', './hooks/useIsMounted.es', './hooks/usePrevious.es', './hooks/useStateSafe.es', './hooks/useThunk.es', './hooks/useTimeout.es'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    Object.defineProperty(exports, "render", {
+      enumerable: true,
+      get: function get() {
+        return _render.default;
+      }
+    });
+    Object.defineProperty(exports, "useEventListener", {
+      enumerable: true,
+      get: function get() {
+        return _useEventListener.default;
+      }
+    });
+    Object.defineProperty(exports, "useInterval", {
+      enumerable: true,
+      get: function get() {
+        return _useInterval.default;
+      }
+    });
+    Object.defineProperty(exports, "useIsMounted", {
+      enumerable: true,
+      get: function get() {
+        return _useIsMounted.default;
+      }
+    });
+    Object.defineProperty(exports, "usePrevious", {
+      enumerable: true,
+      get: function get() {
+        return _usePrevious.default;
+      }
+    });
+    Object.defineProperty(exports, "useStateSafe", {
+      enumerable: true,
+      get: function get() {
+        return _useStateSafe.default;
+      }
+    });
+    Object.defineProperty(exports, "useThunk", {
+      enumerable: true,
+      get: function get() {
+        return _useThunk.default;
+      }
+    });
+    Object.defineProperty(exports, "useTimeout", {
+      enumerable: true,
+      get: function get() {
+        return _useTimeout.default;
+      }
+    });
+
+    var _process = _interopRequireDefault(require("frontend-js-node-shims$process"));
+
+    var _render = _interopRequireDefault(require("./render.es"));
+
+    var _useEventListener = _interopRequireDefault(require("./hooks/useEventListener.es"));
+
+    var _useInterval = _interopRequireDefault(require("./hooks/useInterval.es"));
+
+    var _useIsMounted = _interopRequireDefault(require("./hooks/useIsMounted.es"));
+
+    var _usePrevious = _interopRequireDefault(require("./hooks/usePrevious.es"));
+
+    var _useStateSafe = _interopRequireDefault(require("./hooks/useStateSafe.es"));
+
+    var _useThunk = _interopRequireDefault(require("./hooks/useThunk.es"));
+
+    var _useTimeout = _interopRequireDefault(require("./hooks/useTimeout.es"));
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    /**
+     * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+     * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+     */
+    // Egregious hack because react-dnd expects `window.process` to exist:
+    //
+    // https://github.com/react-dnd/asap/blob/b6bebeb734/src/node/asap.ts#L24
+    if (!window.process) {
+      window.process = _process.default;
+    }
+    //# sourceMappingURL=index.es.js.map
+  }
+});
+//# sourceMappingURL=index.es.js.map

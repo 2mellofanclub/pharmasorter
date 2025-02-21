@@ -1,0 +1,40 @@
+'use strict';
+
+Liferay.Loader.define('frontend-js-metal-web$metal-events@2.16.8/lib/events', ['module', 'exports', 'require', './EventEmitter', './EventEmitterProxy', './EventHandle', './EventHandler'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.EventHandler = exports.EventHandle = exports.EventEmitterProxy = exports.EventEmitter = undefined;
+
+    var _EventEmitter = require('./EventEmitter');
+
+    var _EventEmitter2 = _interopRequireDefault(_EventEmitter);
+
+    var _EventEmitterProxy = require('./EventEmitterProxy');
+
+    var _EventEmitterProxy2 = _interopRequireDefault(_EventEmitterProxy);
+
+    var _EventHandle = require('./EventHandle');
+
+    var _EventHandle2 = _interopRequireDefault(_EventHandle);
+
+    var _EventHandler = require('./EventHandler');
+
+    var _EventHandler2 = _interopRequireDefault(_EventHandler);
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    exports.default = _EventEmitter2.default;
+    exports.EventEmitter = _EventEmitter2.default;
+    exports.EventEmitterProxy = _EventEmitterProxy2.default;
+    exports.EventHandle = _EventHandle2.default;
+    exports.EventHandler = _EventHandler2.default;
+    //# sourceMappingURL=events.js.map
+  }
+});
+//# sourceMappingURL=events.js.map

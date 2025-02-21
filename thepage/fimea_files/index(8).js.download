@@ -1,0 +1,10 @@
+'use strict';
+
+Liferay.Loader.define('frontend-js-react-web$scheduler@0.18.0/index', ['module', 'exports', 'require', './cjs/scheduler.production.min'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    module.exports = require('./cjs/scheduler.production.min');
+  }
+});
+//# sourceMappingURL=index.js.map

@@ -1,0 +1,37 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/provider@3.77.0/lib/index", ['module', 'exports', 'require', './Provider', './DataClient'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var _exportNames = {
+      __UNSTABLE_DataClient: true
+    };
+    Object.defineProperty(exports, "__UNSTABLE_DataClient", {
+      enumerable: true,
+      get: function get() {
+        return _DataClient.DataClient;
+      }
+    });
+
+    var _Provider = require("./Provider");
+
+    Object.keys(_Provider).forEach(function (key) {
+      if (key === "default" || key === "__esModule") return;
+      if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+      if (key in exports && exports[key] === _Provider[key]) return;
+      Object.defineProperty(exports, key, {
+        enumerable: true,
+        get: function get() {
+          return _Provider[key];
+        }
+      });
+    });
+
+    var _DataClient = require("./DataClient");
+  }
+});
+//# sourceMappingURL=index.js.map

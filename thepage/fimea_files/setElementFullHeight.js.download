@@ -1,0 +1,33 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/shared@3.89.0/lib/setElementFullHeight", ['module', 'exports', 'require'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.setElementFullHeight = setElementFullHeight;
+
+    /**
+     * SPDX-FileCopyrightText: © 2021 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+
+    /**
+     * Adds a height style that triggers a transition when collapsed
+     */
+    function setElementFullHeight(element) {
+      if (element) {
+        var height = 0;
+
+        for (var i = 0; i < element.children.length; i++) {
+          height += element.children[i].clientHeight;
+        }
+
+        element.setAttribute('style', "height: ".concat(height, "px"));
+      }
+    }
+  }
+});
+//# sourceMappingURL=setElementFullHeight.js.map

@@ -1,0 +1,94 @@
+Liferay.Loader.define("frontend-js-web@4.0.59/liferay/util/portlet_url/create_portlet_url.es", ['module', 'exports', 'require', '../get_portlet_namespace.es'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = createPortletURL;
+
+    var _get_portlet_namespace = _interopRequireDefault(require("../get_portlet_namespace.es"));
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _typeof(obj) {
+      "@babel/helpers - typeof";
+      if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+        _typeof = function _typeof(obj) {
+          return typeof obj;
+        };
+      } else {
+        _typeof = function _typeof(obj) {
+          return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+        };
+      }return _typeof(obj);
+    }
+
+    var SCHEME_REGEXP = /^[a-z][a-z0-9+.-]*:/i;
+
+    function isAbsolute_(urlString) {
+      return SCHEME_REGEXP.test(urlString);
+    }
+    /**
+     * Returns a portlet URL in form of a URL Object
+     * @param {!string} basePortletURL The base portlet URL to be modified in this utility
+     * @param {object} parameters Search parameters to be added or changed in the base URL
+     * @return {URL} Portlet URL Object
+     * @review
+     */
+
+    function createPortletURL(basePortletURL) {
+      var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      if (typeof basePortletURL !== 'string') {
+        throw new TypeError('basePortletURL parameter must be a string');
+      }
+
+      if (!parameters || _typeof(parameters) !== 'object') {
+        throw new TypeError('parameters argument must be an object');
+      }
+
+      var reservedParameters = new Set(['doAsGroupId', 'doAsUserId', 'doAsUserLanguageId', 'p_auth', 'p_auth_secret', 'p_f_id', 'p_j_a_id', 'p_l_id', 'p_l_reset', 'p_p_auth', 'p_p_cacheability', 'p_p_i_id', 'p_p_id', 'p_p_isolated', 'p_p_lifecycle', 'p_p_mode', 'p_p_resource_id', 'p_p_state', 'p_p_state_rcv', 'p_p_static', 'p_p_url_type', 'p_p_width', 'p_t_lifecycle', 'p_v_l_s_g_id', 'refererGroupId', 'refererPlid', 'saveLastPath', 'scroll']);
+
+      if (basePortletURL.indexOf(Liferay.ThemeDisplay.getPortalURL()) !== 0 && !isAbsolute_(basePortletURL)) {
+        if (basePortletURL.indexOf('/') !== 0) {
+          basePortletURL = "".concat(Liferay.ThemeDisplay.getPortalURL(), "/").concat(basePortletURL);
+        } else {
+          basePortletURL = Liferay.ThemeDisplay.getPortalURL() + basePortletURL;
+        }
+      }
+
+      var portletURL = new URL(basePortletURL);
+      var urlSearchParams = new URLSearchParams(portletURL.search);
+      var portletID = parameters.p_p_id || urlSearchParams.get('p_p_id');
+
+      if (Object.entries(parameters).length && !portletID) {
+        throw new TypeError('Portlet ID must not be null if parameters are provided');
+      }
+
+      var namespace = '';
+
+      if (Object.entries(parameters).length) {
+        namespace = (0, _get_portlet_namespace.default)(portletID);
+      }
+
+      Object.keys(parameters).forEach(function (key) {
+        var param;
+
+        if (reservedParameters.has(key)) {
+          param = key;
+        } else {
+          param = "".concat(namespace).concat(key);
+        }
+
+        urlSearchParams.set(param, parameters[key]);
+      });
+      portletURL.search = urlSearchParams.toString();
+      return portletURL;
+    }
+    //# sourceMappingURL=create_portlet_url.es.js.map
+  }
+});
+//# sourceMappingURL=create_portlet_url.es.js.map

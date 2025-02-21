@@ -1,0 +1,25 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/shared@3.89.0/lib/useIsMobileDevice", ['module', 'exports', 'require'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.useIsMobileDevice = useIsMobileDevice;
+
+    /**
+     * SPDX-FileCopyrightText: © 2022 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+    function useIsMobileDevice() {
+      if (typeof window === 'undefined') {
+        return false;
+      }
+
+      return window.screen.width <= 700;
+    }
+  }
+});
+//# sourceMappingURL=useIsMobileDevice.js.map

@@ -1,0 +1,142 @@
+Liferay.Loader.define('frontend-js-tooltip-support-web@3.0.7/reducer', ['module', 'exports', 'require'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = reducer;
+    exports.STATES = void 0;
+
+    function ownKeys(object, enumerableOnly) {
+      var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {
+        var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {
+          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+        });keys.push.apply(keys, symbols);
+      }return keys;
+    }
+
+    function _objectSpread(target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {
+          ownKeys(Object(source), true).forEach(function (key) {
+            _defineProperty(target, key, source[key]);
+          });
+        } else if (Object.getOwnPropertyDescriptors) {
+          Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+        } else {
+          ownKeys(Object(source)).forEach(function (key) {
+            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+          });
+        }
+      }return target;
+    }
+
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+      } else {
+        obj[key] = value;
+      }return obj;
+    }
+
+    /**
+     * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+     * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+     */
+    var STATES = {
+      IDLE: {
+        show: false
+      },
+      SHOW: {
+        show: true
+      },
+      WAIT_HIDE: {
+        show: true
+      },
+      WAIT_RESHOW: {
+        show: true
+      },
+      WAIT_SHOW: {
+        show: false
+      }
+    };
+    exports.STATES = STATES;
+
+    function reducer(state, action) {
+      switch (action.type) {
+        case 'show':
+          if (state.current === STATES.IDLE) {
+            return _objectSpread(_objectSpread({}, state), {}, {
+              current: STATES.WAIT_SHOW,
+              target: action.target,
+              timestamp: Date.now()
+            });
+          } else if (state.current === STATES.WAIT_SHOW) {
+            return _objectSpread(_objectSpread({}, state), {}, {
+              target: action.target,
+              timestamp: Date.now()
+            });
+          } else if (state.current === STATES.WAIT_RESHOW) {
+            return _objectSpread(_objectSpread({}, state), {}, {
+              nextTarget: action.target,
+              timestamp: Date.now()
+            });
+          } else if (state.current === STATES.WAIT_HIDE) {
+            return _objectSpread(_objectSpread({}, state), {}, {
+              current: STATES.WAIT_RESHOW,
+              nextTarget: action.target
+            });
+          } else {
+            return _objectSpread(_objectSpread({}, state), {}, {
+              timestamp: Date.now()
+            });
+          }
+
+        case 'hideDelayCompleted':
+          if (state.current === STATES.WAIT_HIDE) {
+            return {
+              current: STATES.IDLE
+            };
+          }
+
+          break;
+
+        case 'showDelayCompleted':
+          if (state.current === STATES.WAIT_SHOW) {
+            return _objectSpread(_objectSpread({}, state), {}, {
+              current: STATES.SHOW
+            });
+          } else if (state.current === STATES.WAIT_RESHOW) {
+            return _objectSpread(_objectSpread({}, state), {}, {
+              current: STATES.SHOW,
+              target: state.nextTarget
+            });
+          }
+
+          break;
+
+        case 'hide':
+          if (state.current === STATES.WAIT_SHOW) {
+            return {
+              current: STATES.IDLE
+            };
+          } else if (state.current === STATES.SHOW || state.current === STATES.WAIT_RESHOW) {
+            return _objectSpread(_objectSpread({}, state), {}, {
+              current: STATES.WAIT_HIDE,
+              timestamp: Date.now()
+            });
+          }
+
+          break;
+
+        default:
+          return state;
+      }
+
+      return state;
+    }
+    //# sourceMappingURL=reducer.js.map
+  }
+});
+//# sourceMappingURL=reducer.js.map

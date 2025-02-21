@@ -1,0 +1,171 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/alert@3.5.0/lib/index", ['module', 'exports', 'require', '@frontend-taglib-clay$clayui/icon', '@frontend-taglib-clay$clayui/layout', 'frontend-taglib-clay$classnames', 'frontend-js-react-web$react', './Footer', './ToastContainer'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = void 0;
+
+    var _icon = _interopRequireDefault(require("@frontend-taglib-clay$clayui/icon"));
+
+    var _layout = _interopRequireDefault(require("@frontend-taglib-clay$clayui/layout"));
+
+    var _classnames = _interopRequireDefault(require("frontend-taglib-clay$classnames"));
+
+    var _react = _interopRequireDefault(require("frontend-js-react-web$react"));
+
+    var _Footer = _interopRequireDefault(require("./Footer"));
+
+    var _ToastContainer = _interopRequireDefault(require("./ToastContainer"));
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _extends() {
+      _extends = Object.assign || function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+              target[key] = source[key];
+            }
+          }
+        }return target;
+      };return _extends.apply(this, arguments);
+    }
+
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+      } else {
+        obj[key] = value;
+      }return obj;
+    }
+
+    function _objectWithoutProperties(source, excluded) {
+      if (source == null) return {};var target = _objectWithoutPropertiesLoose(source, excluded);var key, i;if (Object.getOwnPropertySymbols) {
+        var sourceSymbolKeys = Object.getOwnPropertySymbols(source);for (i = 0; i < sourceSymbolKeys.length; i++) {
+          key = sourceSymbolKeys[i];if (excluded.indexOf(key) >= 0) continue;if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;target[key] = source[key];
+        }
+      }return target;
+    }
+
+    function _objectWithoutPropertiesLoose(source, excluded) {
+      if (source == null) return {};var target = {};var sourceKeys = Object.keys(source);var key, i;for (i = 0; i < sourceKeys.length; i++) {
+        key = sourceKeys[i];if (excluded.indexOf(key) >= 0) continue;target[key] = source[key];
+      }return target;
+    }
+
+    var useAutoClose = function useAutoClose(autoClose) {
+      var onClose = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+
+      var startedTime = _react.default.useRef(0);
+
+      var timer = _react.default.useRef(undefined);
+
+      var timeToClose = _react.default.useRef(autoClose === true ? 10000 : autoClose);
+
+      var pauseTimer = function pauseTimer() {};
+
+      var startTimer = function startTimer() {};
+
+      if (autoClose) {
+        pauseTimer = function pauseTimer() {
+          if (timer.current) {
+            timeToClose.current = timeToClose.current - (Date.now() - startedTime.current);
+            clearTimeout(timer.current);
+            timer.current = undefined;
+          }
+        };
+
+        startTimer = function startTimer() {
+          startedTime.current = Date.now();
+          timer.current = window.setTimeout(onClose, timeToClose.current);
+        };
+      }
+
+      _react.default.useEffect(function () {
+        if (autoClose && onClose) {
+          startTimer();
+          return pauseTimer;
+        }
+      }, []);
+
+      return {
+        pauseAutoCloseTimer: pauseTimer,
+        startAutoCloseTimer: startTimer
+      };
+    };
+
+    var ICON_MAP = {
+      danger: 'exclamation-full',
+      info: 'info-circle',
+      success: 'check-circle-full',
+      warning: 'warning-full'
+    };
+
+    var ClayAlert = function ClayAlert(_ref) {
+      var autoClose = _ref.autoClose,
+          children = _ref.children,
+          className = _ref.className,
+          _ref$displayType = _ref.displayType,
+          displayType = _ref$displayType === void 0 ? 'info' : _ref$displayType,
+          _ref$hideCloseIcon = _ref.hideCloseIcon,
+          hideCloseIcon = _ref$hideCloseIcon === void 0 ? false : _ref$hideCloseIcon,
+          onClose = _ref.onClose,
+          spritemap = _ref.spritemap,
+          title = _ref.title,
+          variant = _ref.variant,
+          otherProps = _objectWithoutProperties(_ref, ["autoClose", "children", "className", "displayType", "hideCloseIcon", "onClose", "spritemap", "title", "variant"]);
+
+      var _useAutoClose = useAutoClose(autoClose, onClose),
+          pauseAutoCloseTimer = _useAutoClose.pauseAutoCloseTimer,
+          startAutoCloseTimer = _useAutoClose.startAutoCloseTimer;
+
+      var showDismissible = onClose && !hideCloseIcon;
+      return (/*#__PURE__*/_react.default.createElement("div", _extends({}, otherProps, {
+          className: (0, _classnames.default)(className, 'alert', _defineProperty({
+            'alert-dismissible': showDismissible,
+            'alert-fluid': variant === 'stripe'
+          }, "alert-".concat(displayType), displayType)),
+          onMouseOut: startAutoCloseTimer,
+          onMouseOver: pauseAutoCloseTimer,
+          role: "alert"
+        }), /*#__PURE__*/_react.default.createElement(function ConditionalContainer(_ref2) {
+          var children = _ref2.children;
+          return variant === 'stripe' ? /*#__PURE__*/_react.default.createElement("div", {
+            className: "container"
+          }, children) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, children);
+        }, null, /*#__PURE__*/_react.default.createElement(_layout.default.ContentRow, {
+          className: "alert-autofit-row"
+        }, /*#__PURE__*/_react.default.createElement(_layout.default.ContentCol, null, /*#__PURE__*/_react.default.createElement(_layout.default.ContentSection, null, /*#__PURE__*/_react.default.createElement("span", {
+          className: "alert-indicator"
+        }, /*#__PURE__*/_react.default.createElement(_icon.default, {
+          spritemap: spritemap,
+          symbol: ICON_MAP[displayType]
+        })))), /*#__PURE__*/_react.default.createElement(_layout.default.ContentCol, {
+          expand: true
+        }, /*#__PURE__*/_react.default.createElement(_layout.default.ContentSection, null, title && /*#__PURE__*/_react.default.createElement("strong", {
+          className: "lead"
+        }, title), children))), showDismissible && /*#__PURE__*/_react.default.createElement("button", {
+          "aria-label": "Close",
+          className: "close",
+          onClick: onClose,
+          type: "button"
+        }, /*#__PURE__*/_react.default.createElement(_icon.default, {
+          spritemap: spritemap,
+          symbol: "times"
+        }))))
+      );
+    };
+
+    ClayAlert.Footer = _Footer.default;
+    ClayAlert.ToastContainer = _ToastContainer.default;
+    var _default = ClayAlert;
+    exports.default = _default;
+  }
+});
+//# sourceMappingURL=index.js.map

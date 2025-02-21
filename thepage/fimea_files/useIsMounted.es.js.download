@@ -1,0 +1,51 @@
+Liferay.Loader.define("frontend-js-react-web@4.0.22/js/hooks/useIsMounted.es", ['module', 'exports', 'require', 'frontend-js-react-web$react'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = useIsMounted;
+
+    var _react = require("frontend-js-react-web$react");
+
+    /**
+     * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+     * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+     */
+
+    /**
+     * Hook for determining whether a component is still mounted.
+     *
+     * Use this to guard side-effects of asynchronous operations (fetches,
+     * promises) that may complete after a component has been unmounted.
+     *
+     * Example:
+     *
+     *      const isMounted = useIsMounted();
+     *      const [value, setHidden] = useHidden(true);
+     *
+     *      setTimeout(() => {
+     *          if (isMounted()) {
+     *              setHidden(true);
+     *          }
+     *      }, 1000);
+     *
+     */
+    function useIsMounted() {
+      var mountedRef = (0, _react.useRef)(false);
+      var isMounted = (0, _react.useCallback)(function () {
+        return mountedRef.current;
+      }, []);
+      (0, _react.useLayoutEffect)(function () {
+        mountedRef.current = true;
+        return function () {
+          mountedRef.current = false;
+        };
+      }, []);
+      return isMounted;
+    }
+    //# sourceMappingURL=useIsMounted.es.js.map
+  }
+});
+//# sourceMappingURL=useIsMounted.es.js.map

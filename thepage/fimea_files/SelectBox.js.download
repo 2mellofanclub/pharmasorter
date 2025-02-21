@@ -1,0 +1,269 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/form@3.89.0/lib/SelectBox", ['module', 'exports', 'require', '@frontend-taglib-clay$clayui/button', '@frontend-taglib-clay$clayui/shared', 'frontend-taglib-clay$classnames', 'frontend-js-react-web$react'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    function _typeof(obj) {
+      "@babel/helpers - typeof";
+      return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+        return typeof obj;
+      } : function (obj) {
+        return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      }, _typeof(obj);
+    }
+
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.getSelectedIndexes = exports.default = void 0;
+
+    var _button = _interopRequireWildcard(require("@frontend-taglib-clay$clayui/button"));
+
+    var _shared = require("@frontend-taglib-clay$clayui/shared");
+
+    var _classnames = _interopRequireDefault(require("frontend-taglib-clay$classnames"));
+
+    var _react = _interopRequireDefault(require("frontend-js-react-web$react"));
+
+    var _excluded = ["ariaLabels", "buttonAlignment", "className", "id", "items", "label", "multiple", "onItemsChange", "onSelectChange", "showArrows", "size", "spritemap", "value"];
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _getRequireWildcardCache(nodeInterop) {
+      if (typeof WeakMap !== "function") return null;var cacheBabelInterop = new WeakMap();var cacheNodeInterop = new WeakMap();return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) {
+        return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
+      })(nodeInterop);
+    }
+
+    function _interopRequireWildcard(obj, nodeInterop) {
+      if (!nodeInterop && obj && obj.__esModule) {
+        return obj;
+      }if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {
+        return { default: obj };
+      }var cache = _getRequireWildcardCache(nodeInterop);if (cache && cache.has(obj)) {
+        return cache.get(obj);
+      }var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {
+        if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
+          var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {
+            Object.defineProperty(newObj, key, desc);
+          } else {
+            newObj[key] = obj[key];
+          }
+        }
+      }newObj.default = obj;if (cache) {
+        cache.set(obj, newObj);
+      }return newObj;
+    }
+
+    function _extends() {
+      _extends = Object.assign ? Object.assign.bind() : function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+              target[key] = source[key];
+            }
+          }
+        }return target;
+      };return _extends.apply(this, arguments);
+    }
+
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+      } else {
+        obj[key] = value;
+      }return obj;
+    }
+
+    function _objectWithoutProperties(source, excluded) {
+      if (source == null) return {};var target = _objectWithoutPropertiesLoose(source, excluded);var key, i;if (Object.getOwnPropertySymbols) {
+        var sourceSymbolKeys = Object.getOwnPropertySymbols(source);for (i = 0; i < sourceSymbolKeys.length; i++) {
+          key = sourceSymbolKeys[i];if (excluded.indexOf(key) >= 0) continue;if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;target[key] = source[key];
+        }
+      }return target;
+    }
+
+    function _objectWithoutPropertiesLoose(source, excluded) {
+      if (source == null) return {};var target = {};var sourceKeys = Object.keys(source);var key, i;for (i = 0; i < sourceKeys.length; i++) {
+        key = sourceKeys[i];if (excluded.indexOf(key) >= 0) continue;target[key] = source[key];
+      }return target;
+    }
+
+    function _toConsumableArray(arr) {
+      return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+    }
+
+    function _nonIterableSpread() {
+      throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+
+    function _unsupportedIterableToArray(o, minLen) {
+      if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+    }
+
+    function _iterableToArray(iter) {
+      if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+    }
+
+    function _arrayWithoutHoles(arr) {
+      if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+    }
+
+    function _arrayLikeToArray(arr, len) {
+      if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {
+        arr2[i] = arr[i];
+      }return arr2;
+    }
+
+    function arrayMove(arrayToMove, oldIndex, newIndex) {
+      arrayToMove.splice(newIndex, 0, arrayToMove.splice(oldIndex, 1)[0]);
+      return arrayToMove;
+    }
+
+    function reorderUp(array, selectedIndexes) {
+      var clonedArray = _toConsumableArray(array);
+
+      for (var i = 0; i < selectedIndexes.length; i++) {
+        var item = selectedIndexes[i];
+
+        if (item === 0) {
+          return clonedArray;
+        }
+
+        clonedArray = arrayMove(clonedArray, item, item - 1);
+      }
+
+      return clonedArray;
+    }
+
+    function reorderDown(array, selectedIndexes) {
+      var clonedArray = _toConsumableArray(array);
+
+      for (var i = 0; i < selectedIndexes.length; i++) {
+        var item = selectedIndexes[i];
+
+        if (selectedIndexes.includes(clonedArray.length - 1)) {
+          return clonedArray;
+        }
+
+        clonedArray = arrayMove(clonedArray, item, item + 1);
+      }
+
+      return clonedArray;
+    }
+
+    var getSelectedIndexes = function getSelectedIndexes(items, selectedValues) {
+      return items.reduce(function (acc, item, index) {
+        if (selectedValues.includes(item.value)) {
+          return [].concat(_toConsumableArray(acc), [index]);
+        }
+
+        return acc;
+      }, []);
+    };
+
+    exports.getSelectedIndexes = getSelectedIndexes;
+
+    var ClaySelectBox = function ClaySelectBox(_ref) {
+      var _ref$ariaLabels = _ref.ariaLabels,
+          ariaLabels = _ref$ariaLabels === void 0 ? {
+        reorderDown: 'Reorder Down',
+        reorderUp: 'Reorder Up'
+      } : _ref$ariaLabels,
+          _ref$buttonAlignment = _ref.buttonAlignment,
+          buttonAlignment = _ref$buttonAlignment === void 0 ? 'end' : _ref$buttonAlignment,
+          className = _ref.className,
+          id = _ref.id,
+          items = _ref.items,
+          label = _ref.label,
+          multiple = _ref.multiple,
+          onItemsChange = _ref.onItemsChange,
+          onSelectChange = _ref.onSelectChange,
+          showArrows = _ref.showArrows,
+          size = _ref.size,
+          spritemap = _ref.spritemap,
+          value = _ref.value,
+          otherProps = _objectWithoutProperties(_ref, _excluded);
+
+      var selectedIndexes = getSelectedIndexes(items, Array.isArray(value) ? value : [value]);
+      var noItems = !items.length;
+      var noItemsSelected = !selectedIndexes.length;
+      var firstItemSelected = selectedIndexes.includes(0);
+      var lastItemSelected = selectedIndexes.includes(items.length - 1);
+      return (/*#__PURE__*/_react.default.createElement("div", {
+          className: (0, _classnames.default)(className, 'form-group')
+        }, label && /*#__PURE__*/_react.default.createElement("label", {
+          className: "reorder-label",
+          htmlFor: id
+        }, label), /*#__PURE__*/_react.default.createElement("div", {
+          className: (0, _classnames.default)('clay-reorder', _defineProperty({}, "clay-reorder-footer-".concat(buttonAlignment), buttonAlignment))
+        }, /*#__PURE__*/_react.default.createElement("select", _extends({}, otherProps, {
+          className: "form-control form-control-inset",
+          id: id,
+          multiple: multiple,
+          onChange: function onChange(event) {
+            var selectedItems = _toConsumableArray(event.target.options).filter(function (_ref2) {
+              var selected = _ref2.selected;
+              return selected;
+            }).map(function (item) {
+              return item.value;
+            });
+
+            onSelectChange(selectedItems);
+          },
+          onKeyDown: function onKeyDown(event) {
+            return selectedIndexes.forEach(function (index) {
+              if (event.key === _shared.Keys.Down && index === items.length - 1 || event.key === _shared.Keys.Up && index === 0) {
+                event.preventDefault();
+              }
+            });
+          },
+          size: size,
+          value: value
+        }), items.map(function (option) {
+          return (/*#__PURE__*/_react.default.createElement("option", {
+              className: "reorder-option",
+              key: option.value,
+              value: option.value
+            }, option.label)
+          );
+        })), /*#__PURE__*/_react.default.createElement("div", {
+          className: "clay-reorder-underlay form-control"
+        }), showArrows && onItemsChange && /*#__PURE__*/_react.default.createElement("div", {
+          className: "clay-reorder-footer"
+        }, /*#__PURE__*/_react.default.createElement(_button.default.Group, {
+          className: "reorder-order-buttons"
+        }, /*#__PURE__*/_react.default.createElement(_button.ClayButtonWithIcon, {
+          "aria-label": ariaLabels.reorderUp,
+          className: "reorder-button reorder-button-up",
+          disabled: firstItemSelected || noItemsSelected || noItems,
+          displayType: "secondary",
+          onClick: function onClick() {
+            return onItemsChange(reorderUp(items, selectedIndexes));
+          },
+          small: true,
+          spritemap: spritemap,
+          symbol: "caret-top"
+        }), /*#__PURE__*/_react.default.createElement(_button.ClayButtonWithIcon, {
+          "aria-label": ariaLabels.reorderDown,
+          className: "reorder-button reorder-button-down",
+          disabled: lastItemSelected || noItemsSelected || noItems,
+          displayType: "secondary",
+          onClick: function onClick() {
+            return onItemsChange(reorderDown(items, selectedIndexes));
+          },
+          small: true,
+          spritemap: spritemap,
+          symbol: "caret-bottom"
+        })))))
+      );
+    };
+
+    var _default = ClaySelectBox;
+    exports.default = _default;
+  }
+});
+//# sourceMappingURL=SelectBox.js.map

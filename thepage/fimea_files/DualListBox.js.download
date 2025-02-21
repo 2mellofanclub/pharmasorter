@@ -1,0 +1,271 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/form@3.89.0/lib/DualListBox", ['module', 'exports', 'require', '@frontend-taglib-clay$clayui/button', 'frontend-taglib-clay$classnames', 'frontend-js-react-web$react', './SelectBox'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    function _typeof(obj) {
+      "@babel/helpers - typeof";
+      return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+        return typeof obj;
+      } : function (obj) {
+        return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      }, _typeof(obj);
+    }
+
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = void 0;
+
+    var _button = require("@frontend-taglib-clay$clayui/button");
+
+    var _classnames = _interopRequireDefault(require("frontend-taglib-clay$classnames"));
+
+    var _react = _interopRequireDefault(require("frontend-js-react-web$react"));
+
+    var _SelectBox = _interopRequireWildcard(require("./SelectBox"));
+
+    var _excluded = ["ariaLabels", "className", "disableLTR", "disableRTL", "items", "left", "onItemsChange", "right", "size", "spritemap"];
+
+    function _getRequireWildcardCache(nodeInterop) {
+      if (typeof WeakMap !== "function") return null;var cacheBabelInterop = new WeakMap();var cacheNodeInterop = new WeakMap();return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) {
+        return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
+      })(nodeInterop);
+    }
+
+    function _interopRequireWildcard(obj, nodeInterop) {
+      if (!nodeInterop && obj && obj.__esModule) {
+        return obj;
+      }if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {
+        return { default: obj };
+      }var cache = _getRequireWildcardCache(nodeInterop);if (cache && cache.has(obj)) {
+        return cache.get(obj);
+      }var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {
+        if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
+          var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {
+            Object.defineProperty(newObj, key, desc);
+          } else {
+            newObj[key] = obj[key];
+          }
+        }
+      }newObj.default = obj;if (cache) {
+        cache.set(obj, newObj);
+      }return newObj;
+    }
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _extends() {
+      _extends = Object.assign ? Object.assign.bind() : function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+              target[key] = source[key];
+            }
+          }
+        }return target;
+      };return _extends.apply(this, arguments);
+    }
+
+    function _objectWithoutProperties(source, excluded) {
+      if (source == null) return {};var target = _objectWithoutPropertiesLoose(source, excluded);var key, i;if (Object.getOwnPropertySymbols) {
+        var sourceSymbolKeys = Object.getOwnPropertySymbols(source);for (i = 0; i < sourceSymbolKeys.length; i++) {
+          key = sourceSymbolKeys[i];if (excluded.indexOf(key) >= 0) continue;if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;target[key] = source[key];
+        }
+      }return target;
+    }
+
+    function _objectWithoutPropertiesLoose(source, excluded) {
+      if (source == null) return {};var target = {};var sourceKeys = Object.keys(source);var key, i;for (i = 0; i < sourceKeys.length; i++) {
+        key = sourceKeys[i];if (excluded.indexOf(key) >= 0) continue;target[key] = source[key];
+      }return target;
+    }
+
+    function _toConsumableArray(arr) {
+      return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+    }
+
+    function _nonIterableSpread() {
+      throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+
+    function _iterableToArray(iter) {
+      if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+    }
+
+    function _arrayWithoutHoles(arr) {
+      if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+    }
+
+    function _slicedToArray(arr, i) {
+      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+    }
+
+    function _nonIterableRest() {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+
+    function _unsupportedIterableToArray(o, minLen) {
+      if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+    }
+
+    function _arrayLikeToArray(arr, len) {
+      if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {
+        arr2[i] = arr[i];
+      }return arr2;
+    }
+
+    function _iterableToArrayLimit(arr, i) {
+      var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];if (_i == null) return;var _arr = [];var _n = true;var _d = false;var _s, _e;try {
+        for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i["return"] != null) _i["return"]();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }
+
+    function _arrayWithHoles(arr) {
+      if (Array.isArray(arr)) return arr;
+    }
+
+    function swapArrayItems(arrays, selectedIndexes) {
+      var _arrays = _slicedToArray(arrays, 2),
+          sourceArray = _arrays[0],
+          targetArray = _arrays[1];
+
+      var newTargetArray = _toConsumableArray(targetArray);
+
+      var newSourceArray = sourceArray.filter(function (item, index) {
+        if (selectedIndexes.includes(index)) {
+          newTargetArray.push(item);
+          return false;
+        }
+
+        return true;
+      });
+      return [newSourceArray, newTargetArray];
+    }
+
+    var ClayDualListBox = function ClayDualListBox(_ref) {
+      var _ref$ariaLabels = _ref.ariaLabels,
+          ariaLabels = _ref$ariaLabels === void 0 ? {
+        transferLTR: 'Transfer Item Left to Right',
+        transferRTL: 'Transfer Item Right to Left'
+      } : _ref$ariaLabels,
+          className = _ref.className,
+          disableLTR = _ref.disableLTR,
+          disableRTL = _ref.disableRTL,
+          items = _ref.items,
+          _ref$left = _ref.left,
+          left = _ref$left === void 0 ? {} : _ref$left,
+          _onItemsChange = _ref.onItemsChange,
+          _ref$right = _ref.right,
+          right = _ref$right === void 0 ? {} : _ref$right,
+          size = _ref.size,
+          spritemap = _ref.spritemap,
+          otherProps = _objectWithoutProperties(_ref, _excluded);
+
+      var _React$useState = _react.default.useState(left.selected || []),
+          _React$useState2 = _slicedToArray(_React$useState, 2),
+          internalLeftSelected = _React$useState2[0],
+          setInternalLeftSelected = _React$useState2[1];
+
+      var _React$useState3 = _react.default.useState(right.selected || []),
+          _React$useState4 = _slicedToArray(_React$useState3, 2),
+          internalRightSelected = _React$useState4[0],
+          setInternalRightSelected = _React$useState4[1];
+
+      var handleLeftSelectedChange = left.onSelectChange || setInternalLeftSelected;
+      var handleRightSelectedChange = right.onSelectChange || setInternalRightSelected;
+      var leftSelected = left.selected || internalLeftSelected;
+      var rightSelected = right.selected || internalRightSelected;
+
+      var _items = _slicedToArray(items, 2),
+          leftItems = _items[0],
+          rightItems = _items[1];
+
+      var selectedIndexesLeft = (0, _SelectBox.getSelectedIndexes)(leftItems, leftSelected);
+      var selectedIndexesRight = (0, _SelectBox.getSelectedIndexes)(rightItems, rightSelected);
+      return (/*#__PURE__*/_react.default.createElement("div", _extends({}, otherProps, {
+          className: (0, _classnames.default)(className, 'form-group')
+        }), /*#__PURE__*/_react.default.createElement("div", {
+          className: "clay-dual-listbox"
+        }, /*#__PURE__*/_react.default.createElement(_SelectBox.default, {
+          className: "clay-dual-listbox-item clay-dual-listbox-item-expand listbox-left",
+          id: left.id,
+          items: leftItems,
+          label: left.label,
+          multiple: true,
+          onItemsChange: function onItemsChange(newLeftItems) {
+            return _onItemsChange([newLeftItems, rightItems]);
+          },
+          onSelectChange: handleLeftSelectedChange,
+          size: size,
+          value: leftSelected
+        }), /*#__PURE__*/_react.default.createElement("div", {
+          className: "btn-group-vertical clay-dual-listbox-actions clay-dual-listbox-item"
+        }, /*#__PURE__*/_react.default.createElement(_button.ClayButtonWithIcon, {
+          "aria-label": ariaLabels.transferLTR,
+          className: "transfer-button-ltr",
+          disabled: leftSelected.length === 0 || disableLTR,
+          displayType: "secondary",
+          onClick: function onClick() {
+            var _swapArrayItems = swapArrayItems([leftItems, rightItems], selectedIndexesLeft),
+                _swapArrayItems2 = _slicedToArray(_swapArrayItems, 2),
+                arrayLeft = _swapArrayItems2[0],
+                arrayRight = _swapArrayItems2[1];
+
+            _onItemsChange([arrayLeft, arrayRight]);
+          },
+          small: true,
+          spritemap: spritemap,
+          symbol: "caret-right"
+        }), /*#__PURE__*/_react.default.createElement(_button.ClayButtonWithIcon, {
+          "aria-label": ariaLabels.transferRTL,
+          className: "transfer-button-rtl",
+          disabled: rightSelected.length === 0 || disableRTL,
+          displayType: "secondary",
+          onClick: function onClick() {
+            var _swapArrayItems3 = swapArrayItems([rightItems, leftItems], selectedIndexesRight),
+                _swapArrayItems4 = _slicedToArray(_swapArrayItems3, 2),
+                arrayRight = _swapArrayItems4[0],
+                arrayLeft = _swapArrayItems4[1];
+
+            _onItemsChange([arrayLeft, arrayRight]);
+          },
+          small: true,
+          spritemap: spritemap,
+          symbol: "caret-left"
+        })), /*#__PURE__*/_react.default.createElement(_SelectBox.default, {
+          className: "clay-dual-listbox-item clay-dual-listbox-item-expand listbox-right",
+          id: right.id,
+          items: rightItems,
+          label: right.label,
+          multiple: true,
+          onItemsChange: function onItemsChange(newRightItems) {
+            return _onItemsChange([leftItems, newRightItems]);
+          },
+          onSelectChange: handleRightSelectedChange,
+          showArrows: true,
+          size: size,
+          spritemap: spritemap,
+          value: rightSelected
+        })))
+      );
+    };
+
+    var _default = ClayDualListBox;
+    exports.default = _default;
+  }
+});
+//# sourceMappingURL=DualListBox.js.map

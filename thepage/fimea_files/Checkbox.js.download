@@ -1,0 +1,99 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/form@3.89.0/lib/Checkbox", ['module', 'exports', 'require', 'frontend-taglib-clay$classnames', 'frontend-js-react-web$react'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = void 0;
+
+    var _classnames = _interopRequireDefault(require("frontend-taglib-clay$classnames"));
+
+    var _react = _interopRequireDefault(require("frontend-js-react-web$react"));
+
+    var _excluded = ["checked", "children", "className", "containerProps", "indeterminate", "inline", "label", "readOnly"];
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _extends() {
+      _extends = Object.assign ? Object.assign.bind() : function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+              target[key] = source[key];
+            }
+          }
+        }return target;
+      };return _extends.apply(this, arguments);
+    }
+
+    function _objectWithoutProperties(source, excluded) {
+      if (source == null) return {};var target = _objectWithoutPropertiesLoose(source, excluded);var key, i;if (Object.getOwnPropertySymbols) {
+        var sourceSymbolKeys = Object.getOwnPropertySymbols(source);for (i = 0; i < sourceSymbolKeys.length; i++) {
+          key = sourceSymbolKeys[i];if (excluded.indexOf(key) >= 0) continue;if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;target[key] = source[key];
+        }
+      }return target;
+    }
+
+    function _objectWithoutPropertiesLoose(source, excluded) {
+      if (source == null) return {};var target = {};var sourceKeys = Object.keys(source);var key, i;for (i = 0; i < sourceKeys.length; i++) {
+        key = sourceKeys[i];if (excluded.indexOf(key) >= 0) continue;target[key] = source[key];
+      }return target;
+    }
+
+    var ClayCheckbox = /*#__PURE__*/_react.default.forwardRef(function (_ref, _ref2) {
+      var checked = _ref.checked,
+          children = _ref.children,
+          className = _ref.className,
+          _ref$containerProps = _ref.containerProps,
+          containerProps = _ref$containerProps === void 0 ? {} : _ref$containerProps,
+          _ref$indeterminate = _ref.indeterminate,
+          indeterminate = _ref$indeterminate === void 0 ? false : _ref$indeterminate,
+          inline = _ref.inline,
+          label = _ref.label,
+          readOnly = _ref.readOnly,
+          otherProps = _objectWithoutProperties(_ref, _excluded);
+
+      var inputRef = _react.default.useRef(null);
+
+      _react.default.useEffect(function () {
+        if (inputRef.current) {
+          inputRef.current.indeterminate = indeterminate;
+        }
+      }, [indeterminate]);
+
+      return (/*#__PURE__*/_react.default.createElement("div", _extends({}, containerProps, {
+          className: (0, _classnames.default)('custom-control custom-checkbox', containerProps.className, {
+            'custom-control-inline': inline
+          })
+        }), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", _extends({}, otherProps, {
+          "aria-disabled": readOnly,
+          checked: checked,
+          className: (0, _classnames.default)('custom-control-input', className),
+          readOnly: readOnly,
+          ref: function ref(r) {
+            inputRef.current = r;
+
+            if (typeof _ref2 === 'function') {
+              _ref2(r);
+            }
+          },
+          type: "checkbox"
+        })), /*#__PURE__*/_react.default.createElement("span", {
+          className: "custom-control-label"
+        }, label && /*#__PURE__*/_react.default.createElement("span", {
+          className: "custom-control-label-text"
+        }, label)), children))
+      );
+    });
+
+    ClayCheckbox.displayName = 'ClayCheckbox';
+    var _default = ClayCheckbox;
+    exports.default = _default;
+  }
+});
+//# sourceMappingURL=Checkbox.js.map

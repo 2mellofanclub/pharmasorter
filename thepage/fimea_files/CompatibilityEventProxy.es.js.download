@@ -1,0 +1,239 @@
+Liferay.Loader.define("frontend-js-web@4.0.59/liferay/CompatibilityEventProxy.es", ['module', 'exports', 'require', 'frontend-js-metal-web$metal', 'frontend-js-metal-web$metal-state'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = void 0;
+
+    var _metal = require("frontend-js-metal-web$metal");
+
+    var _metalState = _interopRequireDefault(require("frontend-js-metal-web$metal-state"));
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _typeof(obj) {
+      "@babel/helpers - typeof";
+      if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+        _typeof = function _typeof(obj) {
+          return typeof obj;
+        };
+      } else {
+        _typeof = function _typeof(obj) {
+          return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+        };
+      }return _typeof(obj);
+    }
+
+    function _classCallCheck(instance, Constructor) {
+      if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+      }
+    }
+
+    function _defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    function _createClass(Constructor, protoProps, staticProps) {
+      if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;
+    }
+
+    function _possibleConstructorReturn(self, call) {
+      if (call && (_typeof(call) === "object" || typeof call === "function")) {
+        return call;
+      }return _assertThisInitialized(self);
+    }
+
+    function _assertThisInitialized(self) {
+      if (self === void 0) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+      }return self;
+    }
+
+    function _getPrototypeOf(o) {
+      _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+        return o.__proto__ || Object.getPrototypeOf(o);
+      };return _getPrototypeOf(o);
+    }
+
+    function _inherits(subClass, superClass) {
+      if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function");
+      }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);
+    }
+
+    function _setPrototypeOf(o, p) {
+      _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+        o.__proto__ = p;return o;
+      };return _setPrototypeOf(o, p);
+    }
+
+    /**
+     * Adds compatibility for YUI events, re-emitting events according to YUI naming
+     * and adding the capability of adding targets to bubble events to them.
+     */
+    var CompatibilityEventProxy = /*#__PURE__*/function (_State) {
+      _inherits(CompatibilityEventProxy, _State);
+
+      /**
+       * @inheritDoc
+       */
+      function CompatibilityEventProxy(config, element) {
+        var _this;
+
+        _classCallCheck(this, CompatibilityEventProxy);
+
+        _this = _possibleConstructorReturn(this, _getPrototypeOf(CompatibilityEventProxy).call(this, config, element));
+        _this.eventTargets_ = [];
+        _this.host = config.host;
+        _this.namespace = config.namespace;
+
+        _this.startCompatibility_();
+
+        return _this;
+      }
+      /**
+       * Registers another event target as a bubble target.
+       *
+       * @param  {!Object} target The YUI component that receives the emitted
+       *         events.
+       * @private
+       */
+
+      _createClass(CompatibilityEventProxy, [{
+        key: "addTarget",
+        value: function addTarget(target) {
+          this.eventTargets_.push(target);
+        }
+        /**
+         * Checks if the event is an attribute modification event and adapts the
+         * event name accordingly.
+         *
+         * @param  {!String} eventName The event name.
+         * @private
+         * @return {String} The adapted event name.
+         */
+
+      }, {
+        key: "checkAttributeEvent_",
+        value: function checkAttributeEvent_(eventName) {
+          return eventName.replace(this.adaptedEvents.match, this.adaptedEvents.replace);
+        }
+        /**
+         * Emits the event adapted to YUI.
+         *
+         * @param  {!String} eventName The event name.
+         * @param  {!Event} event The event.
+         * @private
+         */
+
+      }, {
+        key: "emitCompatibleEvents_",
+        value: function emitCompatibleEvents_(eventName, event) {
+          var _this2 = this;
+
+          this.eventTargets_.forEach(function (target) {
+            if (target.fire) {
+              var prefixedEventName = _this2.namespace ? _this2.namespace + ':' + eventName : eventName;
+              var yuiEvent = target._yuievt.events[prefixedEventName];
+
+              if (_metal.core.isObject(event)) {
+                try {
+                  event.target = _this2.host;
+                } catch (e) {// Do nothing
+                }
+              }
+
+              var emitFacadeReference;
+
+              if (!_this2.emitFacade && yuiEvent) {
+                emitFacadeReference = yuiEvent.emitFacade;
+                yuiEvent.emitFacade = false;
+              }
+
+              target.fire(prefixedEventName, event);
+
+              if (!_this2.emitFacade && yuiEvent) {
+                yuiEvent.emitFacade = emitFacadeReference;
+              }
+            }
+          });
+        }
+        /**
+         * Emits YUI-based events to maintain backwards compatibility.
+         *
+         * @private
+         */
+
+      }, {
+        key: "startCompatibility_",
+        value: function startCompatibility_() {
+          var _this3 = this;
+
+          this.host.on('*', function (event, eventFacade) {
+            if (!eventFacade) {
+              eventFacade = event;
+            }
+
+            var compatibleEvent = _this3.checkAttributeEvent_(eventFacade.type);
+
+            if (compatibleEvent !== eventFacade.type) {
+              eventFacade.type = compatibleEvent;
+
+              _this3.host.emit(compatibleEvent, event, eventFacade);
+            } else if (_this3.eventTargets_.length > 0) {
+              _this3.emitCompatibleEvents_(compatibleEvent, event);
+            }
+          });
+        }
+      }]);
+
+      return CompatibilityEventProxy;
+    }(_metalState.default);
+    /**
+     * State definition.
+     *
+     * @ignore
+     * @static
+     * @type {!Object}
+     */
+
+    CompatibilityEventProxy.STATE = {
+      /**
+       * Replaces event names with adapted YUI names.
+       *
+       * @instance
+       * @memberof CompatibilityEventProxy
+       * @type {Object}
+       */
+      adaptedEvents: {
+        value: {
+          match: /(.*)(Changed)$/,
+          replace: '$1Change'
+        }
+      },
+
+      /**
+       * Whether the event facade should be emitted to the target.
+       *
+       * @default false
+       * @instance
+       * @memberof CompatibilityEventProxy
+       * @type {String}
+       */
+      emitFacade: {
+        value: false
+      }
+    };
+    var _default = CompatibilityEventProxy;
+    exports.default = _default;
+    //# sourceMappingURL=CompatibilityEventProxy.es.js.map
+  }
+});
+//# sourceMappingURL=CompatibilityEventProxy.es.js.map

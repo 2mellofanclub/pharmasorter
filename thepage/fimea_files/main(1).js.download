@@ -1,0 +1,55 @@
+$(document).ready(function() {
+
+    // Content pages' language links
+
+    let contentLanguageLinksWrapper = document.getElementById('contentLanguageLinks');
+    if (contentLanguageLinksWrapper !== null) {
+        let languageSelectionMenu = document.getElementById('languageSelectionMenu');
+        contentLanguageLinksWrapper.innerHTML = languageSelectionMenu.innerHTML;
+        contentLanguageLinksWrapper.setAttribute("class", languageSelectionMenu.getAttribute("class"));
+
+        let finnishLink =  contentLanguageLinksWrapper.getElementsByClassName('fi')[0];
+        let englishLink =  contentLanguageLinksWrapper.getElementsByClassName('en')[0];
+        let swedishLink =  contentLanguageLinksWrapper.getElementsByClassName('sv')[0];
+
+        finnishLink.getElementsByTagName("a")[0].lastChild.data ="Suomeksi";
+        englishLink.getElementsByTagName("a")[0].lastChild.data ="In English";
+        swedishLink.getElementsByTagName("a")[0].lastChild.data ="På svenska";
+
+        // Hide current language link
+        let lang = document.getElementsByTagName('html')[0].getAttribute('lang');
+        let currentLanguageLinks = contentLanguageLinksWrapper.getElementsByTagName('li');
+
+        for (let i = 0; i < currentLanguageLinks.length; i++) {
+            if (lang == currentLanguageLinks[i].getAttribute('lang')) {
+                currentLanguageLinks[i].remove();
+            }
+        }
+        // Hide language link in case of missing language version
+        let contentLanguageLinks = contentLanguageLinksWrapper.getElementsByTagName('a');
+        for (let i = contentLanguageLinks.length-1; i >= 0; --i) {
+            if (contentLanguageLinks[i].getAttribute('href').indexOf('missingLanguageVersion') > -1) {
+                contentLanguageLinks[i].parentElement.remove();
+            }
+        }
+    }
+
+    // Remove empty items from footer
+    let footerSpans = document.getElementById('footer').getElementsByTagName('span');
+    let footerLinks = document.getElementById('footer').getElementsByTagName('a');
+    if(footerSpans.length > 0) {
+        for (i = footerSpans.length - 1; i >= 0; --i) {
+            if (footerSpans[i].innerHTML === 'empty') { 
+                footerSpans[i].parentElement.remove();
+            }
+        }
+    }
+    if(footerLinks.length > 0) {
+        for (i = footerLinks.length - 1; i >= 0; --i) {
+            if (footerLinks[i].innerHTML === 'empty') { 
+                footerLinks[i].parentElement.remove();
+            }
+        }
+    }
+
+});

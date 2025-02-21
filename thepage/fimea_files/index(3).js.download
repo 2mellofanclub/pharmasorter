@@ -1,0 +1,10 @@
+'use strict';
+
+Liferay.Loader.define('frontend-js-react-web$react@16.12.0/index', ['module', 'exports', 'require', './cjs/react.production.min'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    module.exports = require('./cjs/react.production.min');
+  }
+});
+//# sourceMappingURL=index.js.map

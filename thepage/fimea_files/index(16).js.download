@@ -1,0 +1,159 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/link@3.88.0/lib/index", ['module', 'exports', 'require', 'frontend-taglib-clay$classnames', 'frontend-js-react-web$react', './Context'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    Object.defineProperty(exports, "ClayLinkContext", {
+      enumerable: true,
+      get: function get() {
+        return _Context.default;
+      }
+    });
+    exports.default = void 0;
+
+    var _classnames = _interopRequireDefault(require("frontend-taglib-clay$classnames"));
+
+    var _react = _interopRequireDefault(require("frontend-js-react-web$react"));
+
+    var _Context = _interopRequireDefault(require("./Context"));
+
+    var _excluded = ["block", "borderless", "button", "children", "className", "decoration", "displayType", "fontSize", "messages", "monospaced", "outline", "rel", "small", "target", "weight"];
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _extends() {
+      _extends = Object.assign ? Object.assign.bind() : function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+              target[key] = source[key];
+            }
+          }
+        }return target;
+      };return _extends.apply(this, arguments);
+    }
+
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+      } else {
+        obj[key] = value;
+      }return obj;
+    }
+
+    function _objectWithoutProperties(source, excluded) {
+      if (source == null) return {};var target = _objectWithoutPropertiesLoose(source, excluded);var key, i;if (Object.getOwnPropertySymbols) {
+        var sourceSymbolKeys = Object.getOwnPropertySymbols(source);for (i = 0; i < sourceSymbolKeys.length; i++) {
+          key = sourceSymbolKeys[i];if (excluded.indexOf(key) >= 0) continue;if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;target[key] = source[key];
+        }
+      }return target;
+    }
+
+    function _objectWithoutPropertiesLoose(source, excluded) {
+      if (source == null) return {};var target = {};var sourceKeys = Object.keys(source);var key, i;for (i = 0; i < sourceKeys.length; i++) {
+        key = sourceKeys[i];if (excluded.indexOf(key) >= 0) continue;target[key] = source[key];
+      }return target;
+    }
+
+    var LINK_PRESETS = {
+      danger: {
+        base: 'c-link text-danger',
+        decoration: 'underline'
+      },
+      primary: {
+        base: 'c-link link-primary',
+        decoration: 'underline'
+      },
+      secondary: {
+        base: 'c-link link-secondary',
+        decoration: 'underline'
+      },
+      tertiary: {
+        base: 'c-link text-tertiary',
+        decoration: null
+      },
+      unstyled: {
+        base: 'link-unstyled',
+        decoration: null
+      }
+    };
+    var FONT_WEIGHTS = {
+      normal: 'font-weight-normal',
+      'semi-bold': 'font-weight-semi-bold'
+    };
+    var defaultMessages = {
+      opensNewWindow: '(Opens a new window)'
+    };
+
+    var ClayLink = /*#__PURE__*/_react.default.forwardRef(function (_ref, ref) {
+      var block = _ref.block,
+          borderless = _ref.borderless,
+          button = _ref.button,
+          children = _ref.children,
+          className = _ref.className,
+          decoration = _ref.decoration,
+          displayType = _ref.displayType,
+          fontSize = _ref.fontSize,
+          _ref$messages = _ref.messages,
+          messages = _ref$messages === void 0 ? defaultMessages : _ref$messages,
+          monospaced = _ref.monospaced,
+          outline = _ref.outline,
+          rel = _ref.rel,
+          small = _ref.small,
+          target = _ref.target,
+          weight = _ref.weight,
+          otherProps = _objectWithoutProperties(_ref, _excluded);
+
+      var TagOrComponent = _react.default.useContext(_Context.default);
+
+      var classes;
+
+      if (button) {
+        var _classes;
+
+        button = button === true ? {} : button;
+        classes = (_classes = {
+          btn: !!button,
+          'btn-block': button.block || block,
+          'btn-monospaced': button.monospaced || monospaced,
+          'btn-outline-borderless': borderless,
+          'btn-sm': button.small || small
+        }, _defineProperty(_classes, "btn-".concat(displayType), displayType && !outline && !borderless), _defineProperty(_classes, "btn-outline-".concat(displayType), displayType && (outline || borderless)), _defineProperty(_classes, FONT_WEIGHTS[weight], weight), _defineProperty(_classes, "text-".concat(fontSize), fontSize), _defineProperty(_classes, "text-decoration-".concat(decoration), decoration), _classes);
+      } else {
+        var _LINK_PRESETS, _LINK_PRESETS2, _classes2;
+
+        decoration = decoration === null || outline ? undefined : decoration || ((_LINK_PRESETS = LINK_PRESETS[displayType]) === null || _LINK_PRESETS === void 0 ? void 0 : _LINK_PRESETS.decoration);
+        classes = (_classes2 = {
+          'link-monospaced': monospaced,
+          'link-outline': outline,
+          'link-outline-borderless': borderless
+        }, _defineProperty(_classes2, (_LINK_PRESETS2 = LINK_PRESETS[displayType]) === null || _LINK_PRESETS2 === void 0 ? void 0 : _LINK_PRESETS2.base, displayType && !outline), _defineProperty(_classes2, "link-outline-".concat(displayType), displayType && outline), _defineProperty(_classes2, FONT_WEIGHTS[weight], weight), _defineProperty(_classes2, "text-".concat(fontSize), fontSize), _defineProperty(_classes2, "text-decoration-".concat(decoration), decoration), _classes2);
+      }
+
+      if (target && !rel) {
+        rel = 'noreferrer noopener';
+      }
+
+      return (/*#__PURE__*/_react.default.createElement(TagOrComponent, _extends({
+          className: (0, _classnames.default)(className, classes),
+          ref: ref,
+          rel: rel,
+          target: target
+        }, otherProps), children, target === '_blank' && /*#__PURE__*/_react.default.createElement("span", {
+          className: "sr-only"
+        }, messages.opensNewWindow))
+      );
+    });
+
+    ClayLink.displayName = 'ClayLink';
+    var _default = ClayLink;
+    exports.default = _default;
+  }
+});
+//# sourceMappingURL=index.js.map

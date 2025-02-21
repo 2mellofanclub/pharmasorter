@@ -1,0 +1,64 @@
+Liferay.Loader.define('frontend-js-web@4.0.59/liferay/util/navigate.es', ['module', 'exports', 'require'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = _default;
+
+    /**
+     * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+     * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+     */
+
+    /**
+     * Performs navigation to the given url. If SPA is enabled, it will route the
+     * request through the SPA engine. If not, it will simple change the document
+     * location.
+     * @param {string | URL} url Destination URL to navigate
+     * @param {?object} listeners Object with key-value pairs with callbacks for
+     * specific page lifecycle events
+     * @review
+     */
+    function _default(url, listeners) {
+      var _url$constructor, _Liferay$SPA, _Liferay$SPA$app;
+
+      var urlString = url;
+
+      if ((url === null || url === void 0 ? void 0 : (_url$constructor = url.constructor) === null || _url$constructor === void 0 ? void 0 : _url$constructor.name) === 'URL') {
+        urlString = String(url);
+      }
+
+      if ((_Liferay$SPA = Liferay.SPA) === null || _Liferay$SPA === void 0 ? void 0 : (_Liferay$SPA$app = _Liferay$SPA.app) === null || _Liferay$SPA$app === void 0 ? void 0 : _Liferay$SPA$app.canNavigate(urlString)) {
+        Liferay.SPA.app.navigate(urlString);
+
+        if (listeners) {
+          Object.keys(listeners).forEach(function (key) {
+            Liferay.once(key, listeners[key]);
+          });
+        }
+      } else if (isValidURL(urlString)) {
+        window.location.href = urlString;
+      }
+    }
+
+    function isValidURL(url) {
+      var urlObject;
+
+      try {
+        if (url.startsWith('/')) {
+          urlObject = new URL(url, window.location.origin);
+        } else {
+          urlObject = new URL(url);
+        }
+      } catch (error) {
+        return false;
+      }
+
+      return urlObject.protocol === 'http:' || urlObject.protocol === 'https:';
+    }
+    //# sourceMappingURL=navigate.es.js.map
+  }
+});
+//# sourceMappingURL=navigate.es.js.map

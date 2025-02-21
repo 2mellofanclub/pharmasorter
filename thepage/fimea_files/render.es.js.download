@@ -1,0 +1,76 @@
+Liferay.Loader.define("frontend-js-react-web@4.0.22/js/render.es", ['module', 'exports', 'require', '@frontend-taglib-clay$clayui/icon', 'frontend-js-react-web$react', 'frontend-js-react-web$react-dom'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = render;
+
+    var _icon = require("@frontend-taglib-clay$clayui/icon");
+
+    var _react = _interopRequireDefault(require("frontend-js-react-web$react"));
+
+    var _reactDom = _interopRequireDefault(require("frontend-js-react-web$react-dom"));
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    /**
+     * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+     * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+     */
+    var counter = 0;
+    /**
+     * Wrapper for ReactDOM render that automatically:
+     *
+     * - Provides commonly-needed context (for example, the Clay spritemap).
+     * - Unmounts when portlets are destroyed based on the received
+     *   `portletId` value inside `renderData`. If none is passed, the
+     *   component will be automatically unmounted before the next navigation.
+     *
+     * @param {Function|React.Element} renderable Component, or function that returns an Element, to be rendered.
+     * @param {object} renderData Data to be passed to the component as props.
+     * @param {HTMLElement} container DOM node where the component is to be mounted.
+     *
+     * The React docs advise not to rely on the render return value, so we
+     * don't propagate it.
+     *
+     * @see https://reactjs.org/docs/react-dom.html#render
+     */
+
+    function render(renderable, renderData, container) {
+      if (!Liferay.SPA || Liferay.SPA.app) {
+        var portletId = renderData.portletId;
+        var spritemap = Liferay.ThemeDisplay.getPathThemeImages() + '/clay/icons.svg';
+        var componentId = renderData.componentId;
+
+
+        if (!componentId) {
+          componentId = "__UNNAMED_COMPONENT__".concat(portletId, "__").concat(counter++);
+        }
+
+        Liferay.component(componentId, {
+          destroy: function destroy() {
+            _reactDom.default.unmountComponentAtNode(container);
+          }
+        }, {
+          destroyOnNavigate: !portletId,
+          portletId: portletId
+        });
+        var Component = typeof renderable === 'function' || renderable.$$typeof === Symbol.for('react.forward_ref') ? renderable : null; // eslint-disable-next-line @liferay/portal/no-react-dom-render
+
+        _reactDom.default.render( /*#__PURE__*/_react.default.createElement(_icon.ClayIconSpriteContext.Provider, {
+          value: spritemap
+        }, Component ? /*#__PURE__*/_react.default.createElement(Component, renderData) : renderable), container);
+      } else {
+        Liferay.once('SPAReady', function () {
+          render(renderable, renderData, container);
+        });
+      }
+    }
+    //# sourceMappingURL=render.es.js.map
+  }
+});
+//# sourceMappingURL=render.es.js.map

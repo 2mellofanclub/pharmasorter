@@ -1,0 +1,1 @@
+(function(){Liferay.EXPLAIN_RESOLUTIONS=!1;Liferay.EXPOSE_GLOBAL=!1;Liferay.LOG_LEVEL="warn";Liferay.RESOLVE_PATH="/o/js_resolve_modules";Liferay.WAIT_TIMEOUT=6E4})();

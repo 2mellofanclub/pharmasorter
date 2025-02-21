@@ -1,0 +1,132 @@
+Liferay.Loader.define("frontend-js-web@4.0.59/liferay/DefaultEventHandler.es", ['module', 'exports', 'require', './PortletBase.es'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = void 0;
+
+    var _PortletBase2 = _interopRequireDefault(require("./PortletBase.es"));
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _typeof(obj) {
+      "@babel/helpers - typeof";
+      if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+        _typeof = function _typeof(obj) {
+          return typeof obj;
+        };
+      } else {
+        _typeof = function _typeof(obj) {
+          return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+        };
+      }return _typeof(obj);
+    }
+
+    function _classCallCheck(instance, Constructor) {
+      if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+      }
+    }
+
+    function _defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    function _createClass(Constructor, protoProps, staticProps) {
+      if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;
+    }
+
+    function _possibleConstructorReturn(self, call) {
+      if (call && (_typeof(call) === "object" || typeof call === "function")) {
+        return call;
+      }return _assertThisInitialized(self);
+    }
+
+    function _assertThisInitialized(self) {
+      if (self === void 0) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+      }return self;
+    }
+
+    function _getPrototypeOf(o) {
+      _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+        return o.__proto__ || Object.getPrototypeOf(o);
+      };return _getPrototypeOf(o);
+    }
+
+    function _inherits(subClass, superClass) {
+      if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function");
+      }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);
+    }
+
+    function _setPrototypeOf(o, p) {
+      _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+        o.__proto__ = p;return o;
+      };return _setPrototypeOf(o, p);
+    }
+
+    var DefaultEventHandler = /*#__PURE__*/function (_PortletBase) {
+      _inherits(DefaultEventHandler, _PortletBase);
+
+      function DefaultEventHandler() {
+        _classCallCheck(this, DefaultEventHandler);
+
+        return _possibleConstructorReturn(this, _getPrototypeOf(DefaultEventHandler).apply(this, arguments));
+      }
+
+      _createClass(DefaultEventHandler, [{
+        key: "callAction",
+        value: function callAction(event) {
+          var itemData = event.data.item.data;
+
+          if (itemData && itemData.action && this[itemData.action]) {
+            this[itemData.action](itemData);
+          }
+        }
+      }, {
+        key: "handleActionItemClicked",
+        value: function handleActionItemClicked(event) {
+          this.callAction(event);
+        }
+      }, {
+        key: "handleCreationButtonClicked",
+        value: function handleCreationButtonClicked(event) {
+          var itemData = event.data.data;
+
+          if (itemData && itemData.action && this[itemData.action]) {
+            this[itemData.action](itemData);
+          }
+        }
+      }, {
+        key: "handleCreationMenuItemClicked",
+        value: function handleCreationMenuItemClicked(event) {
+          this.callAction(event);
+        }
+      }, {
+        key: "handleFilterItemClicked",
+        value: function handleFilterItemClicked(event) {
+          this.callAction(event);
+        }
+      }, {
+        key: "handleItemClicked",
+        value: function handleItemClicked(event) {
+          this.callAction(event);
+        }
+      }]);
+
+      return DefaultEventHandler;
+    }(_PortletBase2.default);
+
+    var _default = DefaultEventHandler;
+    exports.default = _default;
+    //# sourceMappingURL=DefaultEventHandler.es.js.map
+  }
+});
+//# sourceMappingURL=DefaultEventHandler.es.js.map

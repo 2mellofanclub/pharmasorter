@@ -1,0 +1,61 @@
+import { fixFormAccessibility } from "./form-accessibility-fix.js";
+import { addContentHighlightWrapper } from "./content-highlight.js";
+import { addToActionLink } from "./action-link.js";
+
+Liferay.on('allPortletsReady', function() {
+    /*SP-606 Add conent highlight structure and styles and modify lists to show correctly on content-highlight*/
+    if (document.getElementsByClassName("content-highlight-wrapper")) {
+        /*Get all content-highlights added by ck-editor on this page*/
+        var elements = document.getElementsByClassName("content-highlight-wrapper");
+        if (elements){
+            addContentHighlightWrapper(elements);
+        }
+    }
+    if (document.getElementsByClassName("bing-searchform").length) {
+        /*Remove empty ul with role listbox. Empty listbox is accessibility issue*/
+        var emptyUl = document.getElementsByClassName("bing-searchform")[0].querySelectorAll('[role="listbox"]')[0];
+    }
+    var duplicateInput = document.getElementById("_gssheadersearchbar_WAR_stmgssportlet_formDate");
+
+    if (typeof(duplicateInput) !== "undefined" && duplicateInput !== null ){
+        duplicateInput.remove();
+    }
+
+    if (typeof(emptyUl) !== "undefined" && emptyUl !== null ){
+        emptyUl.remove();
+    }
+
+    if (document.getElementsByClassName("thl-action-link") || document.getElementsByClassName("callToActionLink")) {
+        addToActionLink();
+    }
+
+    $(".ukk-question-content").on("click", function (e) { toggleUkkItem(e); });
+    setTimeout(function () {
+        fixFormAccessibility();
+    },1000);
+});
+
+$(document).ready(function() {
+    focusNewsArchiveFilteredResults();
+});
+
+function toggleUkkItem (e) {
+    const elem = e.currentTarget.parentElement;
+    const button = $(elem).find("button");
+    let ariaExpanded = button.attr("aria-expanded") == "false" ? "true" : "false";
+    $(elem).toggleClass("open");
+    $(elem).find("#horizontal-path").toggleClass("hidden");
+    button.attr("aria-expanded", ariaExpanded);
+    $(elem).find(".ukk-answer-content").toggleClass("hidden");
+}
+
+function focusNewsArchiveFilteredResults () {
+    if (document.querySelector("form[id=results-filters]")) {
+        const filtered = document.getElementById("results-filtered-check").value;
+        if (filtered === "true") {
+            setTimeout(function(){
+                document.getElementById("results").focus();
+            }, 1000);
+        }
+    }
+}

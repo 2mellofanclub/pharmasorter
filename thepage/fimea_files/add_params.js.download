@@ -1,0 +1,100 @@
+Liferay.Loader.define("frontend-js-web@4.0.59/liferay/util/add_params", ['module', 'exports', 'require'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = addParams;
+
+    function _slicedToArray(arr, i) {
+      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+    }
+
+    function _nonIterableRest() {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance");
+    }
+
+    function _iterableToArrayLimit(arr, i) {
+      if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+        return;
+      }var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i["return"] != null) _i["return"]();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }
+
+    function _arrayWithHoles(arr) {
+      if (Array.isArray(arr)) return arr;
+    }
+
+    function _typeof(obj) {
+      "@babel/helpers - typeof";
+      if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+        _typeof = function _typeof(obj) {
+          return typeof obj;
+        };
+      } else {
+        _typeof = function _typeof(obj) {
+          return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+        };
+      }return _typeof(obj);
+    }
+
+    /**
+     * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+     * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+     */
+
+    /**
+     * Appends given parameters to the given URL.
+     * @param {String | Object} params Parameters to be added on to the base url
+     * @param {String} baseUrl Base url
+     * @return {String} url URL constructed from base url and params
+     * @review
+     */
+    function addParams(params, baseUrl) {
+      if (!params || _typeof(params) !== 'object' && typeof params !== 'string') {
+        throw new TypeError('Parameter params must be an object or string');
+      }
+
+      if (typeof baseUrl !== 'string') {
+        throw new TypeError('Parameter baseUrl must be a string');
+      }
+
+      var url = baseUrl.startsWith('/') ? new URL(baseUrl, location.href) : new URL(baseUrl);
+
+      if (_typeof(params) === 'object') {
+        Object.entries(params).forEach(function (_ref) {
+          var _ref2 = _slicedToArray(_ref, 2),
+              key = _ref2[0],
+              value = _ref2[1];
+
+          url.searchParams.append(key, value);
+        });
+      } else {
+        var searchParams = new URLSearchParams(params.trim());
+        searchParams.forEach(function (value, key) {
+          if (value) {
+            url.searchParams.append(key, value);
+          } else {
+            url.searchParams.append(key, '');
+          }
+        });
+      }
+
+      return url.toString();
+    }
+    //# sourceMappingURL=add_params.js.map
+  }
+});
+//# sourceMappingURL=add_params.js.map

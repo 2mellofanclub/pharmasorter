@@ -1,0 +1,3 @@
+Liferay.Loader.define('frontend-js-metal-web@4.0.15/bridge/metal-dom/src/all/dom', ['module', 'frontend-js-metal-web$metal-dom/lib/all/dom'], function (module, src) {
+  module.exports = src;
+});

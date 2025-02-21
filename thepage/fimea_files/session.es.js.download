@@ -1,0 +1,110 @@
+Liferay.Loader.define("frontend-js-web@4.0.59/liferay/util/session.es", ['module', 'exports', 'require', './fetch.es'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.getSessionValue = getSessionValue;
+    exports.setSessionValue = setSessionValue;
+
+    var _fetch = _interopRequireDefault(require("./fetch.es"));
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _typeof(obj) {
+      "@babel/helpers - typeof";
+      if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+        _typeof = function _typeof(obj) {
+          return typeof obj;
+        };
+      } else {
+        _typeof = function _typeof(obj) {
+          return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+        };
+      }return _typeof(obj);
+    }
+
+    var TOKEN_SERIALIZE = 'serialize://';
+
+    function getSessionClickFormData(cmd) {
+      var doAsUserIdEncoded = Liferay.ThemeDisplay.getDoAsUserIdEncoded();
+      var formData = new FormData();
+      formData.append('cmd', cmd);
+      formData.append('p_auth', Liferay.authToken);
+
+      if (doAsUserIdEncoded) {
+        formData.append('doAsUserId', doAsUserIdEncoded);
+      }
+
+      return formData;
+    }
+
+    function getSessionClickURL() {
+      return "".concat(Liferay.ThemeDisplay.getPortalURL()).concat(Liferay.ThemeDisplay.getPathMain(), "/portal/session_click");
+    }
+    /**
+     * Gets the Store utility fetch value for given key
+     * @param {String} key string for fetch request
+     * @param {Object} options (currently only useHttpSession, defaulting to false)
+     * @return {Promise}
+     * @review
+     */
+
+    function getSessionValue(key) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var formData = getSessionClickFormData('get');
+      formData.append('key', key);
+
+      if (options.useHttpSession) {
+        formData.append('useHttpSession', true);
+      }
+
+      return (0, _fetch.default)(getSessionClickURL(), {
+        body: formData,
+        method: 'POST'
+      }).then(function (response) {
+        return response.text();
+      }).then(function (responseText) {
+        if (responseText.startsWith(TOKEN_SERIALIZE)) {
+          var value = responseText.substring(TOKEN_SERIALIZE.length);
+          responseText = JSON.parse(value);
+        }
+
+        return responseText;
+      });
+    }
+    /**
+     * Sets the Store utility fetch value
+     * @param {String} key of the formData
+     * @param {Object|String} value of the key for the formData
+     * @param {Object} options (currently only useHttpSession, defaulting to false)
+     * @return {Promise}
+     * @review
+     */
+
+    function setSessionValue(key, value) {
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      var formData = getSessionClickFormData('set');
+
+      if (value && _typeof(value) === 'object') {
+        value = TOKEN_SERIALIZE + JSON.stringify(value);
+      }
+
+      formData.append(key, value);
+
+      if (options.useHttpSession) {
+        formData.append('useHttpSession', true);
+      }
+
+      return (0, _fetch.default)(getSessionClickURL(), {
+        body: formData,
+        method: 'POST'
+      });
+    }
+    //# sourceMappingURL=session.es.js.map
+  }
+});
+//# sourceMappingURL=session.es.js.map

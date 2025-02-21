@@ -1,0 +1,64 @@
+Liferay.Loader.define("frontend-js-web@4.0.59/liferay/util/portlet_url/create_action_url.es", ['module', 'exports', 'require', './create_portlet_url.es'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = createActionURL;
+
+    var _create_portlet_url = _interopRequireDefault(require("./create_portlet_url.es"));
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function ownKeys(object, enumerableOnly) {
+      var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {
+        var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {
+          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+        });keys.push.apply(keys, symbols);
+      }return keys;
+    }
+
+    function _objectSpread(target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {
+          ownKeys(Object(source), true).forEach(function (key) {
+            _defineProperty(target, key, source[key]);
+          });
+        } else if (Object.getOwnPropertyDescriptors) {
+          Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+        } else {
+          ownKeys(Object(source)).forEach(function (key) {
+            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+          });
+        }
+      }return target;
+    }
+
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+      } else {
+        obj[key] = value;
+      }return obj;
+    }
+
+    /**
+     * Returns an action portlet URL in form of a URL object by setting the lifecycle parameter
+     * @param {!string} basePortletURL The base portlet URL to be modified in this utility
+     * @param {object} parameters Search parameters to be added or changed in the base URL
+     * @return {URL} Action Portlet URL
+     * @review
+     */
+    function createActionURL(basePortletURL) {
+      var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return (0, _create_portlet_url.default)(basePortletURL, _objectSpread(_objectSpread({}, parameters), {}, {
+        p_p_lifecycle: '1'
+      }));
+    }
+    //# sourceMappingURL=create_action_url.es.js.map
+  }
+});
+//# sourceMappingURL=create_action_url.es.js.map

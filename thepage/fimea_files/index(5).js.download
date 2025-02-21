@@ -1,0 +1,120 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/layout@3.65.1/lib/index", ['module', 'exports', 'require', 'frontend-taglib-clay$warning', './Col', './Container', './ContainerFluid', './Content', './Row', './Sheet'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    Object.defineProperty(exports, "Col", {
+      enumerable: true,
+      get: function get() {
+        return _Col.default;
+      }
+    });
+    Object.defineProperty(exports, "Container", {
+      enumerable: true,
+      get: function get() {
+        return _Container.default;
+      }
+    });
+    Object.defineProperty(exports, "ContainerFluid", {
+      enumerable: true,
+      get: function get() {
+        return _ContainerFluid.default;
+      }
+    });
+    Object.defineProperty(exports, "ContentCol", {
+      enumerable: true,
+      get: function get() {
+        return _Content.ContentCol;
+      }
+    });
+    Object.defineProperty(exports, "ContentRow", {
+      enumerable: true,
+      get: function get() {
+        return _Content.ContentRow;
+      }
+    });
+    Object.defineProperty(exports, "ContentSection", {
+      enumerable: true,
+      get: function get() {
+        return _Content.ContentSection;
+      }
+    });
+    Object.defineProperty(exports, "Row", {
+      enumerable: true,
+      get: function get() {
+        return _Row.default;
+      }
+    });
+    Object.defineProperty(exports, "Sheet", {
+      enumerable: true,
+      get: function get() {
+        return _Sheet.Sheet;
+      }
+    });
+    Object.defineProperty(exports, "SheetFooter", {
+      enumerable: true,
+      get: function get() {
+        return _Sheet.SheetFooter;
+      }
+    });
+    Object.defineProperty(exports, "SheetHeader", {
+      enumerable: true,
+      get: function get() {
+        return _Sheet.SheetHeader;
+      }
+    });
+    Object.defineProperty(exports, "SheetSection", {
+      enumerable: true,
+      get: function get() {
+        return _Sheet.SheetSection;
+      }
+    });
+    exports.default = void 0;
+
+    var _warning = _interopRequireDefault(require("frontend-taglib-clay$warning"));
+
+    var _Col = _interopRequireDefault(require("./Col"));
+
+    var _Container = _interopRequireDefault(require("./Container"));
+
+    var _ContainerFluid = _interopRequireDefault(require("./ContainerFluid"));
+
+    var _Content = require("./Content");
+
+    var _Row = _interopRequireDefault(require("./Row"));
+
+    var _Sheet = require("./Sheet");
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    /**
+     * SPDX-FileCopyrightText: © 2020 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+    function ClayLayout() {
+      void 0;
+      return null;
+    }
+
+    ClayLayout.Col = _Col.default;
+    ClayLayout.Container = _Container.default;
+    ClayLayout.ContainerFluid = _ContainerFluid.default;
+    ClayLayout.ContentCol = _Content.ContentCol;
+    ClayLayout.ContentRow = _Content.ContentRow;
+    ClayLayout.ContentSection = _Content.ContentSection;
+    ClayLayout.Row = _Row.default;
+    ClayLayout.Sheet = _Sheet.Sheet;
+    ClayLayout.SheetFooter = _Sheet.SheetFooter;
+    ClayLayout.SheetHeader = _Sheet.SheetHeader;
+    ClayLayout.SheetSection = _Sheet.SheetSection;
+    var _default = ClayLayout;
+    exports.default = _default;
+  }
+});
+//# sourceMappingURL=index.js.map

@@ -1,0 +1,99 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/provider@3.77.0/lib/DataClient", ['module', 'exports', 'require', './LRUCache'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.DataClient = void 0;
+
+    var _LRUCache = require("./LRUCache");
+
+    function _classCallCheck(instance, Constructor) {
+      if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+      }
+    }
+
+    function _defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    function _createClass(Constructor, protoProps, staticProps) {
+      if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);Object.defineProperty(Constructor, "prototype", { writable: false });return Constructor;
+    }
+
+    var DataClient = /*#__PURE__*/function () {
+      function DataClient() {
+        var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+            storageMaxSize = _ref.storageMaxSize;
+
+        _classCallCheck(this, DataClient);
+
+        this.cache = new _LRUCache.LRUCache(storageMaxSize);
+        this.currentPromises = {};
+        this.cursors = {};
+      }
+
+      _createClass(DataClient, [{
+        key: "read",
+        value: function read(key) {
+          if (!key) {
+            return null;
+          }
+
+          return this.cache.get(key);
+        }
+      }, {
+        key: "update",
+        value: function update(key, value) {
+          if (!key) {
+            return null;
+          }
+
+          if (value instanceof Promise || value instanceof Error) {
+            this.currentPromises[key] = value;
+          } else {
+            this.cache.set(key, value);
+          }
+        }
+      }, {
+        key: "isFetching",
+        value: function isFetching(key) {
+          if (!key) {
+            return;
+          }
+
+          return this.currentPromises[key];
+        }
+      }, {
+        key: "getCursor",
+        value: function getCursor(key) {
+          if (!key) {
+            return null;
+          }
+
+          return this.cursors[key];
+        }
+      }, {
+        key: "setCursor",
+        value: function setCursor(key, value) {
+          if (!key) {
+            return null;
+          }
+
+          this.cursors[key] = value;
+        }
+      }]);
+
+      return DataClient;
+    }();
+
+    exports.DataClient = DataClient;
+  }
+});
+//# sourceMappingURL=DataClient.js.map

@@ -1,0 +1,113 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/modal@3.89.0/lib/Hook", ['module', 'exports', 'require', '@frontend-taglib-clay$clayui/shared', 'frontend-js-react-web$react'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.useUserInteractions = void 0;
+
+    var _shared = require("@frontend-taglib-clay$clayui/shared");
+
+    var _react = _interopRequireDefault(require("frontend-js-react-web$react"));
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    /**
+     * SPDX-FileCopyrightText: © 2019 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+
+    /**
+     * A hook that takes care of controlling click, keyup and keydown events
+     * respectively close the modal after a click on the overlay, close the
+     * modal by pressing the ESC key and control the focus within the Modal.
+     */
+    var useUserInteractions = function useUserInteractions(modalElementRef, modalBodyElementRef, onClick) {
+      var mouseEventTargetRef = _react.default.useRef(null);
+
+      var getFocusableNodes = function getFocusableNodes() {
+        if (modalBodyElementRef.current) {
+          var nodes = modalBodyElementRef.current.querySelectorAll(_shared.FOCUSABLE_ELEMENTS);
+          return Object.keys(nodes).map(function (key) {
+            return nodes[key];
+          });
+        }
+
+        return [];
+      };
+
+      var handleKeydown = function handleKeydown(event) {
+        if (event.key === _shared.Keys.Tab) {
+          if (modalElementRef.current && event.target !== null && !modalElementRef.current.contains(event.target)) {
+            modalBodyElementRef.current.focus();
+          } else {
+            var focusableNodes = getFocusableNodes();
+            var focusedItemIndex = focusableNodes.indexOf(document.activeElement);
+
+            if (event.shiftKey && focusedItemIndex === 0) {
+              focusableNodes[focusableNodes.length - 1].focus();
+              event.preventDefault();
+            }
+
+            if (!event.shiftKey && focusedItemIndex === focusableNodes.length - 1) {
+              focusableNodes[0].focus();
+              event.preventDefault();
+            }
+          }
+        }
+      };
+
+      var handleKeyup = function handleKeyup(event) {
+        if (event.key === _shared.Keys.Esc) {
+          onClick();
+        }
+      };
+
+      var handleDocumentMouseDown = function handleDocumentMouseDown(event) {
+        // We keep the `event.target` to check later in the click event if
+        // the target is the same, otherwise, we are assuming that the element
+        // has been removed from the DOM.
+        mouseEventTargetRef.current = event.target;
+      };
+
+      var handleDocumentMouseUp = function handleDocumentMouseUp(event) {
+        if (event.defaultPrevented) {
+          mouseEventTargetRef.current = null;
+          return;
+        }
+
+        if (event.target === modalElementRef.current && mouseEventTargetRef.current === event.target) {
+          mouseEventTargetRef.current = null;
+          onClick();
+        }
+
+        mouseEventTargetRef.current = null;
+      };
+      /**
+       * Just listen for keyup, keydown, and click when
+       * changeAttachEvent is true.
+       */
+
+      _react.default.useEffect(function () {
+        document.addEventListener('keydown', handleKeydown);
+        document.addEventListener('keyup', handleKeyup);
+        document.addEventListener('mousedown', handleDocumentMouseDown);
+        document.addEventListener('mouseup', handleDocumentMouseUp);
+        return function () {
+          document.removeEventListener('keydown', handleKeydown);
+          document.removeEventListener('keyup', handleKeyup);
+          document.removeEventListener('mousedown', handleDocumentMouseDown);
+          document.removeEventListener('mouseup', handleDocumentMouseUp);
+        };
+      }, []);
+    };
+
+    exports.useUserInteractions = useUserInteractions;
+  }
+});
+//# sourceMappingURL=Hook.js.map

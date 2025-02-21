@@ -1,0 +1,43 @@
+Liferay.Loader.define("frontend-js-react-web@4.0.22/js/hooks/useTimeout.es", ['module', 'exports', 'require', 'frontend-js-react-web$react', './useIsMounted.es'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = useTimeout;
+
+    var _react = require("frontend-js-react-web$react");
+
+    var _useIsMounted = _interopRequireDefault(require("./useIsMounted.es"));
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    /**
+     * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+     * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+     */
+
+    /**
+     * Hook for delaying a function call by the specified interval (in
+     * milliseconds).
+     */
+    function useTimeout() {
+      var isMounted = (0, _useIsMounted.default)();
+      return (0, _react.useCallback)(function delay(fn, ms) {
+        var handle = setTimeout(function () {
+          if (isMounted()) {
+            fn();
+          }
+        }, ms);
+        return function () {
+          return clearTimeout(handle);
+        };
+      }, [isMounted]);
+    }
+    //# sourceMappingURL=useTimeout.es.js.map
+  }
+});
+//# sourceMappingURL=useTimeout.es.js.map

@@ -1,0 +1,52 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/shared@3.89.0/lib/delegate", ['module', 'exports', 'require'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = void 0;
+    exports.delegate = delegate;
+
+    /**
+     * SPDX-FileCopyrightText: © 2021 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+    function isDisabled(node) {
+      return !!(node.disabled || node.closest('[disabled]'));
+    }
+
+    function delegate(element, eventName, selector, callback, capture) {
+      var eventHandler = function eventHandler(event) {
+        var defaultPrevented = event.defaultPrevented,
+            target = event.target;
+
+        if (target) {
+          if (defaultPrevented || eventName === 'click' && isDisabled(target)) {
+            return;
+          }
+
+          var delegateTarget = target.closest(selector);
+
+          if (delegateTarget) {
+            event.delegateTarget = delegateTarget;
+            callback(event);
+          }
+        }
+      };
+
+      element.addEventListener(eventName, eventHandler, capture);
+      return {
+        dispose: function dispose() {
+          element.removeEventListener(eventName, eventHandler, capture);
+        }
+      };
+    }
+
+    var _default = delegate;
+    exports.default = _default;
+  }
+});
+//# sourceMappingURL=delegate.js.map

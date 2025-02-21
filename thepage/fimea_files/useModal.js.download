@@ -1,0 +1,158 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/modal@3.89.0/lib/useModal", ['module', 'exports', 'require', 'frontend-js-react-web$react', './types'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.useModal = void 0;
+
+    var _react = require("frontend-js-react-web$react");
+
+    var _types = require("./types");
+
+    function _slicedToArray(arr, i) {
+      return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+    }
+
+    function _nonIterableRest() {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+
+    function _unsupportedIterableToArray(o, minLen) {
+      if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+    }
+
+    function _arrayLikeToArray(arr, len) {
+      if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {
+        arr2[i] = arr[i];
+      }return arr2;
+    }
+
+    function _iterableToArrayLimit(arr, i) {
+      var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];if (_i == null) return;var _arr = [];var _n = true;var _d = false;var _s, _e;try {
+        for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i["return"] != null) _i["return"]();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }
+
+    function _arrayWithHoles(arr) {
+      if (Array.isArray(arr)) return arr;
+    }
+
+    var delay = function delay(fn) {
+      return setTimeout(function () {
+        fn();
+      }, 100);
+    };
+
+    var modalOpenClassName = 'modal-open';
+
+    var useModal = function useModal() {
+      var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+          _ref$defaultOpen = _ref.defaultOpen,
+          defaultOpen = _ref$defaultOpen === void 0 ? false : _ref$defaultOpen,
+          onClose = _ref.onClose;
+
+      var _useState = (0, _react.useState)(defaultOpen),
+          _useState2 = _slicedToArray(_useState, 2),
+          open = _useState2[0],
+          setOpen = _useState2[1];
+
+      var _useState3 = (0, _react.useState)([false, false]),
+          _useState4 = _slicedToArray(_useState3, 2),
+          visible = _useState4[0],
+          setVisible = _useState4[1];
+
+      var timerIdRef = (0, _react.useRef)(null);
+      var restoreTriggerRef = (0, _react.useRef)(null);
+      /**
+       * Control the close of the modal to create the component's "unmount"
+       * animation and call the onClose prop with delay.
+       */
+
+      var handleCloseModal = function handleCloseModal() {
+        document.body.classList.remove(modalOpenClassName);
+        setVisible([false, true]);
+        timerIdRef.current = delay(function () {
+          if (onClose) {
+            onClose();
+          }
+
+          if (restoreTriggerRef.current) {
+            restoreTriggerRef.current.focus();
+            restoreTriggerRef.current = null;
+          }
+
+          setOpen(false);
+          setVisible([false, false]);
+        });
+      };
+
+      var handleOpenModal = function handleOpenModal() {
+        document.body.classList.add(modalOpenClassName);
+        setOpen(true);
+        timerIdRef.current = delay(function () {
+          return setVisible([true, true]);
+        });
+      };
+
+      var onOpenChange = (0, _react.useCallback)(function (value) {
+        if (value) {
+          handleOpenModal();
+        } else {
+          handleCloseModal();
+        }
+      }, []);
+      (0, _react.useEffect)(function () {
+        return function () {
+          document.body.classList.remove(modalOpenClassName);
+
+          if (timerIdRef.current) {
+            clearTimeout(timerIdRef.current);
+          }
+        };
+      }, []);
+      return {
+        observer: {
+          dispatch: function handleObserverDispatch(type, payload) {
+            switch (type) {
+              case _types.ObserverType.Close:
+                handleCloseModal();
+                break;
+
+              case _types.ObserverType.Open:
+                handleOpenModal();
+                break;
+
+              case _types.ObserverType.RestoreFocus:
+                restoreTriggerRef.current = payload;
+                break;
+
+              default:
+                break;
+            }
+          },
+          mutation: visible
+        },
+        onClose: handleCloseModal,
+        onOpenChange: onOpenChange,
+        open: open
+      };
+    };
+
+    exports.useModal = useModal;
+  }
+});
+//# sourceMappingURL=useModal.js.map

@@ -1,0 +1,9 @@
+Liferay.Loader.define('frontend-js-node-shims$process@0.11.10/index', ['module', 'exports', 'require', './browser'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    /* redirected by alias field(s) in  */
+    module.exports = require('./browser');
+  }
+});
+//# sourceMappingURL=index.js.map

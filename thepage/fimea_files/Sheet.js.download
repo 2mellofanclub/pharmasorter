@@ -1,0 +1,129 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/layout@3.65.1/lib/Sheet", ['module', 'exports', 'require', 'frontend-taglib-clay$classnames', 'frontend-js-react-web$react'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.SheetSection = exports.SheetHeader = exports.SheetFooter = exports.Sheet = void 0;
+
+    var _classnames = _interopRequireDefault(require("frontend-taglib-clay$classnames"));
+
+    var _react = _interopRequireDefault(require("frontend-js-react-web$react"));
+
+    var _excluded = ["children", "className", "containerElement"],
+        _excluded2 = ["children", "className", "containerElement"],
+        _excluded3 = ["children", "className", "containerElement"],
+        _excluded4 = ["children", "className", "containerElement", "size"];
+
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+    }
+
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+      } else {
+        obj[key] = value;
+      }return obj;
+    }
+
+    function _extends() {
+      _extends = Object.assign || function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+              target[key] = source[key];
+            }
+          }
+        }return target;
+      };return _extends.apply(this, arguments);
+    }
+
+    function _objectWithoutProperties(source, excluded) {
+      if (source == null) return {};var target = _objectWithoutPropertiesLoose(source, excluded);var key, i;if (Object.getOwnPropertySymbols) {
+        var sourceSymbolKeys = Object.getOwnPropertySymbols(source);for (i = 0; i < sourceSymbolKeys.length; i++) {
+          key = sourceSymbolKeys[i];if (excluded.indexOf(key) >= 0) continue;if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;target[key] = source[key];
+        }
+      }return target;
+    }
+
+    function _objectWithoutPropertiesLoose(source, excluded) {
+      if (source == null) return {};var target = {};var sourceKeys = Object.keys(source);var key, i;for (i = 0; i < sourceKeys.length; i++) {
+        key = sourceKeys[i];if (excluded.indexOf(key) >= 0) continue;target[key] = source[key];
+      }return target;
+    }
+
+    var SheetHeader = /*#__PURE__*/_react.default.forwardRef(function (_ref, ref) {
+      var children = _ref.children,
+          className = _ref.className,
+          _ref$containerElement = _ref.containerElement,
+          ContainerElement = _ref$containerElement === void 0 ? 'div' : _ref$containerElement,
+          otherProps = _objectWithoutProperties(_ref, _excluded);
+
+      return (/*#__PURE__*/_react.default.createElement(ContainerElement, _extends({}, otherProps, {
+          className: (0, _classnames.default)(className, 'sheet-header'),
+          ref: ref
+        }), children)
+      );
+    });
+
+    exports.SheetHeader = SheetHeader;
+    SheetHeader.displayName = 'ClaySheetHeader';
+
+    var SheetFooter = /*#__PURE__*/_react.default.forwardRef(function (_ref2, ref) {
+      var children = _ref2.children,
+          className = _ref2.className,
+          _ref2$containerElemen = _ref2.containerElement,
+          ContainerElement = _ref2$containerElemen === void 0 ? 'div' : _ref2$containerElemen,
+          otherProps = _objectWithoutProperties(_ref2, _excluded2);
+
+      return (/*#__PURE__*/_react.default.createElement(ContainerElement, _extends({}, otherProps, {
+          className: (0, _classnames.default)(className, 'sheet-footer'),
+          ref: ref
+        }), children)
+      );
+    });
+
+    exports.SheetFooter = SheetFooter;
+    SheetFooter.displayName = 'ClaySheetFooter';
+
+    var SheetSection = /*#__PURE__*/_react.default.forwardRef(function (_ref3, ref) {
+      var children = _ref3.children,
+          className = _ref3.className,
+          _ref3$containerElemen = _ref3.containerElement,
+          ContainerElement = _ref3$containerElemen === void 0 ? 'div' : _ref3$containerElemen,
+          otherProps = _objectWithoutProperties(_ref3, _excluded3);
+
+      return (/*#__PURE__*/_react.default.createElement(ContainerElement, _extends({}, otherProps, {
+          className: (0, _classnames.default)(className, 'sheet-section'),
+          ref: ref
+        }), children)
+      );
+    });
+
+    exports.SheetSection = SheetSection;
+    SheetSection.displayName = 'ClaySheetSection';
+
+    var Sheet = /*#__PURE__*/_react.default.forwardRef(function (_ref4, ref) {
+      var children = _ref4.children,
+          className = _ref4.className,
+          _ref4$containerElemen = _ref4.containerElement,
+          ContainerElement = _ref4$containerElemen === void 0 ? 'div' : _ref4$containerElemen,
+          size = _ref4.size,
+          otherProps = _objectWithoutProperties(_ref4, _excluded4);
+
+      return (/*#__PURE__*/_react.default.createElement(ContainerElement, _extends({}, otherProps, {
+          className: (0, _classnames.default)(className, 'sheet', _defineProperty({}, "sheet-".concat(size), size)),
+          ref: ref
+        }), children)
+      );
+    });
+
+    exports.Sheet = Sheet;
+    Sheet.displayName = 'ClaySheet';
+  }
+});
+//# sourceMappingURL=Sheet.js.map

@@ -1,0 +1,33 @@
+Liferay.Loader.define("frontend-js-react-web@4.0.22/js/hooks/usePrevious.es", ['module', 'exports', 'require', 'frontend-js-react-web$react'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.default = usePrevious;
+
+    var _react = require("frontend-js-react-web$react");
+
+    /**
+     * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+     * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+     */
+
+    /**
+     * Hook for comparing current and previous values (of state, props or any
+     * arbitrary value).
+     *
+     * @see https://reactjs.org/docs/hooks-faq.html#how-to-get-the-previous-props-or-state
+     */
+    function usePrevious(value) {
+      var ref = (0, _react.useRef)();
+      (0, _react.useEffect)(function () {
+        ref.current = value;
+      });
+      return ref.current;
+    }
+    //# sourceMappingURL=usePrevious.es.js.map
+  }
+});
+//# sourceMappingURL=usePrevious.es.js.map

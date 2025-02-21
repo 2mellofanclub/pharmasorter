@@ -1,0 +1,130 @@
+//
+// Add user operating system details <html class="">
+//
+
+initalizeHTMLTag();
+
+/*
+ * This function gets loaded when everything, including the portlets, is on
+ * the page.
+ */
+Liferay.on('allPortletsReady', function () {
+    addNanoGalleryJs();
+});
+
+
+function initalizeHTMLTag() {
+    const htmlElement = document.getElementsByTagName("html")[0]
+
+    if (!htmlElement) return;
+    htmlElement.classList.add('js');
+    htmlElement.classList.add(getSimpleUserOS());
+    htmlElement.classList.add(getCurrentBrowser());
+
+}
+
+function getSimpleUserOS() {
+        const platform = navigator?.userAgentData?.platform || navigator?.platform;
+        let osName = "unknown";
+
+        if (platform.toLowerCase().includes("win")) {
+            osName = "win";
+        } else if (platform.toLowerCase().includes("mac")) {
+            osName = "mac";
+        } else if (platform.toLowerCase().includes("x11") || platform.includes("linux")) {
+            osName = "linux";
+        } else if (platform.toLowerCase().includes("android")) {
+            osName = "android";
+        } else if (platform.toLowerCase().includes("iphone") || platform.includes("ipad")) {
+            osName = "ios";
+        }
+
+        return osName;
+}
+
+function getCurrentBrowser() {
+    var userAgent = navigator.userAgent;
+    if (userAgent.indexOf("Edg") > -1) {
+        return "edge";
+    } else if (userAgent.indexOf("Chrome") > -1) {
+        return "chrome";
+    } else if (userAgent.indexOf("Firefox") > -1) {
+        return "firefox";
+    } else if (userAgent.indexOf("Safari") > -1) {
+        return "safari";
+    } else if (userAgent.indexOf("Opera") > -1) {
+        return "opera";
+    } else if (userAgent.indexOf("Trident") > -1 || userAgent.indexOf("MSIE") > -1) {
+        return "ie";
+    }
+
+    return "Unknown";
+}
+
+function addNanoGalleryJs() {
+    const mainContentElement = document.getElementById('main-content');
+    const jQueryNanoGallery = 'jquery.nanogallery.min.js'
+    const nanoGallery = 'nanogallery.js'
+    if (!mainContentElement) return;
+    const nanoGalleryElements = mainContentElement.querySelectorAll('div.nanogallery');
+
+    if (nanoGalleryElements?.length > 0) {
+
+        const scripts = [...document.querySelectorAll('script')];
+        let isNanoJqueryAdded = false
+        let isNanoJsAdded = false
+        // Check that is nanogallery.min.js already added
+        scripts?.forEach(script => {
+            if (script.src.indexOf(jQueryNanoGallery) !== -1) isNanoJqueryAdded = true;
+            if (script.src.indexOf(nanoGallery) !== -1) isNanoJsAdded = true;
+        });
+
+        if (!isNanoJqueryAdded && !isNanoJsAdded) {
+            // add JS and CS files
+            addNanoGalleryCSS();
+            addNanoGalleryScript(jQueryNanoGallery);
+            addNanoGalleryScript(nanoGallery);
+
+            [...nanoGalleryElements].forEach((elem,idx) => {
+                setTimeout(() => {
+                    initNanoGallery();
+                }, 100);
+
+            })
+
+        }
+    }
+}
+
+function addNanoGalleryScript(fileName) {
+    if (!fileName || typeof  fileName !== 'string') return;
+    const commonsUiUrl = '/o/common-ui-resources/js'
+
+    const url =  `${commonsUiUrl}/${fileName}`
+    const scriptTag = document.createElement('script');
+    scriptTag.src = url;
+    scriptTag.classList.add('yja-cookie-filter');
+
+    // Add script to page
+    document.body.appendChild(scriptTag);
+
+}
+function addNanoGalleryCSS() {
+    const link = document.createElement('link')
+    link.href = '/o/common-ui-resources/css/components/nanogallery/nanogallery.css'
+    link.rel = 'stylesheet'
+
+    document.head.appendChild(link);
+}
+function initNanoGallery() {
+
+    jQuery(function ($) {
+        // Add initialization code here
+        (function (theme, $, undefined) {
+            theme.init = function () {
+                nanogallery.init();
+            };
+        }(window.theme = window.theme || {}, jQuery));
+        theme.init();
+    });
+}

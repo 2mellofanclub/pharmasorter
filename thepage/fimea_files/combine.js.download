@@ -1,0 +1,53 @@
+import { handleBingClick } from "./modules/bingFunctionality.js";
+import { toggleNavigation } from "./modules/navigationMenuToggler.js";
+import { handleNavigationMenu } from "./modules/navigationMenu.js";
+import { windowResize } from "./modules/windowResize.js";
+import { getAndSetMinHeight } from "./modules/getAndSetCardHeight.js";
+import { clickWholeContent } from "./modules/clickWholeContent.js";
+import { changeFooterColWidth } from "./modules/changeFooterColWidth.js";
+import { addBackgroundImage } from "./modules/addBackgroundImage.js";
+import { handleSearchResultFeatures, handleSearchTabs, syncSearchResultCounts } from "./modules/searchFunctionality.js";
+import { toggleDropdownMenu } from "./modules/heroMobileDropdown.js";
+import { togglePortalModal } from "./modules/portalModal.js";
+import { handleExpandableContent, handleExpandableLinks, toggleUkkItem } from "./modules/expandableContent.js";
+import {detetcBrowser} from "./modules/detetcBrowser.js";
+import {wrapTable} from "./modules/wrapTable.js";
+import {xmasCard2022} from "./modules/xmas-2022.js";
+
+Liferay.on(
+    'allPortletsReady',
+
+    /*
+    This function gets loaded when everything, including the portlets, is on
+    the page.
+    */
+
+    function() {
+        changeFooterColWidth();
+        clickWholeContent();
+        handleBingClick();
+        toggleNavigation();
+        handleNavigationMenu();
+        windowResize();
+        getAndSetMinHeight(".newsfeed .card-wrapper .portlet-column .card-a",".newsfeed .card-a", true);
+        getAndSetMinHeight("#layout-column_column-6 .card-a","#layout-column_column-6 .card-a", false);
+        getAndSetMinHeight(".round-card-container .card-round .card-content-wrapper",".round-card-container .card-round .card-content-wrapper", true);
+        handleSearchResultFeatures();
+        handleSearchTabs();
+        syncSearchResultCounts();
+        togglePortalModal();
+        handleExpandableContent();
+        handleExpandableLinks();
+        detetcBrowser();
+        wrapTable();
+        $(".ukk-question-content-fimea").on("click", function (e) { toggleUkkItem(e); });
+        if ($('.fimea-frontpage-2022')){
+                addBackgroundImage();
+                toggleDropdownMenu();
+        }
+
+        if ($(".xmas2022-container").length > 0) {
+                xmasCard2022();
+        }
+    }
+);

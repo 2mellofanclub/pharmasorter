@@ -1,0 +1,26 @@
+(function () {
+  var link = document.createElement("link");
+  link.setAttribute("rel", "stylesheet");
+  link.setAttribute("type", "text/css");
+  link.setAttribute("href", Liferay.ThemeDisplay.getPathContext() + "/o/frontend-js-web/liferay/modal/Modal.css");
+
+  function defineModule() {
+    Liferay.Loader.define("frontend-js-web@4.0.59/liferay/modal/Modal.scss", ['module', 'exports', 'require'], function (module, exports, require) {
+      var define = undefined;
+      var global = window;
+      {
+        module.exports = link;
+      }
+    });
+  }
+
+  link.onload = defineModule;
+
+  link.onerror = function () {
+    console.warn('Unable to load /o/frontend-js-web/liferay/modal/Modal.css. However, its .js module will still be defined to avoid breaking execution flow (expect some visual degradation).');
+    defineModule();
+  };
+
+  document.querySelector("head").appendChild(link);
+})();
+//# sourceMappingURL=Modal.scss.js.map

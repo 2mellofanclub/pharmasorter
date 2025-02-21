@@ -1,0 +1,24 @@
+/*
+This function gets loaded when everything, including the portlets, is on
+the page.
+*/
+Liferay.on('allPortletsReady', function() {
+        upgradeUnsecureLinks();
+    }
+);
+
+/**
+ * Find all external links with target _blank attribute which does not have rel="noopener" nor rel="noreferrer" attribute set and then set it.
+ * rel="noopener" prevents the new page from being able to access the window.opener property and ensures it runs in a separate process.
+ * rel="noreferrer" has the same effect but also prevents the Referer header from being sent to the new page. See https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer.
+ *
+ * This will improve performance and security because new pages are running in a separate process which does not have access to window.opener property. https://web.dev/external-anchors-use-rel-noopener/
+ */
+function upgradeUnsecureLinks() {
+    $("a[target='_blank']").not("[rel='noopener']").not(["rel='noreferrer'"]).each(function () {
+        // Upgrade only external links.
+        if (location.hostname !== this.hostname || this.hostname.length) {
+            $(this).attr("rel", "noreferrer");
+        }
+    })
+}

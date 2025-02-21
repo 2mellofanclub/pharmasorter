@@ -1,0 +1,26 @@
+"use strict";
+
+Liferay.Loader.define("@frontend-taglib-clay$clayui/modal@3.89.0/lib/types", ['module', 'exports', 'require'], function (module, exports, require) {
+  var define = undefined;
+  var global = window;
+  {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.ObserverType = void 0;
+
+    /**
+     * SPDX-FileCopyrightText: © 2019 Liferay, Inc. <https://liferay.com>
+     * SPDX-License-Identifier: BSD-3-Clause
+     */
+    var ObserverType;
+    exports.ObserverType = ObserverType;
+
+    (function (ObserverType) {
+      ObserverType[ObserverType["Close"] = 0] = "Close";
+      ObserverType[ObserverType["Open"] = 1] = "Open";
+      ObserverType[ObserverType["RestoreFocus"] = 2] = "RestoreFocus";
+    })(ObserverType || (exports.ObserverType = ObserverType = {}));
+  }
+});
+//# sourceMappingURL=types.js.map

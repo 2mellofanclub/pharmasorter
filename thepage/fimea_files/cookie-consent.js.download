@@ -1,0 +1,233 @@
+function YjaGetCookie(name) {
+  var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  if (match) return match[2];
+  else return null;
+}
+
+function YjaGetParameterByName(name, url) {
+  name = name.replace(/[\[\]]/g, '\\$&');
+
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+  const results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+function YjaCookieConsent() {
+  this.yjaCookieName = 'yja_cookie_acceptance';
+  this.isHttps = window.location.href.toString().indexOf('https:') !== -1;
+
+}
+
+YjaCookieConsent.prototype.bindManageButton = function(id) {
+  var button = document.getElementById(id);
+  var instance = this;
+  if (button) {
+    button.addEventListener('click', function (event) {
+      event.preventDefault();
+      instance.clearCookie();
+      instance.showCookieBanner();
+    });
+  }
+}
+
+YjaCookieConsent.prototype.getPortletURL = function() {
+  var lang = '';
+  var pageUrl = window.location.href;
+
+  if (YjaGetCookie('yja_cookie_banner_use_custom_language_paths') === 'true') {
+    const langParam = YjaGetParameterByName('lang', pageUrl);
+    if (langParam) {
+      lang = langParam;
+    }
+  }
+  var url = Liferay.PortletURL.createURL(Liferay.currentURL);
+  url.setPortletId('fi_yja_cookie_YjaCookieBannerPortlet');
+  url.setLifecycle(Liferay.PortletURL.RESOURCE_PHASE);
+  url.setDoAsGroupId('true');
+  url.setResourceId('/yja-cookie/get-html');
+  url.setWindowState('normal');
+  url.setPortletMode('view');
+  url.setParameter('p_auth', Liferay.authToken);
+  url.setParameter('lang', lang);
+  
+  return url.toString();
+}
+
+YjaCookieConsent.prototype.checkCookie = function () {
+
+  if (!this.areCookiesEnabled()) {
+    return;
+  }
+
+  if (!this.isTrackingEnabled()) {
+    this.setNecessaryCookies();
+    return;
+  }
+
+  if (!this.cookieExists()) {
+    this.showCookieBanner();
+  }
+}
+
+YjaCookieConsent.prototype.areCookiesEnabled = function () {
+  document.cookie = "yja_test_cookie_support=1";
+  var cookiesEnabled = document.cookie.indexOf("yja_test_cookie_support") !== -1;
+  if (cookiesEnabled) {
+    var expires = 'expires=Thu, 01 Jan 1970 00:00:00 UTC';
+    document.cookie = "yja_test_cookie_support" + '=' + '' + ';' + expires + ';path=/';
+  }
+  return cookiesEnabled;
+}
+
+YjaCookieConsent.prototype.isTrackingEnabled = function () {
+  if (window.doNotTrack || navigator.doNotTrack || navigator.globalPrivacyControl) {
+    // The browser supports Do Not Track
+    if (window.doNotTrack === '1' || navigator.doNotTrack === 'yes' || navigator.doNotTrack === '1' || navigator.globalPrivacyControl === true) {
+      // Do Not Track is enabled
+      // Set automatic cookies
+      return false;
+    } else {
+      // Do Not Track is disabled
+      return true;
+    }
+  } else {
+    // Do Not Track is not supported
+    return true;
+  }
+}
+
+YjaCookieConsent.prototype.setCookie = function(cookieValue, daysToExpire) {
+  var expirationDate = new Date();
+  expirationDate.setTime(expirationDate.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
+  var expires = 'expires=' + expirationDate.toUTCString();
+  var cookieString = this.yjaCookieName + '=' + escape(cookieValue) + ';' + expires + ';path=/;samesite=lax';
+  if (this.isHttps) {
+    cookieString += ';secure';
+  }
+  document.cookie = cookieString;
+}
+
+YjaCookieConsent.prototype.getCookie = function() {
+  var name = this.yjaCookieName + '=';
+  var ca = document.cookie.split(';');
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) === ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return undefined;
+}
+
+YjaCookieConsent.prototype.cookieExists = function() {
+  var cookie = this.getCookie();
+  return (cookie && cookie !== '');
+}
+
+YjaCookieConsent.prototype.setAllCookies = function() {
+  this.clearCookie();
+  this.setCookie('all', 365);
+}
+
+YjaCookieConsent.prototype.setNecessaryCookies = function() {
+  this.clearCookie();
+  this.setCookie('min', 365);
+}
+
+YjaCookieConsent.prototype.clearCookie = function() {
+  var expires = 'expires=Thu, 01 Jan 1970 00:00:00 UTC';
+  document.cookie = this.yjaCookieName + '=' + '' + ';' + expires + ';path=/';
+}
+
+YjaCookieConsent.prototype.showElement = function(elem) {
+  elem.style.display = 'block';
+}
+
+YjaCookieConsent.prototype.hideElement = function(elem) {
+  elem.style.display = 'none';
+}
+
+YjaCookieConsent.prototype.getScriptAttribute = function(attribute) {
+  var script = document.getElementById('yja-cookie-banner');
+  if (script && script.hasAttribute('data-' + attribute)) {
+    return script.getAttribute('data-' + attribute);
+  }
+  return "";
+}
+
+YjaCookieConsent.prototype.showCookieBanner = function() {
+  var instance = this;
+  AUI().ready('liferay-portlet-url', function (A) {
+    var url = instance.getPortletURL();
+    A.use('aui-io-request', function (A) {
+      A.io.request(url,
+          {
+            method: 'GET',
+            dataType: 'JSON',
+            on: {
+              success: function (event, id, response) {
+
+                var parsedData = JSON.parse(response.response);
+
+                // strip possible <pre> tags
+                var parsedContent = parsedData.content.replace(/<pre?[^>]+>|<\/pre>/g, '');
+
+                // buttons
+                var acceptAllHTML = `<button id="yja-cookie-accept" class="btn btn-primary">${parsedData.acceptAll}</button>`;
+                var acceptNecessaryHTML = `<button id="yja-cookie-reject" class="btn btn-primary">${parsedData.acceptNecessary}</button>`;
+
+                var style = instance.getScriptAttribute("style");
+
+                // note content
+                var html = '<div role="dialog" tabindex="-1" id="yja-cookie-dialog" class="yja-cookie-dialog__theme-' + style + '">' +
+                    '<section aria-label="' + Liferay.Language.get(`yja-cookie-banner`) + '" aria-describedby="yja-cookie-dialog-note-text" tabindex="-1" class="yja-cookie-dialog-content">' +
+                    '<div id="yja-cookie-dialog-note-text" class="yja-cookie-dialog-note">' + parsedContent + '</div>' +
+                    '<div tabindex="-1" class="yja-cookie-dialog-buttons">' + acceptAllHTML + acceptNecessaryHTML + '</div></section></div>';
+
+                // Add dialog to end of body
+                document.body.insertAdjacentHTML('afterbegin', html);
+
+                var cookieDialog = document.getElementById('yja-cookie-dialog');
+                var acceptButton = document.getElementById('yja-cookie-accept');
+                var rejectButton = document.getElementById('yja-cookie-reject');
+
+
+                if (acceptButton && rejectButton) {
+                  acceptButton.addEventListener('click', function (event) {
+                    instance.setAllCookies();
+                    window.location.reload();
+
+                  });
+                  rejectButton.addEventListener('click', function (event) {
+                    instance.setNecessaryCookies();
+                    window.location.reload();
+                  });
+                }
+
+                if (cookieDialog) {
+                  instance.showElement(cookieDialog);
+                  cookieDialog.focus();
+                }
+              },
+              failure: function (error) {
+                // banner not shown
+              }
+            }
+          }
+      );
+    });
+  });
+
+}
+
+var consent = new YjaCookieConsent();
+var checkCookie = consent.getScriptAttribute("check-cookie");
+
+if (checkCookie === 'true') {
+  consent.checkCookie();
+}
