@@ -7,7 +7,7 @@ URL = "https://fimea.fi/apteekit/verkkopalvelutoiminta/lailliset_apteekin_verkko
 DIVCLASSNAME = "journal-content-article"
 
 
-# returns list of bs4.elements.Tag objects
+# returns list of bs4.elements.Tag objects.
 # (<p> tags with pharmacy name and link(s))
 def list_pharmas(online=False):
     all_listings = []
@@ -28,7 +28,7 @@ def list_pharmas(online=False):
     return listings_with_links
 
 
-# categories and identifiers based on prior knowledge
+# categories and identifiers based on prior knowledge.
 # (i.e. revealed to me in a dream)
 def sort_pharmas(listings):
     magento = []
@@ -37,6 +37,8 @@ def sort_pharmas(listings):
     failed = []
     for i, ptag in enumerate(listings):
         try:
+            # only sorting by first link.
+            # others/failed will be checked manually anyway
             storepage = requests.get(ptag.find("a")["href"])
             storesoup = BeautifulSoup(storepage.content, "html.parser")
             if storesoup.find("script", type="text/x-magento-init"):
