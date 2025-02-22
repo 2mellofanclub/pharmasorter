@@ -17,7 +17,7 @@ def list_pharmas(online=False):
         soup = BeautifulSoup(page.content, "html.parser")
     else:
         contents = ""
-        with open("./thepage/fimea.html", "r", encoding="utf8") as savedpage:
+        with open("./source_local_copy/fimea.html", "r", encoding="utf8") as savedpage:
             contents = savedpage.read()
         soup = BeautifulSoup(contents, "html.parser")
     div_with_list = soup.find(class_=DIVCLASSNAME)
@@ -28,6 +28,8 @@ def list_pharmas(online=False):
     return listings_with_links
 
 
+# categories and identifiers based on prior knowledge
+# (i.e. revealed to me in a dream)
 def sort_pharmas(listings):
     magento = []
     eapteekki = []
@@ -53,6 +55,7 @@ def sort_pharmas(listings):
     print(f"Others: {len(others)}\n")
     print(f"Failed: {len(failed)}\n")
     return magento, eapteekki, others, failed
+
 
 def save_to_csv(pharmatype, listings):
     filepath = f"./csvs/{pharmatype}.csv"

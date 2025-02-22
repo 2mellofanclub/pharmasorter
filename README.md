@@ -1,3 +1,3 @@
-# pharmasorter
+# pharmasorter (old)
 
-The core mechanism for scraping and sorting web-based online pharmacies in Finland.
+The core stuff for scraping and sorting web-based online pharmacies in Finland.
