@@ -1,59 +1,63 @@
 NAME,LINKS
-Espoon 5. apteekki (Espoon Soukan apteekki),['http://app.treet.fi/pharmacy/kauklahden-sivuapteekki']
-Forssan 2. apteekki (Kutomon apteekki),['http://www.apteekistakotiin.fi/']
-Haapaveden apteekki,['http://www.pohjolanverkkoapteekki.fi/']
-Helsingin 5. apteekki (Kruununhaan apteekki),['https://app.treet.fi/pharmacy/kruununhaan-apteekki']
-Helsingin 8. apteekki (Apteekki 360 Ympyrätalo),['http://www.apteekki360.fi/']
-Helsingin 9. apteekki (Töölön apteekki,['https://app.treet.fi/pharmacy/toolon-apteekki']
-Helsingin 23. apteekki (Brahen apteekki),['https://app.treet.fi/pharmacy/brahen-apteekki']
-Helsingin 24. apteekki (Steissin apteekki),['http://www.treet.fi/']
-Helsingin 26. apteekki (Apteekki Primavera),['https://app.treet.fi/pharmacy/apteekki-primavera']
-Helsingin 34. apteekki (Apteekki Medena),['https://app.treet.fi/pharmacy/apteekki-medena']
-Helsingin 36. apteekki (Pakilan apteekki),"['http://kehaykkosenapteekki.fi/', 'http://keha1apteekki.fi/', 'http://pakilanapteekki.fi/']"
-Helsingin 44. apteekki (Lauttasaaren Kirkko apteekki),['https://app.treet.fi/pharmacy/lauttasaaren-kirkkoapteekki']
-Helsingin 58. apteekki (Pasilan apteekki),['http://www.pasilanapteekinverkkokauppa.fi/']
-Hämeenlinnan 1. apteekki (Hämeenlinnan Toriapteekki),['https://app.treet.fi/pharmacy/hamaanlinnan-tori-apteekki']
-Iisalmen 3. apteekki (Priima apteekki),['https://app.treet.fi/pharmacy/priima-apteekki']
-Itä-Suomen yliopiston apteekki,['https://www.yliopistonverkkoapteekki.fi/']
-Järvenpään 1. apteekki (Sonaatti apteekki),['http://app.treet.fi/pharmacy/sonaatti-apteekki']
-Järvenpään 3. apteekki (Järvenpään Lähiapteekki),['http://www.verkkoapteekki.fi/']
-,['https://app.treet.fi/pharmacy/kempeleen-1-apteekki']
-Kokkolan 3. apteekki (Keskusapteekki),['https://www.kokkolanverkkoapteekki.fi/']
-Kotkan 2. apteekki (Pasaatin apteekki),['https://www.apteekkiplus.fi/']
-Kotkan 3. apteekki (Keski-Kotkan apteekki),['http://www.keskikotkanapteekki.fi/']
-Kotkan 4. apteekki (Kotkan Ankkuriapteekki),['http://www.tarjousapteekki.fi/']
-Kruunupyyn 2. apteekki (Teerijärven apteekki),['https://www.apteekkini.fi/']
-Kuhmon apteekki,['https://www.suomiapteekki.fi/']
-Kuopion 2. apteekki (Kuopion Uusi apteekki),['http://www.kuopionuusiapteekki.fi/']
-Kuusamon 1. apteekki,['http://www.kuusamonapteekki.fi/']
-Lapinlahden 1. apteekki (Lapinlahden apteekki),['http://www.treet.fi/']
-Lappeenrannan 4. apteekki (Lauritsalan apteekki),['http://apotekasaimaa.fi/']
-Lappeenrannan 6. apteekki (Sammonlahden apteekki),['http://taskuapteekki.fi/']
-Lohjan 3. apteekki (Virkkalan Omena-apteekki),['http://www.apo24.fi/']
-Loimaan 1. apteekki (Loimaan Ykkös apteekki),['http://www.loimaannettiapteekki.fi/']
-Maalahden apteekki,['http://www.malaxapotek.fi/']
-Nokian 3. apteekki (Koskenmäen apteekki),['http://www.koskenmaenapteekki.fi/']
-Nurmijärven 1. apteekki (Seitsemän veljeksen apteekki),['http://www.nettiapteekki.fi/']
-Orimattilan 1. apteekki,['https://www.orimattilanapteekki.fi/']
-Oulun 3. apteekki (Hansa apteekki),['https://www.nettiterveysapteekki.fi/']
-,['https://app.treet.fi/pharmacy/oulun-merikosken-apteekki']
-Pöytyän 1. apteekki (Riihikosken apteekki),['https://www.apo24.fi/']
-Raaseporin 2. apteekki (Tammisaaren Uusi apteekki),['https://app.treet.fi/pharmacy/tammisaaren-uusi-apteekki']
-Raision 2. apteekki (Tasalan apteekki),['https://www.apteekkiweb.fi/']
-Raision 3. apteekki (Myllyn apteekki),['https://www.myllynapteekki.fi/']
-Rauman 1. apteekki (Rauman Ensimmäinen apteekki),['https://www.raumanapteekki.fi/']
-Rautalammin apteekki,['https://rautalammin-apteekki.eapteekki.fi/']
-Riihimäen 1. apteekki (Riihimäen Aurinkoapteekki),"['http://www.aurinkonet.fi/', 'http://www.aurinkoapteekki.fi/']"
-Rovaniemen 2. apteekki (Rovaniemen Keskus apteekki),['https://rovaniemen-keskus-apteekki.eapteekki.fi/']
-Ruokolahden apteekki,['http://www.ruokolahdenapteekki.fi/']
-Siilinjärven 1. apteekki,['http://www.treet.fi/pharmacy/siilinjarven-apteekki']
-Tampereen 11. apteekki (Haka Apteekki),['https://www.haka-apteekki.fi/']
-Tampereen 17. apteekki (Lielahden apteekki),['https://www.apteekkishop.fi/']
-Tampereen 20. apteekki (Tammedica apteekki),['http://247apteekkiin.fi/']
-Turun 9. apteekki (Pyhän Henrikin apteekki),['https://www.apteekkiverkkokauppa.fi/']
-Turun 12. apteekki (Nummenmäen apteekki),"['http://www.verkkoapteekkiturku.fi/', 'http://www.verkkoapteekkisuomi.fi/']"
-Turun 16. apteekki (Länsikeskuksen apteekki),['https://www.apteekkituotteet.fi/']
-Turun 17. apteekki (Nova apteekki),['http://app.treet.fi/pharmacy/nova-apteekki']
-Vantaan 1. apteekki (Tikkurilan ykkösapteekki),['http://www.tikkurilanlaatuapteekki.fi/']
-Vantaan 14. apteekki (Apteekki Koivuhaka),['http://app.treet.fi/pharmacy/apteekki-koivuhaka']
-Ylöjärven 4. apteekki (Hyvän Mielen apteekki,['http://bonusapteekki.fi/']
+Espoon 5. apteekki (Espoon Soukan apteekki),http://app.treet.fi/pharmacy/kauklahden-sivuapteekki
+Forssan 2. apteekki (Kutomon apteekki),http://www.apteekistakotiin.fi/
+Haapaveden apteekki,http://www.pohjolanverkkoapteekki.fi/
+Helsingin 5. apteekki (Kruununhaan apteekki),https://app.treet.fi/pharmacy/kruununhaan-apteekki
+Helsingin 8. apteekki (Apteekki 360 Ympyrätalo),http://www.apteekki360.fi/
+Helsingin 9. apteekki (Töölön apteekki,https://app.treet.fi/pharmacy/toolon-apteekki
+Helsingin 23. apteekki (Brahen apteekki),https://app.treet.fi/pharmacy/brahen-apteekki
+Helsingin 24. apteekki (Steissin apteekki),http://www.treet.fi/
+Helsingin 26. apteekki (Apteekki Primavera),https://app.treet.fi/pharmacy/apteekki-primavera
+Helsingin 34. apteekki (Apteekki Medena),https://app.treet.fi/pharmacy/apteekki-medena
+Helsingin 36. apteekki (Pakilan apteekki),"http://kehaykkosenapteekki.fi/
+http://keha1apteekki.fi/
+http://pakilanapteekki.fi/"
+Helsingin 44. apteekki (Lauttasaaren Kirkko apteekki),https://app.treet.fi/pharmacy/lauttasaaren-kirkkoapteekki
+Helsingin 58. apteekki (Pasilan apteekki),http://www.pasilanapteekinverkkokauppa.fi/
+Hämeenlinnan 1. apteekki (Hämeenlinnan Toriapteekki),https://app.treet.fi/pharmacy/hamaanlinnan-tori-apteekki
+Iisalmen 3. apteekki (Priima apteekki),https://app.treet.fi/pharmacy/priima-apteekki
+Itä-Suomen yliopiston apteekki,https://www.yliopistonverkkoapteekki.fi/
+Järvenpään 1. apteekki (Sonaatti apteekki),http://app.treet.fi/pharmacy/sonaatti-apteekki
+Järvenpään 3. apteekki (Järvenpään Lähiapteekki),http://www.verkkoapteekki.fi/
+,https://app.treet.fi/pharmacy/kempeleen-1-apteekki
+Kokkolan 3. apteekki (Keskusapteekki),https://www.kokkolanverkkoapteekki.fi/
+Kotkan 2. apteekki (Pasaatin apteekki),https://www.apteekkiplus.fi/
+Kotkan 3. apteekki (Keski-Kotkan apteekki),http://www.keskikotkanapteekki.fi/
+Kotkan 4. apteekki (Kotkan Ankkuriapteekki),http://www.tarjousapteekki.fi/
+Kruunupyyn 2. apteekki (Teerijärven apteekki),https://www.apteekkini.fi/
+Kuhmon apteekki,https://www.suomiapteekki.fi/
+Kuopion 2. apteekki (Kuopion Uusi apteekki),http://www.kuopionuusiapteekki.fi/
+Kuusamon 1. apteekki,http://www.kuusamonapteekki.fi/
+Lapinlahden 1. apteekki (Lapinlahden apteekki),http://www.treet.fi/
+Lappeenrannan 4. apteekki (Lauritsalan apteekki),http://apotekasaimaa.fi/
+Lappeenrannan 6. apteekki (Sammonlahden apteekki),http://taskuapteekki.fi/
+Lohjan 3. apteekki (Virkkalan Omena-apteekki),http://www.apo24.fi/
+Loimaan 1. apteekki (Loimaan Ykkös apteekki),http://www.loimaannettiapteekki.fi/
+Maalahden apteekki,http://www.malaxapotek.fi/
+Nokian 3. apteekki (Koskenmäen apteekki),http://www.koskenmaenapteekki.fi/
+Nurmijärven 1. apteekki (Seitsemän veljeksen apteekki),http://www.nettiapteekki.fi/
+Orimattilan 1. apteekki,https://www.orimattilanapteekki.fi/
+Oulun 3. apteekki (Hansa apteekki),https://www.nettiterveysapteekki.fi/
+,https://app.treet.fi/pharmacy/oulun-merikosken-apteekki
+Pöytyän 1. apteekki (Riihikosken apteekki),https://www.apo24.fi/
+Raaseporin 2. apteekki (Tammisaaren Uusi apteekki),https://app.treet.fi/pharmacy/tammisaaren-uusi-apteekki
+Raision 2. apteekki (Tasalan apteekki),https://www.apteekkiweb.fi/
+Raision 3. apteekki (Myllyn apteekki),https://www.myllynapteekki.fi/
+Rauman 1. apteekki (Rauman Ensimmäinen apteekki),https://www.raumanapteekki.fi/
+Rautalammin apteekki,https://rautalammin-apteekki.eapteekki.fi/
+Riihimäen 1. apteekki (Riihimäen Aurinkoapteekki),"http://www.aurinkonet.fi/
+http://www.aurinkoapteekki.fi/"
+Rovaniemen 2. apteekki (Rovaniemen Keskus apteekki),https://rovaniemen-keskus-apteekki.eapteekki.fi/
+Ruokolahden apteekki,http://www.ruokolahdenapteekki.fi/
+Siilinjärven 1. apteekki,http://www.treet.fi/pharmacy/siilinjarven-apteekki
+Tampereen 11. apteekki (Haka Apteekki),https://www.haka-apteekki.fi/
+Tampereen 17. apteekki (Lielahden apteekki),https://www.apteekkishop.fi/
+Tampereen 20. apteekki (Tammedica apteekki),http://247apteekkiin.fi/
+Turun 9. apteekki (Pyhän Henrikin apteekki),https://www.apteekkiverkkokauppa.fi/
+Turun 12. apteekki (Nummenmäen apteekki),"http://www.verkkoapteekkiturku.fi/
+http://www.verkkoapteekkisuomi.fi/"
+Turun 16. apteekki (Länsikeskuksen apteekki),https://www.apteekkituotteet.fi/
+Turun 17. apteekki (Nova apteekki),http://app.treet.fi/pharmacy/nova-apteekki
+Vantaan 1. apteekki (Tikkurilan ykkösapteekki),http://www.tikkurilanlaatuapteekki.fi/
+Vantaan 14. apteekki (Apteekki Koivuhaka),http://app.treet.fi/pharmacy/apteekki-koivuhaka
+Ylöjärven 4. apteekki (Hyvän Mielen apteekki,http://bonusapteekki.fi/

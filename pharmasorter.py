@@ -50,7 +50,7 @@ def sort_pharmas(listings):
         except Exception as err:
             print(err)
             failed.append(ptag)
-        print(f"{i}\r")
+        print(i, end="\r")
     print(f"\nListings: {len(listings)}\n")
     print(f"Magento: {len(magento)}\n")
     print(f"eAPTEEKKI: {len(eapteekki)}\n")
@@ -68,22 +68,24 @@ def save_to_csv(pharmatype, listings):
             name = (ptag.find("strong")).string
         except:
             continue
-        links = []
+        links = ""
         for atag in ptag.find_all("a"):
-            links.append(atag["href"])
-        rows.append([name, links])
+            links = links + atag["href"] + "\n"
+        rows.append([name, links.strip()])
     with open(filepath, "w", encoding="utf8") as f:
         csvwriter = csv.writer(f)
         csvwriter.writerow(fields)
         csvwriter.writerows(rows)
 
 
-#print("hell")
-magento, eapteekki, others, failed = sort_pharmas(list_pharmas())
 
-save_to_csv("magento", magento)
-save_to_csv("eapteekki", eapteekki)
-save_to_csv("others", others)
-save_to_csv("failed", failed)
+
+# not that i'm likely to import any of this
+if __name__ == "__main__":
+    magento, eapteekki, others, failed = sort_pharmas(list_pharmas())
+    save_to_csv("magento", magento)
+    save_to_csv("eapteekki", eapteekki)
+    save_to_csv("others", others)
+    save_to_csv("failed", failed)
 
 
